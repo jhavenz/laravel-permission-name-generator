@@ -11,6 +11,9 @@ class OwnedPermissionTest extends TestCase
     /** @test */
     public function it_collects_all_configurations()
     {
-        dump(OwnedPermission::getFacadeRoot());
+        $expected = 'user.owned.browse';
+        $perm = OwnedPermission::user()->browse();
+
+        $this->assertSame($expected, $perm, "Failed asserting that {$perm} is equal to {$expected}");
     }
 }

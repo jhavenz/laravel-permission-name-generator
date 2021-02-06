@@ -5,7 +5,7 @@ namespace Sourcefli\PermissionName\Factories;
 use Illuminate\Support\Collection;
 use Sourcefli\PermissionName\Contracts\BuildsPermissions;
 
-class OwnedPermissions extends PermissionNameFactory implements BuildsPermissions
+class OwnedSettingPermissions extends PermissionNameFactory implements BuildsPermissions
 {
     public function __construct()
     {
@@ -18,11 +18,9 @@ class OwnedPermissions extends PermissionNameFactory implements BuildsPermission
             ->map(function ($p)  {
                 $permissionSet = [];
                 foreach (self::DEFAULT_ACCESS_LEVELS as $accessLevel) {
-                    $permissionSet[] = "{$p}.owned.{$accessLevel}";
+                    $permissionSet[] = "_setting.{$p}.owned.{$accessLevel}";
                 }
                 return $permissionSet;
             });
     }
-
-
 }

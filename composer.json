@@ -25,7 +25,8 @@
         "test": "vendor/bin/phpunit"
     },
     "require": {
-        "php": "^7.4|^8.0"
+        "php": "^7.4|^8.0",
+        "spatie/once": "^3.0"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",

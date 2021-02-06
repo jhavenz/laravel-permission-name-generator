@@ -5,7 +5,10 @@ namespace Sourcefli\PermissionName;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Sourcefli\PermissionName\Exceptions\PermissionLookupException;
-use Sourcefli\PermissionName\Factories\OwnedPermissions;
+use Sourcefli\PermissionName\Factories\OwnedPermissions as OwnedPermissionsFactory;
+use Sourcefli\PermissionName\Factories\OwnedPermissions as OwnedSettingPermissionsFactory;
+use Sourcefli\PermissionName\Factories\OwnedPermissions as TeamPermissionsFactory;
+use Sourcefli\PermissionName\Factories\OwnedPermissions as TeamSettingPermissionsFactory;
 
 class PermissionName
 {
@@ -17,9 +20,14 @@ class PermissionName
     protected array $settings;
 
     protected Collection $allAbilities;
-    protected Collection $abilities;
+    public Collection $abilities;
     protected string $category;
     protected string $type;
+    protected OwnedPermissions $ownedPermissionsManager;
+
+    protected const OWNERSHIP_TYPES = [
+        "owned", "team", "owned_setting", "team_setting"
+    ];
 
     /**
      * TODO -
@@ -35,114 +43,119 @@ class PermissionName
 
     public function __construct()
     {
-        $this->ownedPermissions = (new OwnedPermissions)->collectPermissions();
+        $this->settings = config('permission-name.settings');
+        $this->resources = config('permission-name.resources');
+        $this->allAbilities = $this->allPermissions();
+        $this->abilities = collect();
+    }
 
 
-//        $this->settings = config('permission-name.settings');
+    public function allPermissions(): Collection
+    {
+        return once(function ()  {
+            return collect(OwnedPermissionsFactory::all())
+                ->merge([
+                        OwnedSettingPermissionsFactory::all(),
+                        TeamPermissionsFactory::all(),
+                        TeamSettingPermissionsFactory::all()
+                    ]
+                )
+                ->unique()
+                ->flatten();
+        });
+    }
+
+//    public function current_user(): PermissionLookupManager
+//    {
+//        //Only one item for 'team' ... 'current_user.team.*' (super admin)
+//        $this->setCategory('current_user');
 //
-//        $this->type = $type;
+//        return $this;
+//    }
 //
-//        $this->allAbilities = $this->filterAllRelatedPermissions();
+//    public function user(): PermissionLookupManager
+//    {
+//        $this->setCategory('user');
 //
-//        $this->abilities = collect();
-    }
+//        return $this;
+//    }
+//
+//    public function assignment(): PermissionLookupManager
+//    {
+//        $this->setCategory('assignment');
+//
+//        return $this;
+//    }
+//
+//    public function setting(string $settingCategory): PermissionLookupManager
+//    {
+//        $this->setCategory("setting.{$this->type}.{$settingCategory}");
+//
+//        return $this;
+//    }
+//
+//    public function billing(): PermissionLookupManager
+//    {
+//        $this->setCategory('billing'); //
+//        return $this;
+//    }
+//
+//    public function notification(): PermissionLookupManager
+//    {
+//        $this->setCategory('notification'); //
+//        return $this;
+//    }
+//
+//    public function permission(): PermissionLookupManager
+//    {
+//        $this->setCategory('permission'); //
+//        return $this;
+//    }
+//
+//    public function guest_member(): PermissionLookupManager
+//    {
+//        $this->setCategory('guest'); //
+//        return $this;
+//    }
+//
+//    public function client_member(): PermissionLookupManager
+//    {
+//        $this->setCategory('client'); //
+//        return $this;
+//    }
+//
+//    public function support_member(): PermissionLookupManager
+//    {
+//        $this->category = '';
+//        $this->setCategory('support_member'); //
+//        return $this;
+//    }
+//
+//    public function field_member(): PermissionLookupManager
+//    {
+//        $this->setCategory('field_member'); //
+//        return $this;
+//    }
+//
+//    public function supervisor_member(): PermissionLookupManager
+//    {
+//        $this->setCategory('supervisor'); //
+//        return $this;
+//    }
+//
+//    public function manager_member(): PermissionLookupManager
+//    {
+//        $this->setCategory('manager'); //
+//        return $this;
+//    }
+//
+//    public function owner_member(): PermissionLookupManager
+//    {
+//        $this->setCategory('owner'); //
+//        return $this;
+//    }
 
-    public function all(): Collection
-    {
-        return $this->allAbilities;
-    }
-
-    public function current_user(): PermissionLookupManager
-    {
-        //Only one item for 'team' ... 'current_user.team.*' (super admin)
-        $this->setCategory('current_user');
-
-        return $this;
-    }
-
-    public function user(): PermissionLookupManager
-    {
-        $this->setCategory('user');
-
-        return $this;
-    }
-
-    public function assignment(): PermissionLookupManager
-    {
-        $this->setCategory('assignment');
-
-        return $this;
-    }
-
-    public function setting(string $settingCategory): PermissionLookupManager
-    {
-        $this->setCategory("setting.{$this->type}.{$settingCategory}");
-
-        return $this;
-    }
-
-    public function billing(): PermissionLookupManager
-    {
-        $this->setCategory('billing'); //
-        return $this;
-    }
-
-    public function notification(): PermissionLookupManager
-    {
-        $this->setCategory('notification'); //
-        return $this;
-    }
-
-    public function permission(): PermissionLookupManager
-    {
-        $this->setCategory('permission'); //
-        return $this;
-    }
-
-    public function guest_member(): PermissionLookupManager
-    {
-        $this->setCategory('guest'); //
-        return $this;
-    }
-
-    public function client_member(): PermissionLookupManager
-    {
-        $this->setCategory('client'); //
-        return $this;
-    }
-
-    public function support_member(): PermissionLookupManager
-    {
-        $this->category = '';
-        $this->setCategory('support_member'); //
-        return $this;
-    }
-
-    public function field_member(): PermissionLookupManager
-    {
-        $this->setCategory('field_member'); //
-        return $this;
-    }
-
-    public function supervisor_member(): PermissionLookupManager
-    {
-        $this->setCategory('supervisor'); //
-        return $this;
-    }
-
-    public function manager_member(): PermissionLookupManager
-    {
-        $this->setCategory('manager'); //
-        return $this;
-    }
-
-    public function owner_member(): PermissionLookupManager
-    {
-        $this->setCategory('owner'); //
-        return $this;
-    }
-
-    protected function setCategory(string $category)
+    public function setCategory(string $category)
     {
         if (Str::startsWith($category, 'setting.')) {
             $this->isValidSetting($category);
@@ -151,6 +164,18 @@ class PermissionName
         }
 
         $this->category = $category;
+
+        return $this;
+    }
+
+
+    public function setOwnershipType (string $ownershipType)
+    {
+        if ( ! in_array($ownershipType, self::OWNERSHIP_TYPES, true)) {
+            throw new PermissionLookupException("Ownership type of {$ownershipType} is not valid. Accepted values are `team`, `owned`, `team_setting`, or `owned_setting`");
+        }
+
+        $this->type = $ownershipType;
 
         return $this;
     }
@@ -203,14 +228,21 @@ class PermissionName
         return $this->abilities->first(fn ($p) => Str::endsWith($p, '.*'));
     }
 
-    protected function validCategoryIsSet()
+    public function dynamicReduce ()
+    {
+        $this->validCategoryIsSet();
+        $this->reset();
+        $this->filterForCategory();
+    }
+
+    public function validCategoryIsSet()
     {
         if (!isset($this->category)) {
-            throw new PermissionLookupException("A Category must be set before retrieving a specific ability");
+            throw new PermissionLookupException("A Category must be set before retrieving a specific permission");
         }
     }
 
-    protected function filterForCategory()
+    public function filterForCategory()
     {
         $this->abilities = $this
             ->allAbilities
@@ -223,7 +255,7 @@ class PermissionName
         return $this;
     }
 
-    protected function reset()
+    public function reset()
     {
         $this->abilities = collect();
 
@@ -248,6 +280,24 @@ class PermissionName
                     fn ($p) =>
                     !Str::startsWith($p, 'owned') &&
                         Str::contains($p, '.owned.')
+                );
+        }
+
+        if ($this->type === 'owned_setting') {
+            return app('allPermissions')
+                ->filter(
+                    fn ($p) =>
+                    !Str::startsWith($p, 'owned_setting') &&
+                        Str::contains($p, '.owned_setting.')
+                );
+        }
+
+        if ($this->type === 'team_setting') {
+            return app('allPermissions')
+                ->filter(
+                    fn ($p) =>
+                    !Str::startsWith($p, 'team_setting') &&
+                        Str::contains($p, '.team_setting.')
                 );
         }
 
@@ -277,7 +327,7 @@ class PermissionName
         }
     }
 
-    private function isValidResource(string $resource)
+    public function isValidResource(string $resource)
     {
         if (!count($this->resources)) {
             throw new PermissionLookupException(
@@ -290,6 +340,8 @@ class PermissionName
                 "Resource of {$resource} is not valid. All resources should be listed within the `permission-name.resources` configuration."
             );
         }
+
+        return true;
     }
 
     // public function __callStatic($name, $arguments)

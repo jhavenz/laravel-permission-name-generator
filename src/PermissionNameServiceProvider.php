@@ -3,7 +3,7 @@
 namespace Sourcefli\PermissionName;
 
 use Illuminate\Support\ServiceProvider;
-use Sourcefli\PermissionName\PermissionName as PermissionNameManager;
+use Sourcefli\PermissionName\Adapters\OwnedPermissionsAdapter;
 
 class PermissionNameServiceProvider extends ServiceProvider
 {
@@ -12,7 +12,7 @@ class PermissionNameServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/permission-name.php', 'permission-name');
 
         $this->app->singleton('OwnedPermission', function () {
-            return new PermissionNameManager;
+            return new OwnedPermissionsAdapter;
         });
 
         //TODO...

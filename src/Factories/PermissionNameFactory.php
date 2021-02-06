@@ -4,8 +4,12 @@
 namespace Sourcefli\PermissionName\Factories;
 
 
+use Illuminate\Support\Collection;
+
 abstract class PermissionNameFactory
 {
+    protected Collection $permissions;
+
     protected const DEFAULT_ACCESS_LEVELS = [
         "browse",
         "read",
@@ -16,4 +20,9 @@ abstract class PermissionNameFactory
         "force_delete",
         "*"
     ];
+
+    public static function all (): Collection
+    {
+        return (new static)->permissions;
+    }
 }

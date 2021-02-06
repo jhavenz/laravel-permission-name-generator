@@ -5,8 +5,9 @@ namespace Sourcefli\PermissionName\Factories;
 use Illuminate\Support\Collection;
 use Sourcefli\PermissionName\Contracts\BuildsPermissions;
 
-class OwnedPermissions extends PermissionNameFactory implements BuildsPermissions
+class TeamPermissions extends PermissionNameFactory implements BuildsPermissions
 {
+
     public function __construct()
     {
         $this->permissions = $this->collectPermissions();
@@ -18,11 +19,9 @@ class OwnedPermissions extends PermissionNameFactory implements BuildsPermission
             ->map(function ($p)  {
                 $permissionSet = [];
                 foreach (self::DEFAULT_ACCESS_LEVELS as $accessLevel) {
-                    $permissionSet[] = "{$p}.owned.{$accessLevel}";
+                    $permissionSet[] = "{$p}.team.{$accessLevel}";
                 }
                 return $permissionSet;
             });
     }
-
-
 }
