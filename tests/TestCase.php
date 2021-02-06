@@ -1,8 +1,8 @@
 <?php
 
-namespace Sourcefli\GetPermissionName\Tests;
+namespace Sourcefli\PermissionName\Tests;
 
-use Sourcefli\GetPermissionName\PermissionNameServiceProvider;
+use Sourcefli\PermissionName\PermissionNameServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {

@@ -13,16 +13,19 @@
     ],
     "autoload": {
         "psr-4": {
-            "Sourcefli\\GetPermissionName\\": "src"
+            "Sourcefli\\PermissionName\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Sourcefli\\GetPermissionName\\Tests\\": "tests"
+            "Sourcefli\\PermissionName\\Tests\\": "tests"
         }
     },
     "scripts": {
         "test": "vendor/bin/phpunit"
+    },
+    "require": {
+        "php": "^7.4|^8.0"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
@@ -31,10 +34,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Sourcefli\\GetPermissionName\\PermissionNameServiceProvider"
+                "Sourcefli\\PermissionName\\PermissionNameServiceProvider"
             ],
             "aliases": {
-                "PermissionName": "Sourcefli\\GetPermissionName\\Facades\\PermissionName"
+                "OwnedPermission": "Sourcefli\\PermissionName\\Facades\\OwnedPermission"
             }
         }
     }

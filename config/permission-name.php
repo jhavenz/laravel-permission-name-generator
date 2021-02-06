@@ -3,14 +3,6 @@
 return [
 
     /**
-     * All "Ownership Types", as they relate to the currently logged in User
-     */
-    "ownership_types" => [
-        'owned',
-        'team'
-    ],
-
-    /**
      * Any resource that can be "owned" by each "ownership_type"
      *  e.g. owned.user.browse 
      *    ...would be an example where we'd be checking if the currently logged in user has access to 'browse' the 'user' (or users) that they own
@@ -34,13 +26,6 @@ return [
         "manager",
         "owner",
     ],
-
-    /**
-     * Often, a resource may have settings associated with it, such as "the settings for a user", o"the settings for a team", etc.
-     *  ..turning this on will add an additional "type" that produces permission names for settings that are listed below...
-     *   e.g. "_setting.owned.user.edit" would be an example of whether the logged-in user can edit the settings for any users that they own 
-     */
-    "use_settings_types" => true,
 
     /**
      * List all settings related items allowed. 
