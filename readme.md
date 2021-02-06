@@ -37,23 +37,24 @@ Would produce the following permissions...
 
 ```php
 
-'user.owned.browse' //=> e.g. the permission you reference when wanting to know if the current user can browse their own users
 
 //The facade/method to retrieve this string (provided by this package)...
 OwnedPermission::user()->browse(); //=> returns 'user.owned.browse'
+//i.e. Determines whether the current user can browse the users that they own within the application
 
 //or another example...
 
 TeamPermission::tenant()->edit(); //=> returns 'tenant.team.edit'
+//i.e. Determines whether the current user can edit the tenant that their team is associated with in the application
 
 //And examples for '_settings' permissions, which may be prepended in the permission name..
 
 OwnedSettingPermission::user()->browse(); //=> returns '_setting.user.owned.browse'
-//i.e. Determines whether the current user can browse the settings for the users that they own
+//i.e. Determines whether the current user can browse the settings for the users that they own within the application
 
 //vs
 TeamSettingPermission::tenant()->edit(); //=> return '_setting.tenant.team.edit'
-//i.e. Determines whether the current user can edit the tenant settings for the their team..
+//i.e. Determines whether the current user can edit the tenant settings for the team theyre on within the application
 ```
 
 - Note: all permission references are singular as well. This is because I can never remember which permissions have plural references and which don't...there's always at least 'one' of something though...
