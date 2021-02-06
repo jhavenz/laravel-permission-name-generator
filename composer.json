@@ -1,0 +1,41 @@
+{
+    "name": "sourcefli/permission-name",
+    "description": "Create and Retrieve permissions using conventions",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jonathan Havens",
+            "email": "mail@jhavens.tech",
+            "homepage": "https://jhavens.tech",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Sourcefli\\GetPermissionName\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sourcefli\\GetPermissionName\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.5"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sourcefli\\GetPermissionName\\PermissionNameServiceProvider"
+            ],
+            "aliases": {
+                "PermissionName": "Sourcefli\\GetPermissionName\\Facades\\PermissionName"
+            }
+        }
+    }
+}
