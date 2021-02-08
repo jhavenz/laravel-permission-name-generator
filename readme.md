@@ -143,7 +143,7 @@ This provides you with two methods to call on each Facade (one for each resource
 and 
 `billing()`
 
-Then you can the 'retrieval' methods from there, such as...
+Then chain the 'retrieval' methods from there, such as...
 ```php
 OwnedPermission::user()->create();
 //returns 'user.owned.create'
