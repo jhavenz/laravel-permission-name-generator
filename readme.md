@@ -16,7 +16,9 @@ _b.r.e.a.d.r.f.* definition_
 - `*` _(referenced using the 'wildcard' method)_
 
 ### Note:
-**This is a glorified getter/setter for permission strings. There is no logic when is comes authorization logic.**
+**This is a glorified getter/setter for permission strings. 
+
+**_There is no logic when is comes authorization logic._**
 
 **All logic is related to creating 'permission strings' and retrieving them.**
 
