@@ -23,6 +23,11 @@ abstract class PermissionNameFactory
 
     public static function all (): Collection
     {
-        return (new static)->permissions;
+        return (new static)->permissions->flatten();
+    }
+
+    public static function allAccessLevels ()
+    {
+        return self::DEFAULT_ACCESS_LEVELS;
     }
 }

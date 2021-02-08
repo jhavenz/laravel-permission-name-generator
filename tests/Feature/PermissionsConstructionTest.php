@@ -4,17 +4,48 @@ namespace Sourcefli\PermissionName\Tests\Feature;
 
 use Illuminate\Support\Str;
 use Sourcefli\PermissionName\Facades\OwnedPermission;
-use Sourcefli\PermissionName\Factories\OwnedPermissions;
+use Sourcefli\PermissionName\Facades\TeamPermission;
 use Sourcefli\PermissionName\Tests\TestCase;
 
 class PermissionsConstructionTest extends TestCase
 {
 
+
+
     /** @test */
-    public function it_builds_owned_permissions_for_each_resource_config_file()
+    public function it_builds_owned_permissions_for_each_resource_using_facade()
+    {
+        $allOwnedPermissions = OwnedPermission::all();
+
+        $expectedCount = $this->totalPermissionsForOneOwnershipType('owned');
+
+        foreach ($allOwnedPermissions as $permission) {
+            $this->assertStringContainsString(
+                '.owned.',
+                $permission,
+                "Failed asserting that each `OwnedPermission` set contains the string `owned`"
+            );
+
+            //Each resource listed in config..
+            $resource = $this->extractResourceNameFromPermission($permission);
+
+
+            if (Str::startsWith($permission, '_setting.')) {
+                $permission = Str::after($permission, '_setting.');
+            }
+
+            $this->assertContains($resource, $this->allUserResources());
+            $this->assertStringStartsWith($resource, $permission);
+        }
+
+        $this->assertCount($expectedCount, $allOwnedPermissions);
+    }
+
+    /** @test */
+    public function it_builds_team_permissions_for_each_resource_listed_in_config_file()
     {
         $allResources = config('permission-name.resources');
-        $allOwnedPermissions = OwnedPermissions::all()->flatten();
+        $allTeamPermissions = TeamPermission::all()->flatten();
         $ownershipType = 'owned';
 
         foreach ($allOwnedPermissions as $permission) {
@@ -22,7 +53,7 @@ class PermissionsConstructionTest extends TestCase
             $this->assertStringContainsString(
                 $ownershipType,
                 $permission,
-                "Failed asserting that all OwnedPermissions contains `owned`"
+                "Failed asserting that each `OwnedPermission` set contains the string `owned`"
             );
 
             $resource = Str::before($permission, '.');
@@ -31,4 +62,6 @@ class PermissionsConstructionTest extends TestCase
             $this->assertContains($resource, $allResources);
         }
     }
+
+
 }
