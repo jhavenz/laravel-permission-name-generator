@@ -1,6 +1,6 @@
 {
-    "name": "sourcefli/permission-name",
-    "description": "Create and Retrieve permissions using conventions",
+    "name": "sourcefli/laravel-permission-name-generator",
+    "description": "Create and Retrieve permissions using conventions and very simple configuration",
     "type": "library",
     "license": "MIT",
     "authors": [
