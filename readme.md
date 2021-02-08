@@ -5,7 +5,7 @@
 
 A simple package to produce 'b.r.e.a.d.r.f.*' permissions for specified resources. All resources have a root 'category', and each category above that can have a "_settings" namespace added to its root.
 
-_b.r.e.a.d.r.f.* definition:_
+_b.r.e.a.d.r.f.* definition_
 - browse
 - read
 - edit
