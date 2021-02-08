@@ -13,11 +13,12 @@ _b.r.e.a.d.r.f.* definition_
 - delete
 - restore
 - force_delete
-- `*` _(referenced as 'wildcard')_
+- `*` _(referenced using the 'wildcard' method)_
 
 ### Note:
-##### This is a glorified getter/setter for permission strings. There is no logic when is comes authorization logic.
-##### All logic is related to creating 'permission strings' and retrieving them.
+**This is a glorified getter/setter for permission strings. There is no logic when is comes authorization logic.**
+
+** All logic is related to creating 'permission strings' and retrieving them.**
 
 I've been using Spatie's 'Spatie Permissions' package a lot lately and quickly got annoyed at always having to remember what was plural, and what the exact permissions name was. 
 
