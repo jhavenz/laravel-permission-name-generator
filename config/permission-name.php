@@ -11,20 +11,20 @@ return [
      *   ... would be an example that checks if the logged in user has the ability to 'edit' the 'settings' for a 'team'    
      */
     "resources" => [
-        "current_user",
+//        "current_user",
         "user",
-        "assignment",
-        "setting",
+//        "assignment",
+//        "setting",
         "billing",
-        "notification",
-        "permission",
-        "guest",
-        "client",
-        "support",
-        "field_member",
-        "supervisor",
-        "manager",
-        "owner",
+//        "notification",
+//        "permission",
+//        "guest",
+//        "client",
+//        "support",
+//        "field_member",
+//        "supervisor",
+//        "manager",
+//        "owner",
     ],
 
     /**
@@ -36,15 +36,15 @@ return [
      * 
      */
     "settings" => [
-        'tenant',
-        'user',
-        'campaign',
-        'call_list',
-        'contact',
-        'dialer',
-        'hopper',
-        'phone_number',
-        'contact',
-        'follow_up',
+//        'tenant',
+//        'user',
+//        'campaign',
+//        'call_list',
+//        'contact',
+//        'dialer',
+//        'hopper',
+//        'phone_number',
+//        'contact',
+//        'follow_up',
     ]
 ];
