@@ -18,31 +18,7 @@ class PermissionGenerator
     protected Collection $ownedSettingPermissions;
     protected Collection $teamSettingPermissions;
     protected Collection $allPermissions;
-
-    //Previous
-//    protected array $resources;
-//    protected array $settings;
-//
-//    public Collection $abilities;
-//    protected string $category;
-//    protected string $type;
-
-//    protected const OWNERSHIP_TYPES = [
-//        "owned", "team", "owned_setting", "team_setting"
-//    ];
-
-    /**
-     * TODO -
-        => Aliases to composer.json
-            "OwnedSettingPermission": "Sourcefli\\PermissionName\\Facades\\OwnedSettingPermission",
-            "TeamPermission": "Sourcefli\\PermissionName\\Facades\\TeamPermission",
-            "SettingPermission": "Sourcefli\\PermissionName\\Facades\\SettingPermission"
-        => Factories
-            "TeamPermission"
-            "OwnedSettingPermission"
-            "TeamSettingPermission"
-     */
-
+    
     public function __construct()
     {
         $this->ownedPermissions = $this->ownedPermissions();
@@ -50,6 +26,57 @@ class PermissionGenerator
         $this->ownedSettingPermissions = $this->ownedSettingPermissions ();
         $this->teamSettingPermissions = $this->teamSettingPermissions ();
         $this->allPermissions = $this->allPermissions();
+    }
+
+    public function byOwnershipType (string $ownershipType)
+    {
+        if ($ownershipType === 'all') return $this->allPermissions();
+
+        if ($ownershipType === 'team') {
+            return $this
+                ->allPermissions()
+                ->filter(
+                    fn ($p) =>
+                        !Str::startsWith($p, 'team') &&
+                        !Str::contains($p, '_setting') &&
+                        Str::contains($p, '.team.')
+                );
+        }
+
+        if ($ownershipType === 'owned') {
+            return $this
+                ->allPermissions()
+                ->filter(
+                    fn ($p) =>
+                        !Str::startsWith($p, 'owned') &&
+                        !Str::contains($p, '_setting') &&
+                        Str::contains($p, '.owned.')
+                );
+        }
+
+        if ($ownershipType === 'owned_setting') {
+            return $this
+                ->allPermissions()
+                ->filter(
+                    fn ($p) =>
+                        Str::startsWith($p, '_setting') &&
+                        Str::contains($p, '.owned.')
+                );
+        }
+
+        if ($ownershipType === 'team_setting') {
+            return $this
+                ->allPermissions()
+                ->filter(
+                    fn ($p) =>
+                        Str::startsWith($p, '_setting') &&
+                        Str::contains($p, '.team.')
+                );
+        }
+
+        throw new PermissionLookupException(
+            "Unable to determine ownership type. Please instantiate using one of the facades/adapters so it can determined automatically."
+        );
     }
 
     public function allPermissions(): Collection

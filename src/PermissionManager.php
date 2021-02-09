@@ -36,7 +36,7 @@ abstract class PermissionManager
         $this->settings = config('permission-name.settings');
         $this->abilities = collect();
         $this->generator = new PermissionGenerator;
-        $this->permissions = $this->filterByOwnershipType();
+        $this->permissions = $this->filterForOwnership();
     }
 
     private function validOwnershipType ()
@@ -153,62 +153,22 @@ abstract class PermissionManager
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function reset()
     {
         $this->abilities = collect();
         return $this;
     }
 
-
-    protected function filterByOwnershipType()
+    /**
+     * @return Collection
+     * @throws PermissionLookupException
+     */
+    protected function filterForOwnership()
     {
-        if ($this->ownershipType === 'all') return $this->getAll();
-
-        if ($this->ownershipType === 'team') {
-            return $this
-                ->getAll()
-                ->filter(
-                    fn ($p) =>
-                        !Str::startsWith($p, 'team') &&
-                        !Str::contains($p, '_setting') &&
-                        Str::contains($p, '.team.')
-                );
-        }
-
-        if ($this->ownershipType === 'owned') {
-            return $this
-                ->getAll()
-                ->filter(
-                    fn ($p) =>
-                        !Str::startsWith($p, 'owned') &&
-                        !Str::contains($p, '_setting') &&
-                        Str::contains($p, '.owned.')
-                );
-        }
-
-        if ($this->ownershipType === 'owned_setting') {
-            return $this
-                ->getAll()
-                ->filter(
-                    fn ($p) =>
-                        Str::startsWith($p, '_setting') &&
-                        Str::contains($p, '.owned.')
-                );
-        }
-
-        if ($this->ownershipType === 'team_setting') {
-            return $this
-                ->getAll()
-                ->filter(
-                    fn ($p) =>
-                        Str::startsWith($p, '_setting') &&
-                        Str::contains($p, '.team.')
-                );
-        }
-
-        throw new PermissionLookupException(
-            "Unable to determine ownership type. Please instantiate using one of the facades/adapters so it can determined automatically."
-        );
+        return $this->generator->byOwnershipType($this->ownershipType);
     }
 
     private function isValidSettingItem(string $settingItem)
