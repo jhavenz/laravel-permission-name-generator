@@ -90,10 +90,12 @@ class PermissionGenerator
     public function allPermissions(): Collection
     {
         return once(function () {
-            return $this->ownedPermissions
-                ->merge($this->ownedSettingPermissions->values())
-                ->merge($this->teamPermissions->values())
-                ->merge($this->teamSettingPermissions->values())
+            return collect([
+                $this->ownedPermissions->values(),
+                $this->ownedSettingPermissions->values(),
+                $this->teamPermissions->values(),
+                $this->teamSettingPermissions->values()
+            ])
                 ->unique()
                 ->flatten();
         });
