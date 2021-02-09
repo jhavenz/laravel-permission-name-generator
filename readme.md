@@ -172,7 +172,7 @@ For each resource that you list in the config file, you can:
 1. Call that resource (by name) on the facade
 `OwnedPermission::user()`
    
-2. Then you can chain the 'retrieval' method on the call to the resource:
+2. Then you can chain the 'retrieval' method on the call to the resource, e.g.
 `OwnedPermission::user()->browse()`
 
 3. This means, for each resource that you've listed within the config, you have 9 'retrieval' methods you can call:
