@@ -4,6 +4,7 @@ namespace Sourcefli\PermissionName\Factories;
 
 use Illuminate\Support\Collection;
 use Sourcefli\PermissionName\Contracts\BuildsPermissions;
+use Sourcefli\PermissionName\PermissionGenerator;
 
 class TeamPermissions extends PermissionNameFactory implements BuildsPermissions
 {
@@ -19,7 +20,7 @@ class TeamPermissions extends PermissionNameFactory implements BuildsPermissions
             ->map(function ($p)  {
                 $permissionSet = [];
                 foreach (self::DEFAULT_ACCESS_LEVELS as $accessLevel) {
-                    $permissionSet[] = "{$p}.team.{$accessLevel}";
+                    $permissionSet[] = "{$p}." .PermissionGenerator::SCOPE_TEAM. ".{$accessLevel}";
                 }
                 return $permissionSet;
             });

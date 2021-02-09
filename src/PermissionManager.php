@@ -12,6 +12,7 @@ use Sourcefli\PermissionName\Adapters\OwnedSettingPermissionsAdapter;
 use Sourcefli\PermissionName\Adapters\TeamPermissionsAdapter;
 use Sourcefli\PermissionName\Adapters\TeamSettingPermissionsAdapter;
 use Sourcefli\PermissionName\Exceptions\PermissionLookupException;
+use Sourcefli\PermissionName\Factories\AllPermissions as AllPermissionsFactory;
 
 abstract class PermissionManager
 {
@@ -19,33 +20,31 @@ abstract class PermissionManager
     public Collection $abilities;
     protected string $resource;
     protected PermissionGenerator $generator;
-    protected ?string $ownershipType;
+    protected ?string $scopeType;
     protected Collection $permissions;
     protected array $resources = [];
     protected array $settings = [];
 
-    protected const OWNERSHIP_TYPES = [
-        "all", "owned", "team", "owned_setting", "team_setting"
-    ];
+
 
     public function __construct()
     {
-        $this->ownershipType = $this->runtimeOwnershipType();
-        $this->validateOwnershipType();
+        $this->scopeType = $this->runtimeOwnershipType();
+        $this->validateScope();
         $this->resources = config('permission-name.resources');
         $this->settings = config('permission-name.settings');
         $this->abilities = collect();
         $this->generator = new PermissionGenerator;
-        $this->permissions = $this->filterForOwnership();
+        $this->permissions = $this->filterForScope();
     }
 
-    private function validateOwnershipType ()
+    protected function validateScope ($scopeType = null)
     {
-        if (! $this->ownershipType ||
-            ! in_array($this->ownershipType, self::OWNERSHIP_TYPES, true)
-        ) {
+        $scope = $scopeType ?? $this->scopeType;
+
+        if (empty($scope) || ! in_array($scope, PermissionGenerator::allScopes(), true)) {
             throw new PermissionLookupException(
-                "Unable to determine ownership type. Please instantiate using one of the facades/adapters so it can determined automatically."
+                "Unable to determine resource scope. Please instantiate using one of the facades/adapters so it can determined automatically."
             );
         }
     }
@@ -130,6 +129,10 @@ abstract class PermissionManager
 
     public function resetAndReduceByResource ()
     {
+        if ($this->scopeIsAll()) {
+            throw new PermissionLookupException("A scope type is not set. If using the `AllPermission` facade, call setScope(), passing in a valid scope, before calling on your resources. e.g. AllPermission::setScope('owned')->user()->browse()");
+        }
+
         $this->validResourceIsSet();
         $this->reset();
         $this->filterForResource();
@@ -144,13 +147,26 @@ abstract class PermissionManager
 
     public function filterForResource()
     {
-        $this->abilities = $this
-                            ->permissions
-                            ->filter(
-                                fn ($p) =>
-                                Str::startsWith($p, $this->resource) &&
-                                Str::contains($p, '.'.$this->ownershipType.'.')
-                            );
+        if (Str::endsWith($this->scopeType, '_setting')) {
+            $scopeType = Str::before($this->scopeType, '_setting');
+
+            $this->abilities = $this
+                                ->permissions
+                                ->filter(fn ($p) =>
+                                    Str::startsWith($p, '_setting') &&
+                                    Str::contains($p, '.'.$scopeType.'.') &&
+                                    Str::contains($p, $this->resource)
+                                );
+        } else {
+            $this->abilities = $this
+                                ->permissions
+                                ->filter(
+                                    fn ($p) =>
+                                    Str::startsWith($p, $this->resource) &&
+                                    Str::contains($p, '.'.$this->scopeType.'.') &&
+                                    ! Str::contains($p, '_setting.')
+                                );
+        }
 
         return $this;
     }
@@ -164,13 +180,18 @@ abstract class PermissionManager
         return $this;
     }
 
+    protected function scopeIsAll ()
+    {
+        return $this->scopeType === PermissionGenerator::SCOPE_ALL;
+    }
+
     /**
      * @return Collection
      * @throws PermissionLookupException
      */
-    protected function filterForOwnership()
+    protected function filterForScope()
     {
-        return $this->generator->byOwnershipType($this->ownershipType);
+        return $this->generator->byScope($this->scopeType);
     }
 
     private function isValidSettingItem(string $settingItem)
@@ -209,23 +230,34 @@ abstract class PermissionManager
 
     private function runtimeOwnershipType ()
     {
-
         return $this instanceof OwnedPermissionsAdapter
-            ? 'owned'
+            ? PermissionGenerator::SCOPE_OWNED
             : ($this instanceof TeamPermissionsAdapter
-                ? 'team'
+                ? PermissionGenerator::SCOPE_TEAM
                 : ($this instanceof OwnedSettingPermissionsAdapter
-                    ? 'owned_setting'
+                    ? PermissionGenerator::SCOPE_OWNED_SETTING
                     : ($this instanceof TeamSettingPermissionsAdapter
-                        ? 'team_setting'
+                        ? PermissionGenerator::SCOPE_TEAM_SETTING
                         : ($this instanceof AllPermissionsAdapter
-                            ? 'all'
+                            ? PermissionGenerator::SCOPE_ALL
                             : null
             )  )   )   );
     }
 
+    public function __get ($name)
+    {
+        $prop = $this->{$name};
+
+        if (app()->environment() === 'testing' && isset($prop)) {
+            return $prop;
+        }
+
+        throw new \InvalidArgumentException("No property exists named `{$name}`");
+    }
+
     public function __call ($name, $arguments): PermissionManager
     {
+
         if ($this->isValidResource($name)) {
             $this->setResource($name);
         }

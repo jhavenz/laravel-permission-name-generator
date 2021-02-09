@@ -12,6 +12,20 @@ use Sourcefli\PermissionName\Factories\TeamSettingPermissions as TeamSettingPerm
 
 class PermissionGenerator
 {
+    public const SCOPE_ALL = '[all]';
+    public const SCOPE_OWNED = '[owned]';
+    public const SCOPE_TEAM = '[team]';
+    public const SCOPE_OWNED_SETTING = '[owned_setting]';
+    public const SCOPE_TEAM_SETTING = '[team_setting]';
+
+    public const OWNERSHIP_SCOPES = [
+        self::SCOPE_ALL,
+        self::SCOPE_OWNED,
+        self::SCOPE_OWNED_SETTING,
+        self::SCOPE_TEAM,
+        self::SCOPE_TEAM_SETTING,
+    ];
+
     //V2
     protected Collection $ownedPermissions;
     protected Collection $teamPermissions;
@@ -28,49 +42,51 @@ class PermissionGenerator
         $this->allPermissions = $this->allPermissions();
     }
 
-    public function byOwnershipType (string $ownershipType)
+    public function byScope (string $scopeType)
     {
-        if ($ownershipType === 'all') return $this->allPermissions();
+        if ($scopeType === self::SCOPE_ALL) return $this->allPermissions();
 
-        if ($ownershipType === 'team') {
+        if ($scopeType === self::SCOPE_TEAM) {
             return $this
                 ->allPermissions()
                 ->filter(
                     fn ($p) =>
-                        !Str::startsWith($p, 'team') &&
+                        //Remove?
+                        //!Str::startsWith($p, 'team') &&
                         !Str::contains($p, '_setting') &&
-                        Str::contains($p, '.team.')
+                        Str::contains($p, '.' .self::SCOPE_TEAM. '.')
                 );
         }
 
-        if ($ownershipType === 'owned') {
+        if ($scopeType === self::SCOPE_OWNED) {
             return $this
                 ->allPermissions()
                 ->filter(
                     fn ($p) =>
-                        !Str::startsWith($p, 'owned') &&
+                    //Remove?
+                         //!Str::startsWith($p, 'owned') &&
                         !Str::contains($p, '_setting') &&
-                        Str::contains($p, '.owned.')
+                        Str::contains($p, '.' .self::SCOPE_OWNED. '.')
                 );
         }
 
-        if ($ownershipType === 'owned_setting') {
+        if ($scopeType === self::SCOPE_OWNED_SETTING) {
             return $this
                 ->allPermissions()
                 ->filter(
                     fn ($p) =>
                         Str::startsWith($p, '_setting') &&
-                        Str::contains($p, '.owned.')
+                        Str::contains($p, '.' .self::SCOPE_OWNED. '.')
                 );
         }
 
-        if ($ownershipType === 'team_setting') {
+        if ($scopeType === self::SCOPE_TEAM_SETTING) {
             return $this
                 ->allPermissions()
                 ->filter(
                     fn ($p) =>
                         Str::startsWith($p, '_setting') &&
-                        Str::contains($p, '.team.')
+                        Str::contains($p, '.' .self::SCOPE_TEAM. '.')
                 );
         }
 
@@ -117,6 +133,17 @@ class PermissionGenerator
         return once(function ()  {
            return TeamSettingPermissionsFactory::all();
         });
+    }
+
+
+    public static function allScopes (): array
+    {
+        return self::OWNERSHIP_SCOPES;
+    }
+
+    public function getScope (string $scopeName): array
+    {
+        return collect(self::OWNERSHIP_SCOPES)->first(fn($s) => $s === $scopeName);
     }
 
 }
