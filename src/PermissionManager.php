@@ -96,11 +96,12 @@ abstract class PermissionManager
         $this->resetAndReduceByResource();
         return $this->firstByAbility('*');
     }
+    
+    //TODO
+    //public function only (...$abilities) {}
 
-    public function only (...$abilities)
-    {
-        dd(func_get_args());
-    }
+    //TODO
+    //public function except (...$abilities) {}
 
     public function all (): Collection
     {
