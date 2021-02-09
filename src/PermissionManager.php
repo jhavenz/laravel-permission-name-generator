@@ -174,7 +174,6 @@ abstract class PermissionManager
 
     protected function resourcePrefix()
     {
-        // 'user.[owned]'
         return $this->resource . "." . $this->scopeType;
     }
 

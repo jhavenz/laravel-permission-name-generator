@@ -1,14 +1,18 @@
-### This package is still a work in progress!! 
-#### Anyone is welcome to contribute 
-
-!! **PLEASE DO NOT** use this package in a production environment yet !!
-
-
 ## Laravel Permission Name Generator
 
-A simple package to create/reference permission strings for specified resources. 
+### Warning: This package is still a work in progress!!
+!! **PLEASE DO NOT** use this package in a production environment yet !!
 
-_b.r.e.a.d.r.f.* definition_
+**Contributions Are Welcome**
+Anyone's thats willing to help 'use it in the wild' is welcome! 
+I'm currently doing this in some of my own projects over the next few months as well.
+    - __Anyone who's good at generating doc blocks programatically would **very welcome** to add a command that generates the doc blocks for the Facades in this package!__
+
+### Intro
+Create and Retrieve permission strings using methods instead of strings, and a very simple configuration.
+
+Each item listed in the config will get a 'permission set', one of each:
+
 - browse
 - read
 - edit
@@ -23,25 +27,149 @@ _b.r.e.a.d.r.f.* definition_
 
 **_There is no logic when is comes authorization logic._**
 
-**All logic is related to creating 'permission strings' and retrieving them.**
+**All logic is related to creating 'permission strings' and retrieving them throughout your app.**
 
-I've been using Spatie's 'Spatie Permissions' package a lot lately and got pretty annoyed with always having to remember which permissions were plural, 
-which syntax was for the 'team' permissions, vs which ones were just for the user...and having to hard code permission strings as I went.  
+---
+## Quick Start
+I've been using Spatie's 'Spatie Permissions' package a lot lately and got pretty annoyed with always having to remember which permissions were plural, which syntax allowed the user to view 'team' permissions (though I had a 'Team' model, so it had to be something besides 'team' or 'teams'), vs which permissions were just for the user's own resources. On top of that, having to hard code permission strings throughout the application, or create a wrapper each time. 
+It seemed like such a common routine, I has to venture out and create a package, albeit my first public package. 
+_So please go easy on me guys, if you find any issue. I'm willing and open to any **constructive** criticism_
 
-This package is an effort to create a convention to naming, generating, and accessing predictable and reliable permission strings (as always referencing them as methods, so they can all be updated in one place...in this case the config file). 
+This package is an effort to create a convention to naming, generating, and accessing predictable and reliable permission strings, and  
 
 ### Installation
 ```bash
 composer require sourcefli/laravel-permission-name-generator
 ```
+---
 
 ### Publish Config
 ```bash
 php artisan vendor:publish --provider="Sourcefli\PermissionName\PermissionNameServiceProvider"
 ```
+---
 
-This package comes with 5 facades.
+### Add Resources/Settings To Config File
+```php
+//=> config/permission-name-generator
 
+//For the quickstart, just add a couple resources
+return [
+
+    'resources' => [
+        'user',
+        'billing',
+        'tenant'
+    ]
+
+];
+```
+
+### Now Use It
+This example might be the permission used when you want to know if:
+_The current user can edit the billing settings THEY OWN in the application_
+```php
+//=> web.php
+use Sourcefli\PermissionName\Facades\OwnedPermission;
+
+Route::get('permissions', function () {
+    OwnedPermission::billing()->edit();
+    //returns 'billing.[owned].edit'
+});
+```
+**or**
+
+This example might be the permission used when you want to know if:
+_The current user can edit the smtp settings for THEIR ENTIRE TEAM_
+```php
+//=> web.php
+
+//note the Facade change
+use Sourcefli\PermissionName\Facades\TeamPermission;
+
+Route::get('permissions', function () {
+    TeamPermission::smtp()->edit();
+    //returns 'smtp.[team].edit' 
+});
+```
+---
+
+### 'Settings' Quick Start
+The 'settings' section in the config file is optional.
+This is added in the case that you have 'settings' related permissions that are seperate from your resources.
+```php
+//=> config/permission-name-generator
+
+return [
+
+    'resources' => [
+        ...
+    ],
+
+    'settings' => [
+        'user', //can be 'settings' related a model in your app...
+        'smtp', //or any random 'settings' that your app uses..
+    ]
+];
+```
+
+### Now Use It
+This example might be the permission used when you want to know if:
+The current User can edit THEIR OWN smtp settings...
+```php
+//=> web.php
+
+//note the Facade change
+use Sourcefli\PermissionName\Facades\OwnedSettingPermission;
+
+Route::get('permissions', function () {
+    OwnedSettingPermission::smtp()->edit();
+    //returns 'smtp.[owned_setting].edit' 
+});
+```
+or
+
+This example might be the permission used when you want to know if:
+The current User can edit THEIR TEAMS smtp settings (or any smtp settings owned by their THEIR TEAM)
+```php
+//=> web.php
+
+//note the Facade change
+use Sourcefli\PermissionName\Facades\TeamSettingPermission;
+
+Route::get('permissions', function () {
+    TeamSettingPermission::smtp()->edit();
+    //returns 'smtp.[team_setting].edit' 
+});
+```
+Any distinction between the 'team' scope and the 'owned' scope is open to interpretation as is needed for your app, of course. I'm just listing out some examples of how I've used these permission strings before.
+---
+
+### Retrieval 'all' Permissions
+This example provides access to ALL permissions available ('resources' and 'settings' combined):
+```php
+//=> web.php
+use Sourcefli\PermissionName\Facades\AllPermissions;
+
+Route::get('permissions', function () {
+    AllPermissions::all();
+    //returns an Laravel Collection of all available permissions that were generated
+});
+```
+This example returns all 'resources' within the 'owned' scope: 
+_(see below for further explanation on 'scope')_ 
+```php
+//=> web.php
+use Sourcefli\PermissionName\Facades\OwnedPermission;
+
+Route::get('permissions', function () {
+    OwnedPermission::all();
+    //returns an Laravel Collection of all 'resource' permissions within the 'owned' scope
+});
+```
+---
+
+This package comes with 5 of these facades, each has their own 'scope' which I'll talk about further below.
 ```php
 use Sourcefli\PermissionName\Facades\AllPermissions;
 use Sourcefli\PermissionName\Facades\OwnedPermission;
