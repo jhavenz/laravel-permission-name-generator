@@ -91,9 +91,9 @@ class PermissionGenerator
     {
         return once(function () {
             return $this->ownedPermissions
-                ->merge($this->ownedSettingPermissions->flatten())
-                ->merge($this->teamPermissions->flatten())
-                ->merge($this->teamSettingPermissions->flatten())
+                ->merge($this->ownedSettingPermissions->values())
+                ->merge($this->teamPermissions->values())
+                ->merge($this->teamSettingPermissions->values())
                 ->unique()
                 ->flatten();
         });
