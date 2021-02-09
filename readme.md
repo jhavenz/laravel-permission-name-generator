@@ -33,7 +33,7 @@ This package is an effort to create a convention to naming, generating, and acce
 This package comes with 5 facades.
 
 ```php
-use Sourcefli\PermissionName\Facades\AllPermission;
+use Sourcefli\PermissionName\Facades\AllPermissions;
 use Sourcefli\PermissionName\Facades\OwnedPermission;
 use Sourcefli\PermissionName\Facades\OwnedSettingPermission;
 use Sourcefli\PermissionName\Facades\TeamPermission;
@@ -43,7 +43,7 @@ use Sourcefli\PermissionName\Facades\TeamSettingPermission;
 You can also use the root aliases...
 
 ```php 
-use AllPermission;
+use AllPermissions;
 use OwnedPermission;
 //and so on..
 ```
@@ -55,6 +55,9 @@ use OwnedPermission;
  * This example might be the permission that you reference to see if the current user can browse their own users within the application
  * Note: no plurals are used in any permissions in effort to stick to a convention
  */
+ 
+ use OwnedPermission;
+ 
 OwnedPermission::user()->browse(); 
 //returns 'user.[owned].browse'
 ```
@@ -63,6 +66,9 @@ OwnedPermission::user()->browse();
 /**
  * This example might be the permission that you reference to see if the current user has 'team access' to delete users
  */
+ 
+ use Sourcefli\PermissionName\Facades\TeamPermission;
+ 
 TeamPermission::user()->delete(); 
 //returns 'user.[team].delete'
 ```
@@ -75,6 +81,9 @@ _Opt-in_ 'Settings' feature...
  * This example might be the permission that you reference to see if the current user 
  * can delete the THEIR SETTINGS within the application
  */
+ 
+use OwnedSettingPermission;
+ 
 OwnedSettingPermission::user()->delete(); 
 //returns 'user.[owned_setting].delete'
 
@@ -96,6 +105,9 @@ has access to TEAM SETTINGS for a particular thing:
  * This similar example might be the permission that you reference to see if the current user 
  * can edit the smtp settings for their entire team within the application
  */
+ 
+ use TeamSettingPermission;
+ 
 TeamSettingPermission::smtp()->edit(); 
 //returns 'smtp.[team_setting].edit'
 ```
@@ -165,6 +177,10 @@ _with the exception of the `AllPermissions` facade, which I'll get to at the end
 
 For Example, these methods can now be called:
 ```php
+
+use OwnedPermission;
+use TeamPermission;
+
 OwnedPermission::user();
 //..or 
 TeamPermission::billing();
@@ -173,6 +189,10 @@ TeamPermission::billing();
 
 You can now use these methods to chain 'retreival' methods in order to hunt down the permission string you're after:
 ```php
+
+use OwnedPermission;
+use TeamPermission;
+
 OwnedPermission::user()->create();
 //returns 'user.[owned].create'
 
@@ -193,6 +213,9 @@ These 'retrieval' methods are all listed in [this contract](https://github.com/S
 
 Essential, for each resource in the config, you can call any of these:
 ```php
+use OwnedPermission;
+use TeamPermission;
+
 //=> allows you to call all the following 'retrieval' methods:
 OwnedPermission::user()->browse(); //returns 'user.[owned].browse'
 OwnedPermission::user()->read(); //returns 'user.[owned].read'
@@ -276,6 +299,9 @@ Adding those two items to the 'settings' in the config file would generate the f
 
 And, just like resources, you can now can these on the related Facade:
 ```php
+use OwnedSettingPermission;
+use TeamSettingPermission;
+
 //=> One Facade is related to the users own 'settings' access:
 OwnedSettingPermission::server()->browse(); //returns 'server.[owned_setting].browse'
 OwnedSettingPermission::server()->read(); //returns 'server.[owned_setting].read'
@@ -307,6 +333,9 @@ If you want to retrieve permission strings from this Facade, it's a little diffe
 First, you have set a `scope`, then you can chain the standard methods as listed above (check out the tests [starting here](https://github.com/Sourcefli/laravel-permission-name-generator/tree/main/tests/Feature/AllPermissions) for sample usage).
 There are 4 methods available on this Facade to do this with: 
 ```php
+
+use AllPermissions;
+
 AllPermissions::forOwned();
 AllPermissions::forTeam();
 AllPermissions::forOwnedSetting();
@@ -325,6 +354,11 @@ AllPermissions::forOwned()->billing()->delete();
 You can call the `all()` method on any of the Facades in order to get a complete list of permissions that are within that scope.
 For Example:
 ```php
+
+use Sourcefli\PermissionName\Facades\AllPermissions;
+use Sourcefli\PermissionName\Facades\OwnedPermission;
+use Sourcefli\PermissionName\Facades\TeamSettingPermission;
+
 OwnedPermission::all();
 // returns all 'resource' permissions in the '[owned]' scope
 
