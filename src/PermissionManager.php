@@ -256,7 +256,9 @@ abstract class PermissionManager
 
     public function __call ($name, $arguments): PermissionManager
     {
-        if (in_array($name, PermissionNameFactory::noAccessWithoutResource(), true) && ! isset($this->resource)) {
+        if (in_array($name, PermissionNameFactory::resourceRequiredAccess(), true) &&
+            ! isset($this->resource)
+        ) {
             throw new PermissionLookupException("You must call the resource or setting name before trying to access the permission string. e.g. TeamPermission::billing()->edit(). `billing` represents a resource you have listed in your config file.");
         }
 

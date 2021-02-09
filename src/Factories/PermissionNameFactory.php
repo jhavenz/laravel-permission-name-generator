@@ -42,7 +42,7 @@ abstract class PermissionNameFactory
         return self::DEFAULT_ACCESS_LEVELS;
     }
 
-    public static function noAccessWithoutResource ()
+    public static function resourceRequiredAccess ()
     {
         return self::RESOURCE_REQUIRED_ACCESS_LEVELS;
     }
