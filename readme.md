@@ -165,7 +165,8 @@ TeamPermission::billing()->wildcard();
 ```
 
 ### 'Retrieval' Methods
-When I mention this, I'm referring to the methods that are listed in [this contract](https://github.com/Sourcefli/laravel-permission-name-generator/blob/main/src/Contracts/RetrievesPermissions.php)
+When I mention this, I'm referring to the methods that are listed in [this contract](https://github.com/Sourcefli/laravel-permission-name-generator/blob/main/src/Contracts/RetrievesPermissions.php).
+
 For each resource that you list in the config file, you can:
 
 1. Call that resource (by name) on the facade
