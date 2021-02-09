@@ -13,7 +13,7 @@ use Sourcefli\PermissionName\PermissionGenerator;
 
 class AllPermissions
 {
-    public static function makeAdapter ($scopeType)
+    public static function makeAdapter($scopeType)
     {
         switch ($scopeType) {
             case PermissionGenerator::SCOPE_OWNED:

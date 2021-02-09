@@ -12,16 +12,18 @@ class TeamPermissions extends PermissionNameFactory implements BuildsPermissions
 
     public function __construct()
     {
-        $this->permissions = $this->collectPermissions();
+        $this->permissions = count(Meta::getResources())
+            ? $this->collectPermissions()
+            : collect();
     }
 
-    public function collectPermissions (): Collection
+    public function collectPermissions(): Collection
     {
         return collect(Meta::getResources())
-            ->map(function ($p)  {
+            ->map(function ($p) {
                 $permissionSet = [];
                 foreach (self::DEFAULT_ACCESS_LEVELS as $accessLevel) {
-                    $permissionSet[] = "{$p}." .PermissionGenerator::SCOPE_TEAM. ".{$accessLevel}";
+                    $permissionSet[] = "{$p}." . PermissionGenerator::SCOPE_TEAM . ".{$accessLevel}";
                 }
                 return $permissionSet;
             });
