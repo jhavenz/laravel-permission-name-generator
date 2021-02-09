@@ -38,11 +38,11 @@ abstract class PermissionManager
         $this->permissions = $this->filterForScope();
     }
 
-    protected function validateScope ($scopeType = null)
+    protected function validateScope($scopeType = null)
     {
         $scope = $scopeType ?? $this->scopeType;
 
-        if (empty($scope) || ! in_array($scope, PermissionGenerator::allScopes(), true)) {
+        if (empty($scope) || !in_array($scope, PermissionGenerator::allScopes(), true)) {
             throw new PermissionLookupException(
                 "Unable to determine resource scope. Please instantiate using one of the facades/adapters so it can determined automatically."
             );
@@ -79,13 +79,13 @@ abstract class PermissionManager
         return $this->firstByAbility('delete');
     }
 
-    public function force_delete (): string
+    public function force_delete(): string
     {
         $this->resetAndReduceByResource();
         return $this->firstByAbility('force_delete');
     }
 
-    public function restore (): string
+    public function restore(): string
     {
         $this->resetAndReduceByResource();
         return $this->firstByAbility('restore');
@@ -103,12 +103,12 @@ abstract class PermissionManager
     //TODO
     //public function except (...$abilities) {}
 
-    public function all (): Collection
+    public function all(): Collection
     {
-        return $this->permissions;
+        return $this->permissions->values();
     }
 
-    protected function getAll (): Collection
+    protected function getAll(): Collection
     {
         return $this->generator->allPermissions();
     }
@@ -133,7 +133,7 @@ abstract class PermissionManager
         return $this;
     }
 
-    public function resetAndReduceByResource ()
+    public function resetAndReduceByResource()
     {
         if ($this->scopeIsAll()) {
             throw new PermissionLookupException("A scope type is not set. If using the `AllPermission` facade, call setScope(), passing in a valid scope, before calling on your resources. e.g. AllPermission::setScope('owned')->user()->browse()");
@@ -157,7 +157,7 @@ abstract class PermissionManager
             ->permissions
             ->filter(
                 fn ($p) =>
-                    Str::startsWith($p, $this->resourcePrefix())
+                Str::startsWith($p, $this->resourcePrefix())
             );
 
         return $this;
@@ -172,13 +172,13 @@ abstract class PermissionManager
         return $this;
     }
 
-    protected function resourcePrefix ()
+    protected function resourcePrefix()
     {
         // 'user.[owned]'
-        return $this->resource. "." .$this->scopeType;
+        return $this->resource . "." . $this->scopeType;
     }
 
-    protected function scopeIsAll ()
+    protected function scopeIsAll()
     {
         return $this->scopeType === PermissionGenerator::SCOPE_ALL;
     }
@@ -228,7 +228,7 @@ abstract class PermissionManager
         return true;
     }
 
-    private function runtimeOwnershipType ()
+    private function runtimeOwnershipType()
     {
         return $this instanceof OwnedPermissionsAdapter
             ? PermissionGenerator::SCOPE_OWNED
@@ -240,11 +240,10 @@ abstract class PermissionManager
                         ? PermissionGenerator::SCOPE_TEAM_SETTING
                         : ($this instanceof AllPermissionsAdapter
                             ? PermissionGenerator::SCOPE_ALL
-                            : null
-            )  )   )   );
+                            : null))));
     }
 
-    public function __get ($name)
+    public function __get($name)
     {
         $prop = $this->{$name};
 
@@ -255,10 +254,11 @@ abstract class PermissionManager
         throw new \InvalidArgumentException("No property exists named `{$name}` or you have to use a 'retrieval' method to access it");
     }
 
-    public function __call ($name, $arguments): PermissionManager
+    public function __call($name, $arguments): PermissionManager
     {
-        if (in_array($name, PermissionNameFactory::resourceRequiredAccess(), true) &&
-            ! isset($this->resource)
+        if (
+            in_array($name, PermissionNameFactory::resourceRequiredAccess(), true) &&
+            !isset($this->resource)
         ) {
             throw new PermissionLookupException("You must call the resource or setting name before trying to access the permission string. e.g. TeamPermission::billing()->edit(). `billing` represents a resource you have listed in your config file.");
         }
@@ -272,9 +272,8 @@ abstract class PermissionManager
         return $this;
     }
 
-    private function isSettingScope ()
+    private function isSettingScope()
     {
         return $this->scopeType === PermissionGenerator::SCOPE_OWNED_SETTING || $this->scopeType === PermissionGenerator::SCOPE_TEAM_SETTING;
     }
-
 }
