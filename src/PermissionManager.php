@@ -96,7 +96,7 @@ abstract class PermissionManager
         $this->resetAndReduceByResource();
         return $this->firstByAbility('*');
     }
-    
+
     //TODO
     //public function only (...$abilities) {}
 

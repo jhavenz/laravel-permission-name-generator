@@ -30,6 +30,16 @@ which syntax was for the 'team' permissions, vs which ones were just for the use
 
 This package is an effort to create a convention to naming, generating, and accessing predictable and reliable permission strings (as always referencing them as methods, so they can all be updated in one place...in this case the config file). 
 
+### Installation
+```bash
+composer require sourcefli/laravel-permission-name-generator
+```
+
+### Publish Config
+```bash
+php artisan vendor:publish --provider="Sourcefli\PermissionName\PermissionNameServiceProvider"
+```
+
 This package comes with 5 facades.
 
 ```php

@@ -17,7 +17,7 @@ class PermissionNameServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__. '/../config/' .self::FILENAME,
+            __DIR__ . '/../config/' . self::FILENAME,
             self::CONFIG_PATH
         );
 
@@ -40,9 +40,6 @@ class PermissionNameServiceProvider extends ServiceProvider
         $this->app->singleton('TeamSettingPermission', function () {
             return new TeamSettingPermissionsAdapter;
         });
-
-
-
     }
 
     public function boot()
@@ -51,7 +48,7 @@ class PermissionNameServiceProvider extends ServiceProvider
             $filename = Meta::CONFIG_FILENAME;
 
             $this->publishes([
-                __DIR__. "../config/" .$filename => config_path($filename),
+                __DIR__ . "/../config/" . $filename => config_path($filename),
             ]);
         }
     }
