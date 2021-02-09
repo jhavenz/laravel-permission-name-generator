@@ -380,8 +380,6 @@ If you're looking at the source code, these are often referred to as `ownershipS
 This is definitely intentional, since when I'm working on my own projects, I was always having to lookup what was singular and what wasn't.
 The `AllPermissions` Facade is the only thing that's singular (unless I overlooked something somewhere, if so please let me know).
 This provides a unified and predictable format across the board... 
-    _I can only advise to list your resource as singular when you
-    add them in the config file..that's 100% up to you though, as it wont make much difference if using this package._ 
 
 3. **Can I add my own scopes?**
 No, right now there's only 4 available... as represented by the Facades.
