@@ -1,7 +1,7 @@
 ### This package is still a work in progress!! 
 #### Anyone is welcome to contribute 
 
-!! **PLEASE DO NOT** use this package other than in a local environment !!
+!! **PLEASE DO NOT** use this package in a production environment yet !!
 
 
 ## Laravel Permission Name Generator
@@ -30,17 +30,24 @@ which syntax was for the 'team' permissions, vs which ones were just for the use
 
 This package is an effort to create a convention to naming, generating, and accessing predictable and reliable permission strings (as always referencing them as methods, so they can all be updated in one place...in this case the config file). 
 
-This package comes with 5 facades:
+This package comes with 5 facades.
 
-`AllPermission::class`
+```php
+use Sourcefli\PermissionName\Facades\AllPermission;
+use Sourcefli\PermissionName\Facades\OwnedPermission;
+use Sourcefli\PermissionName\Facades\OwnedSettingPermission;
+use Sourcefli\PermissionName\Facades\TeamPermission;
+use Sourcefli\PermissionName\Facades\TeamSettingPermission;
+```
 
-`OwnedPermission::class`
+You can also use the root aliases...
 
-`OwnedSettingPermission::class`
+```php 
+use AllPermission;
+use OwnedPermission;
+//and so on..
+```
 
-`TeamPermission::class`
-
-`TeamSettingPermission::class`
 
 ### Quick Examples:
 ```php
@@ -349,4 +356,4 @@ No, right now there's only 4 available... as represented by the Facades.
    
 
 
-#### This package is still a work in progress!! Please dont use in production!
+#### This package is still a work in progress!! Please dont use in any production environment yet!
