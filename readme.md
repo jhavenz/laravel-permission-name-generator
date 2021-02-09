@@ -1,5 +1,8 @@
 ### This package is still a work in progress!! 
-!! Please do NOT use in production !!
+#### Anyone is welcome to contribute 
+
+!! **PLEASE DO NOT** use this package other than in a local environment !!
+
 
 ## Laravel Permission Name Generator
 
