@@ -30,8 +30,8 @@ abstract class PermissionManager
     {
         $this->scopeType = $this->runtimeOwnershipType();
         $this->validateScope();
-        $this->resources = config('permission-name.resources');
-        $this->settings = config('permission-name.settings');
+        $this->resources = Meta::getResources();
+        $this->settings = Meta::getSettings();
         $this->abilities = collect();
         $this->generator = new PermissionGenerator;
         $this->permissions = $this->filterForScope();
@@ -94,6 +94,11 @@ abstract class PermissionManager
     {
         $this->resetAndReduceByResource();
         return $this->firstByAbility('*');
+    }
+
+    public function only (...$abilities)
+    {
+        dd(func_get_args());
     }
 
     public function all (): Collection
@@ -189,7 +194,7 @@ abstract class PermissionManager
     {
         if (!count($this->settings)) {
             throw new PermissionLookupException(
-                "No setting-related permissions were specified within the `permission-name.settings` configuration"
+                "No setting-related permissions were specified within the `permission-name-generator.settings` configuration"
             );
         }
 
@@ -197,7 +202,7 @@ abstract class PermissionManager
 
         if (!in_array($settingItem, $this->settings, true)) {
             throw new PermissionLookupException(
-                "Settings permission of {$settingItem} is not a valid settings item. All settings-related permissions should be listed in the `permission-name.settings` configuration."
+                "Settings permission of {$settingItem} is not a valid settings item. All settings-related permissions should be listed in the `permission-name-generator.settings` configuration."
             );
         }
 
@@ -208,13 +213,13 @@ abstract class PermissionManager
     {
         if (!count($this->resources)) {
             throw new PermissionLookupException(
-                "No resources were specified within the `permission-name.resources` configuration"
+                "No resources were specified within the `permission-name-generator.resources` configuration"
             );
         }
 
         if (!in_array($resource, $this->resources, true)) {
             throw new PermissionLookupException(
-                "Resource of {$resource} is not valid. Only `resources` listed in the `config.permission-name.resources` can be used as facade methods, or check out the `Sourcefli\PermissionName\Contracts\RetrievesPermissions` contract to see which retrieval methods can be chained. i.e. `OwnedPermission::user()->browse()`. `user` is the resource and `browse` is the retrieval method. This example would return the `user.owned.browse` permission"
+                "Resource of {$resource} is not valid. Only `resources` listed in the `config.permission-name-generator.resources` can be used as facade methods, or check out the `Sourcefli\PermissionName\Contracts\RetrievesPermissions` contract to see which retrieval methods can be chained. i.e. `OwnedPermission::user()->browse()`. `user` is the resource and `browse` is the retrieval method. This example would return the `user.owned.browse` permission"
             );
         }
 

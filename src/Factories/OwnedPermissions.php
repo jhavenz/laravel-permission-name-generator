@@ -4,6 +4,7 @@ namespace Sourcefli\PermissionName\Factories;
 
 use Illuminate\Support\Collection;
 use Sourcefli\PermissionName\Contracts\BuildsPermissions;
+use Sourcefli\PermissionName\Meta;
 use Sourcefli\PermissionName\PermissionGenerator;
 
 class OwnedPermissions extends PermissionNameFactory implements BuildsPermissions
@@ -15,7 +16,7 @@ class OwnedPermissions extends PermissionNameFactory implements BuildsPermission
 
     public function collectPermissions (): Collection
     {
-        return collect(config('permission-name.resources'))
+        return collect(Meta::getResources())
             ->map(function ($p)  {
                 $permissionSet = [];
                 foreach (self::DEFAULT_ACCESS_LEVELS as $accessLevel) {

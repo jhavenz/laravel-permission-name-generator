@@ -5,6 +5,7 @@ namespace Sourcefli\PermissionName\Tests;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 use Sourcefli\PermissionName\Factories\PermissionNameFactory;
+use Sourcefli\PermissionName\Meta;
 use Sourcefli\PermissionName\PermissionNameServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
@@ -15,14 +16,17 @@ class TestCase extends \Orchestra\Testbench\TestCase
     /** @var string */
     protected string $settingsResource;
 
+    /** @var array */
+    protected array $meta;
+
     protected function setUp (): void
     {
         parent::setUp();
 
-        $this->clearConfigFor('permission-name.resources');
-        $this->clearConfigFor('permission-name.settings');
+        $this->clearConfigFor(Meta::RESOURCES_PATH);
+        $this->clearConfigFor(Meta::SETTINGS_PATH);
 
-        Config::set('permission-name.resources', [
+        Config::set(Meta::RESOURCES_PATH, [
             'user',
             'billing',
             'tenant',
@@ -30,7 +34,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
             'manager'
         ]);
 
-        Config::set('permission-name.settings', [
+        Config::set(Meta::SETTINGS_PATH, [
             'email',
             'profile',
             'phone_numbers',
@@ -39,11 +43,11 @@ class TestCase extends \Orchestra\Testbench\TestCase
             'manager'
         ]);
 
-        $resource = config('permission-name.resources');
+        $resource = Meta::getResources();
         $idx = array_rand($resource);
         $this->resource = $resource[$idx];
 
-        $settings = config('permission-name.settings');
+        $settings = Meta::getSettings();
         $idx = array_rand($settings);
         $this->settingsResource = $settings[$idx];
     }
@@ -67,7 +71,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function allUserResources ()
     {
-        return config('permission-name.resources');
+        return Meta::getResources();
     }
 
     protected function accessLevelCount ()
@@ -77,34 +81,30 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function resourceCount ()
     {
-        return count(config('permission-name.resources'));
+        return count(Meta::getResources());
     }
 
     protected function settingsResourcesCount ()
     {
-        return count(config('permission-name.settings'));
+        return count(Meta::getSettings());
     }
 
     protected function resourcePlusSettingsCount ()
     {
         return count(array_merge(
-            config('permission-name.resources'),
-            config('permission-name.settings')
+            Meta::getResources(),
+            Meta::getSettings()
         ));
     }
 
     protected function basicScopes ()
     {
-        return [
-            'OwnedPermissions', 'TeamPermissions'
-        ];
+        return Meta::BASIC_SCOPES;
     }
 
     protected function settingScopes ()
     {
-        return [
-            'OwnedSettingPermissions', 'TeamSettingPermissions'
-        ];
+        return Meta::SETTING_SCOPES;
     }
 
     protected function basicScopesCount (): int
@@ -124,27 +124,22 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function scopeTypes ()
     {
-        return [
-            //not configurable for the time being, always 4
-            'OwnedPermissions', 'OwnedSettingPermissions',
-            'TeamPermissions', 'TeamSettingPermissions'
-        ];
+        return array_merge(
+            Meta::BASIC_SCOPES,
+            Meta::SETTING_SCOPES
+        );
     }
 
     /**
-     * From 'user.owned.browse' (the full permission name)
-     * To 'user' (as defined in config)
      * @param $permission
      * @return string
      */
     protected function extractResourceNameFromPermission ($permission)
     {
-        return Str::startsWith($permission, '_setting')
-            ? (string) Str::of($permission)->after('_setting.')->before('.')
-            : Str::before($permission, '.');
+        return Str::before($permission, '.[');
     }
 
-    protected function totalPermissionsForOneScope (string $ownershipType_ = 'owned') //doc var
+    protected function totalPermissionsForOneScope (string $ownershipType_ = '[owned]') //doc var
     {
         return $this->accessLevelCount()
             * $this->resourceCount();

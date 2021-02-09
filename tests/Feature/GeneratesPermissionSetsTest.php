@@ -10,6 +10,7 @@ use Sourcefli\PermissionName\Facades\OwnedSettingPermission;
 use Sourcefli\PermissionName\Facades\TeamPermission;
 use Sourcefli\PermissionName\Facades\TeamSettingPermission;
 use Sourcefli\PermissionName\Factories\PermissionNameFactory;
+use Sourcefli\PermissionName\Meta;
 use Sourcefli\PermissionName\PermissionGenerator;
 use Sourcefli\PermissionName\Tests\TestCase;
 
@@ -23,8 +24,8 @@ class GeneratesPermissionSetsTest extends TestCase
         $allAccessLevels = PermissionNameFactory::allAccessLevels();
         $allScopes = PermissionGenerator::allScopes();
         $allResources = array_merge(
-            config('permission-name.resources'),
-            config('permission-name.settings')
+            Meta::getResources(),
+            Meta::getSettings()
         );
 
         $resourceCount = $this->resourceCount();
@@ -50,7 +51,7 @@ class GeneratesPermissionSetsTest extends TestCase
     /** @test */
     public function it_builds_owned_permissions_for_each_resource_listed_in_config_file()
     {
-        $allResources = config('permission-name.resources');
+        $allResources = Meta::getResources();
         $allScopedPermissions = OwnedPermission::all();
         $scope = '[owned]';
 
@@ -74,7 +75,7 @@ class GeneratesPermissionSetsTest extends TestCase
     public function it_builds_team_permissions_for_each_resource_listed_in_config_file()
     {
 
-        $allResources = config('permission-name.resources');
+        $allResources = Meta::getResources();
         $allScopedPermissions = TeamPermission::all();
         $scope = '[team]';
 
@@ -97,7 +98,7 @@ class GeneratesPermissionSetsTest extends TestCase
     /** @test */
     public function it_builds_owned_setting_permissions_for_each_setting_resource_listed_in_config_file()
     {
-        $allSettingResources = config('permission-name.settings');
+        $allSettingResources = Meta::getSettings();
         $allScopedPermissions = OwnedSettingPermission::all();
         $scope = '[owned_setting]';
 
@@ -120,7 +121,7 @@ class GeneratesPermissionSetsTest extends TestCase
     /** @test */
     public function it_builds_team_setting_permissions_for_each_setting_resource_listed_in_config_file()
     {
-        $allSettingResources = config('permission-name.settings');
+        $allSettingResources = Meta::getSettings();
         $allScopedPermissions = TeamSettingPermission::all();
         $scope = '[team_setting]';
 
