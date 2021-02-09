@@ -194,7 +194,8 @@ OwnedPermission::user()->restore(); //returns 'user.owned.restore'
 OwnedPermission::user()->force_delete(); //returns 'user.owned.force_delete'
 OwnedPermission::user()->wildcard(); //returns 'user.owned.*'
 
-//This will work on any of the facades, for example, you can also call any of these with this single resource in the config:
+//This will work on any of the facades...
+//Using the same config, you also have these methods available:
 TeamPermission::user()->browse(); //returns 'user.team.browse'
 TeamPermission::user()->read(); //returns 'user.team.read'
 TeamPermission::user()->add(); //returns 'user.team.add'
