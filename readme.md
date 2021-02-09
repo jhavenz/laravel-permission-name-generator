@@ -51,24 +51,22 @@ use OwnedPermission;
 
 ### Quick Examples:
 ```php
+use OwnedPermission;
+ 
 /**
  * This example might be the permission that you reference to see if the current user can browse their own users within the application
  * Note: no plurals are used in any permissions in effort to stick to a convention
- */
- 
- use OwnedPermission;
- 
+ */ 
 OwnedPermission::user()->browse(); 
 //returns 'user.[owned].browse'
 ```
 
 ```php
+use Sourcefli\PermissionName\Facades\TeamPermission;
+ 
 /**
  * This example might be the permission that you reference to see if the current user has 'team access' to delete users
  */
- 
- use Sourcefli\PermissionName\Facades\TeamPermission;
- 
 TeamPermission::user()->delete(); 
 //returns 'user.[team].delete'
 ```
@@ -77,13 +75,12 @@ _Opt-in_ 'Settings' feature...
 * The 'settings' permissions can be associated with your models or be a standalone set of permissions for any name you'd like to provide...
 * Using the same references as above, just take note of the different facades being used:
 ```php
+use OwnedSettingPermission;
+ 
 /**
  * This example might be the permission that you reference to see if the current user 
  * can delete the THEIR SETTINGS within the application
- */
- 
-use OwnedSettingPermission;
- 
+ */ 
 OwnedSettingPermission::user()->delete(); 
 //returns 'user.[owned_setting].delete'
 
@@ -100,14 +97,14 @@ OwnedSettingPermission::smtp()->edit();
 
 Also, there's a `TeamSettingPermission` facade which I use to reference whether the user
 has access to TEAM SETTINGS for a particular thing:
+
 ```php
+use TeamSettingPermission;
+
 /**
  * This similar example might be the permission that you reference to see if the current user 
  * can edit the smtp settings for their entire team within the application
- */
- 
- use TeamSettingPermission;
- 
+ */ 
 TeamSettingPermission::smtp()->edit(); 
 //returns 'smtp.[team_setting].edit'
 ```
@@ -177,9 +174,9 @@ _with the exception of the `AllPermissions` facade, which I'll get to at the end
 
 For Example, these methods can now be called:
 ```php
-
 use OwnedPermission;
 use TeamPermission;
+
 
 OwnedPermission::user();
 //..or 
@@ -189,9 +186,9 @@ TeamPermission::billing();
 
 You can now use these methods to chain 'retreival' methods in order to hunt down the permission string you're after:
 ```php
-
 use OwnedPermission;
 use TeamPermission;
+
 
 OwnedPermission::user()->create();
 //returns 'user.[owned].create'
@@ -332,8 +329,8 @@ This will give you a combined Collection of 'resources' and 'settings' that you'
 If you want to retrieve permission strings from this Facade, it's a little different from the others.
 First, you have set a `scope`, then you can chain the standard methods as listed above (check out the tests [starting here](https://github.com/Sourcefli/laravel-permission-name-generator/tree/main/tests/Feature/AllPermissions) for sample usage).
 There are 4 methods available on this Facade to do this with: 
-```php
 
+```php
 use AllPermissions;
 
 AllPermissions::forOwned();
