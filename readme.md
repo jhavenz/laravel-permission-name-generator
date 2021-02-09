@@ -164,5 +164,50 @@ TeamPermission::billing()->wildcard();
 //returns 'billing.team.*'
 ```
 
+### 'Retrieval' Methods
+When I mention this, I'm referring to the methods that are listed in [this contract](https://github.com/Sourcefli/laravel-permission-name-generator/blob/main/src/Contracts/RetrievesPermissions.php)
+For each resource that you list in the config file, you can:
+
+1. Call that resource (by name) on the facade
+`OwnedPermission::user()`
+   
+2. Then you can chain the 'retrieval' method on the call to the resource:
+`OwnedPermission::user()->browse()`
+
+3. This means, for each resource that you've listed within the config, you have 9 'retrieval' methods you can call:
+```php
+//=> config/permission-name
+return [
+    'resources' => [
+        'user'
+    ]
+];
+
+//=> allows you to call all the following 'retrieval' methods:
+OwnedPermission::user()->browse(); //returns 'user.owned.browse'
+OwnedPermission::user()->read(); //returns 'user.owned.read'
+OwnedPermission::user()->add(); //returns 'user.owned.add'
+OwnedPermission::user()->edit(); //returns 'user.owned.edit'
+OwnedPermission::user()->delete(); //returns 'user.owned.delete'
+OwnedPermission::user()->restore(); //returns 'user.owned.restore'
+OwnedPermission::user()->force_delete(); //returns 'user.owned.force_delete'
+OwnedPermission::user()->wildcard(); //returns 'user.owned.*'
+
+//This will work on any of the facades, for example, you can also call any of these with this single resource in the config:
+TeamPermission::user()->browse(); //returns 'user.team.browse'
+TeamPermission::user()->read(); //returns 'user.team.read'
+TeamPermission::user()->add(); //returns 'user.team.add'
+TeamPermission::user()->edit(); //returns 'user.team.edit'
+TeamPermission::user()->delete(); //returns 'user.team.delete'
+TeamPermission::user()->restore(); //returns 'user.team.restore'
+TeamPermission::user()->force_delete(); //returns 'user.team.force_delete'
+TeamPermission::user()->wildcard(); //returns 'user.team.*'
+
+//the same applies for the other facades, which are:
+OwnedSettingPermission::class;
+TeamSettingPermission::class;
+AllPermission::class;
+```
+
 
 #### This package is still a work in progress!! Please dont use in production!
