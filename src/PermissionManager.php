@@ -24,8 +24,6 @@ abstract class PermissionManager
     protected array $resources = [];
     protected array $settings = [];
 
-    //abstract public function ownershipType(): string;
-
     protected const OWNERSHIP_TYPES = [
         "all", "owned", "team", "owned_setting", "team_setting"
     ];
@@ -38,7 +36,7 @@ abstract class PermissionManager
         $this->settings = config('permission-name.settings');
         $this->abilities = collect();
         $this->generator = new PermissionGenerator;
-        $this->permissions = $this->filterAllRelatedPermissions();
+        $this->permissions = $this->filterByOwnershipType();
     }
 
     private function validOwnershipType ()
@@ -53,73 +51,49 @@ abstract class PermissionManager
     public function browse(): string
     {
         $this->resetAndReduceByResource();
-
-        return $this
-            ->abilities
-            ->first(fn ($p) => Str::endsWith($p, '.browse'));
+        return $this->firstByAbility('browse');
     }
 
     public function read(): string
     {
         $this->resetAndReduceByResource();
-
-        return $this
-            ->abilities
-            ->first(fn ($p) => Str::endsWith($p, '.read'));
+        return $this->firstByAbility('read');
     }
 
     public function edit(): string
     {
         $this->resetAndReduceByResource();
-
-        return $this
-            ->abilities
-            ->first(fn ($p) => Str::endsWith($p, '.edit'));
+        return $this->firstByAbility('edit');
     }
 
     public function add(): string
     {
         $this->resetAndReduceByResource();
-
-        return $this
-            ->abilities
-            ->first(fn ($p) => Str::endsWith($p, '.add'));
+        return $this->firstByAbility('add');
     }
 
     public function delete(): string
     {
         $this->resetAndReduceByResource();
-
-        return $this
-            ->abilities
-            ->first(fn ($p) => Str::endsWith($p, '.delete'));
+        return $this->firstByAbility('delete');
     }
 
     public function force_delete (): string
     {
         $this->resetAndReduceByResource();
-
-        return $this
-            ->abilities
-            ->first(fn ($p) => Str::endsWith($p, '.force_delete'));
+        return $this->firstByAbility('force_delete');
     }
 
     public function restore (): string
     {
         $this->resetAndReduceByResource();
-
-        return $this
-            ->abilities
-            ->first(fn ($p) => Str::endsWith($p, '.restore'));
+        return $this->firstByAbility('restore');
     }
 
     public function wildcard(): string
     {
         $this->resetAndReduceByResource();
-
-        return $this
-            ->abilities
-            ->first(fn ($p) => Str::contains($p, '.*'));
+        return $this->firstByAbility('*');
     }
 
     public function all (): Collection
@@ -130,6 +104,13 @@ abstract class PermissionManager
     protected function getAll (): Collection
     {
         return $this->generator->allPermissions();
+    }
+
+    protected function firstByAbility(string $ability)
+    {
+        return $this
+            ->abilities
+            ->first(fn ($p) => Str::endsWith($p, ".{$ability}"));
     }
 
     public function setResource(string $resource): PermissionManager
@@ -162,12 +143,12 @@ abstract class PermissionManager
     public function filterForResource()
     {
         $this->abilities = $this
-            ->permissions
-            ->filter(
-                fn ($p) =>
-                Str::startsWith($p, $this->resource) &&
-                Str::contains($p, '.'.$this->ownershipType.'.')
-            );
+                            ->permissions
+                            ->filter(
+                                fn ($p) =>
+                                Str::startsWith($p, $this->resource) &&
+                                Str::contains($p, '.'.$this->ownershipType.'.')
+                            );
 
         return $this;
     }
@@ -175,12 +156,11 @@ abstract class PermissionManager
     public function reset()
     {
         $this->abilities = collect();
-
         return $this;
     }
 
 
-    protected function filterAllRelatedPermissions()
+    protected function filterByOwnershipType()
     {
         if ($this->ownershipType === 'all') return $this->getAll();
 

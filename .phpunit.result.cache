@@ -1,0 +1,1 @@
+C:37:"PHPUnit\Runner\DefaultTestResultCache":299:{a:2:{s:7:"defects";a:0:{}s:5:"times";a:2:{s:110:"Sourcefli\PermissionName\Tests\Feature\AllPermissionTest::it_constructs_the_correct_amount_of_permission_names";d:0.101;s:111:"Sourcefli\PermissionName\Tests\Feature\AllPermissionTest::it_allows_resource_methods_to_be_called_on_the_facade";d:0.123;}}}

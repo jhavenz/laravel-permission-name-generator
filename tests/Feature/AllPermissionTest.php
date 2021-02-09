@@ -27,9 +27,10 @@ class AllPermissionTest extends TestCase
     /** @test */
     public function it_allows_resource_methods_to_be_called_on_the_facade()
     {
-        $expected = 'user.owned.browse';
-        $perm = OwnedPermission::user()->browse();
+        $expected = 'user.owned.force_delete';
+        $perm = OwnedPermission::user()->force_delete();
 
+        dump($perm);
         $this->assertSame($expected, $perm, "Failed asserting that {$perm} is equal to {$expected}");
     }
 }
