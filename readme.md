@@ -384,6 +384,13 @@ This provides a unified and predictable format across the board...
 3. **Can I add my own scopes?**
 No, right now there's only 4 available... as represented by the Facades.
    
+4. **Can Permissions be queried in any way?**
+Only if you've saved the permissions to your database, then you can use your ORM.
+This package is only intended to either return an \Illuminate\Support\Collection of 
+permissions (either scoped, or all permissions, using the `AllPermissions` Facade).
+or to retrieve a single permission as a string. 
+I plan to add the `only()` and `except()` methods (like [Spatie's Data Transfer Object Package](https://github.com/spatie/data-transfer-object))
+but that's as fancy as the methods will get. I intend to keep this package as simple as possible.
 
 
 #### This package is still a work in progress!! Please dont use in any production environment yet!
