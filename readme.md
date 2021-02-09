@@ -6,7 +6,7 @@
 
 ## Laravel Permission Name Generator
 
-A simple package to produce 'b.r.e.a.d.r.f.*' permissions for specified resources. All resources have a root 'category', and each category above that can have a "_settings" namespace added to its root.
+A simple package to create/reference permission strings for specified resources. 
 
 _b.r.e.a.d.r.f.* definition_
 - browse
