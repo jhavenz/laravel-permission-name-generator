@@ -71,7 +71,8 @@ TeamPermission::user()->delete();
 //returns 'user.[team].delete'
 ```
 
-_Opt-in_ 'Settings' feature...
+####_Opt-in_
+'Settings' feature...
 * The 'settings' permissions can be associated with your models or be a standalone set of permissions for any name you'd like to provide...
 * Using the same references as above, just take note of the different facades being used:
 ```php

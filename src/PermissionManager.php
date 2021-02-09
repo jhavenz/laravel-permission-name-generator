@@ -13,6 +13,7 @@ use Sourcefli\PermissionName\Adapters\TeamPermissionsAdapter;
 use Sourcefli\PermissionName\Adapters\TeamSettingPermissionsAdapter;
 use Sourcefli\PermissionName\Exceptions\PermissionLookupException;
 use Sourcefli\PermissionName\Factories\AllPermissions as AllPermissionsFactory;
+use Sourcefli\PermissionName\Factories\PermissionNameFactory;
 
 abstract class PermissionManager
 {
@@ -250,11 +251,14 @@ abstract class PermissionManager
             return $prop;
         }
 
-        throw new \InvalidArgumentException("No property exists named `{$name}`");
+        throw new \InvalidArgumentException("No property exists named `{$name}` or you have to use a 'retrieval' method to access it");
     }
 
     public function __call ($name, $arguments): PermissionManager
     {
+        if (in_array($name, PermissionNameFactory::noAccessWithoutResource(), true) && ! isset($this->resource)) {
+            throw new PermissionLookupException("You must call the resource or setting name before trying to access the permission string. e.g. TeamPermission::billing()->edit(). `billing` represents a resource you have listed in your config file.");
+        }
 
         if ($this->isSettingScope() && $this->isValidSettingItem($name)) {
             $this->setResource($name);
