@@ -37,12 +37,12 @@ class PermissionGenerator
     {
         $this->ownedPermissions = $this->ownedPermissions();
         $this->teamPermissions = $this->teamPermissions();
-        $this->ownedSettingPermissions = $this->ownedSettingPermissions ();
-        $this->teamSettingPermissions = $this->teamSettingPermissions ();
+        $this->ownedSettingPermissions = $this->ownedSettingPermissions();
+        $this->teamSettingPermissions = $this->teamSettingPermissions();
         $this->allPermissions = $this->allPermissions();
     }
 
-    public function byScope (string $scopeType)
+    public function byScope(string $scopeType)
     {
         if ($scopeType === self::SCOPE_ALL) return $this->allPermissions();
 
@@ -51,7 +51,7 @@ class PermissionGenerator
                 ->allPermissions()
                 ->filter(
                     fn ($p) =>
-                        Str::contains($p, '.' .self::SCOPE_TEAM. '.')
+                    Str::contains($p, '.' . self::SCOPE_TEAM . '.')
                 );
         }
 
@@ -60,7 +60,7 @@ class PermissionGenerator
                 ->allPermissions()
                 ->filter(
                     fn ($p) =>
-                        Str::contains($p, '.' .self::SCOPE_OWNED. '.')
+                    Str::contains($p, '.' . self::SCOPE_OWNED . '.')
                 );
         }
 
@@ -69,7 +69,7 @@ class PermissionGenerator
                 ->allPermissions()
                 ->filter(
                     fn ($p) =>
-                        Str::contains($p, '.' .self::SCOPE_OWNED_SETTING. '.')
+                    Str::contains($p, '.' . self::SCOPE_OWNED_SETTING . '.')
                 );
         }
 
@@ -78,7 +78,7 @@ class PermissionGenerator
                 ->allPermissions()
                 ->filter(
                     fn ($p) =>
-                        Str::contains($p, '.' .self::SCOPE_TEAM_SETTING. '.')
+                    Str::contains($p, '.' . self::SCOPE_TEAM_SETTING . '.')
                 );
         }
 
@@ -89,53 +89,52 @@ class PermissionGenerator
 
     public function allPermissions(): Collection
     {
-        return once(function ()  {
+        return once(function () {
             return $this->ownedPermissions
-                ->merge($this->ownedSettingPermissions)
-                ->merge($this->teamPermissions)
-                ->merge($this->teamSettingPermissions)
+                ->merge($this->ownedSettingPermissions->flatten())
+                ->merge($this->teamPermissions->flatten())
+                ->merge($this->teamSettingPermissions->flatten())
                 ->unique()
                 ->flatten();
         });
     }
 
-    private function ownedPermissions ()
+    private function ownedPermissions()
     {
-        return once(function ()  {
-           return OwnedPermissionsFactory::all();
+        return once(function () {
+            return OwnedPermissionsFactory::all();
         });
     }
 
-    private function ownedSettingPermissions ()
+    private function ownedSettingPermissions()
     {
-        return once(function ()  {
-           return OwnedSettingPermissionsFactory::all();
+        return once(function () {
+            return OwnedSettingPermissionsFactory::all();
         });
     }
 
-    private function teamPermissions ()
+    private function teamPermissions()
     {
-        return once(function ()  {
-           return TeamPermissionsFactory::all();
+        return once(function () {
+            return TeamPermissionsFactory::all();
         });
     }
 
-    private function teamSettingPermissions ()
+    private function teamSettingPermissions()
     {
-        return once(function ()  {
-           return TeamSettingPermissionsFactory::all();
+        return once(function () {
+            return TeamSettingPermissionsFactory::all();
         });
     }
 
 
-    public static function allScopes (): array
+    public static function allScopes(): array
     {
         return self::OWNERSHIP_SCOPES;
     }
 
-    public function getScope (string $scopeName): array
+    public function getScope(string $scopeName): array
     {
-        return collect(self::OWNERSHIP_SCOPES)->first(fn($s) => $s === $scopeName);
+        return collect(self::OWNERSHIP_SCOPES)->first(fn ($s) => $s === $scopeName);
     }
-
 }
