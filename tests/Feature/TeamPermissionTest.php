@@ -2,18 +2,18 @@
 
 namespace Sourcefli\PermissionName\Tests\Feature;
 
-use Sourcefli\PermissionName\Facades\OwnedPermission;
+use Sourcefli\PermissionName\Facades\TeamPermission;
 use Sourcefli\PermissionName\Tests\TestCase;
 
-class OwnedPermissionTest extends TestCase
+class TeamPermissionTest extends TestCase
 {
 
     /** @test */
     public function it_returns_the_expected_permission_for_browse ()
     {
-        $expectedPermission = "{$this->resource}.[owned].browse";
+        $expectedPermission = "{$this->resource}.[team].browse";
 
-        $retrievedPermission = OwnedPermission::{$this->resource}()->browse();
+        $retrievedPermission = TeamPermission::{$this->resource}()->browse();
 
         $this->assertSame($expectedPermission, $retrievedPermission);
     }
@@ -21,9 +21,9 @@ class OwnedPermissionTest extends TestCase
     /** @test */
     public function it_returns_the_expected_permission_for_read ()
     {
-        $expectedPermission = "{$this->resource}.[owned].read";
+        $expectedPermission = "{$this->resource}.[team].read";
 
-        $retrievedPermission = OwnedPermission::{$this->resource}()->read();
+        $retrievedPermission = TeamPermission::{$this->resource}()->read();
 
         $this->assertSame($expectedPermission, $retrievedPermission);
     }
@@ -31,9 +31,9 @@ class OwnedPermissionTest extends TestCase
     /** @test */
     public function it_returns_the_expected_permission_for_edit ()
     {
-        $expectedPermission = "{$this->resource}.[owned].edit";
+        $expectedPermission = "{$this->resource}.[team].edit";
 
-        $retrievedPermission = OwnedPermission::{$this->resource}()->edit();
+        $retrievedPermission = TeamPermission::{$this->resource}()->edit();
 
         $this->assertSame($expectedPermission, $retrievedPermission);
     }
@@ -41,9 +41,9 @@ class OwnedPermissionTest extends TestCase
     /** @test */
     public function it_returns_the_expected_permission_for_add ()
     {
-        $expectedPermission = "{$this->resource}.[owned].add";
+        $expectedPermission = "{$this->resource}.[team].add";
 
-        $retrievedPermission = OwnedPermission::{$this->resource}()->add();
+        $retrievedPermission = TeamPermission::{$this->resource}()->add();
 
         $this->assertSame($expectedPermission, $retrievedPermission);
     }
@@ -51,9 +51,9 @@ class OwnedPermissionTest extends TestCase
     /** @test */
     public function it_returns_the_expected_permission_for_delete ()
     {
-        $expectedPermission = "{$this->resource}.[owned].delete";
+        $expectedPermission = "{$this->resource}.[team].delete";
 
-        $retrievedPermission = OwnedPermission::{$this->resource}()->delete();
+        $retrievedPermission = TeamPermission::{$this->resource}()->delete();
 
         $this->assertSame($expectedPermission, $retrievedPermission);
     }
@@ -61,9 +61,9 @@ class OwnedPermissionTest extends TestCase
     /** @test */
     public function it_returns_the_expected_permission_for_force_delete ()
     {
-        $expectedPermission = "{$this->resource}.[owned].force_delete";
+        $expectedPermission = "{$this->resource}.[team].force_delete";
 
-        $retrievedPermission = OwnedPermission::{$this->resource}()->force_delete();
+        $retrievedPermission = TeamPermission::{$this->resource}()->force_delete();
 
         $this->assertSame($expectedPermission, $retrievedPermission);
     }
@@ -71,9 +71,9 @@ class OwnedPermissionTest extends TestCase
     /** @test */
     public function it_returns_the_expected_permission_for_restore ()
     {
-        $expectedPermission = "{$this->resource}.[owned].restore";
+        $expectedPermission = "{$this->resource}.[team].restore";
 
-        $retrievedPermission = OwnedPermission::{$this->resource}()->restore();
+        $retrievedPermission = TeamPermission::{$this->resource}()->restore();
 
         $this->assertSame($expectedPermission, $retrievedPermission);
     }
@@ -81,9 +81,9 @@ class OwnedPermissionTest extends TestCase
     /** @test */
     public function it_returns_the_expected_permission_for_wildcard ()
     {
-        $expectedPermission = "{$this->resource}.[owned].*";
+        $expectedPermission = "{$this->resource}.[team].*";
 
-        $retrievedPermission = OwnedPermission::{$this->resource}()->wildcard();
+        $retrievedPermission = TeamPermission::{$this->resource}()->wildcard();
 
         $this->assertSame($expectedPermission, $retrievedPermission);
     }

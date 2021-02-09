@@ -26,7 +26,6 @@ abstract class PermissionManager
     protected array $settings = [];
 
 
-
     public function __construct()
     {
         $this->scopeType = $this->runtimeOwnershipType();
@@ -116,7 +115,7 @@ abstract class PermissionManager
 
     public function setResource(string $resource): PermissionManager
     {
-        if (Str::startsWith($resource, '_setting.')) {
+        if ($this->isSettingScope()) {
             $this->isValidSettingItem($resource);
             $this->resource = collect($this->settings)->first(fn ($s) => $s === $resource);
         } else {
@@ -147,26 +146,12 @@ abstract class PermissionManager
 
     public function filterForResource()
     {
-        if (Str::endsWith($this->scopeType, '_setting')) {
-            $scopeType = Str::before($this->scopeType, '_setting');
-
-            $this->abilities = $this
-                                ->permissions
-                                ->filter(fn ($p) =>
-                                    Str::startsWith($p, '_setting') &&
-                                    Str::contains($p, '.'.$scopeType.'.') &&
-                                    Str::contains($p, $this->resource)
-                                );
-        } else {
-            $this->abilities = $this
-                                ->permissions
-                                ->filter(
-                                    fn ($p) =>
-                                    Str::startsWith($p, $this->resource) &&
-                                    Str::contains($p, '.'.$this->scopeType.'.') &&
-                                    ! Str::contains($p, '_setting.')
-                                );
-        }
+        $this->abilities = $this
+            ->permissions
+            ->filter(
+                fn ($p) =>
+                    Str::startsWith($p, $this->resourcePrefix())
+            );
 
         return $this;
     }
@@ -178,6 +163,12 @@ abstract class PermissionManager
     {
         $this->abilities = collect();
         return $this;
+    }
+
+    protected function resourcePrefix ()
+    {
+        // 'user.[owned]'
+        return $this->resource. "." .$this->scopeType;
     }
 
     protected function scopeIsAll ()
@@ -202,13 +193,15 @@ abstract class PermissionManager
             );
         }
 
-        $settingItem = Str::afterLast($settingItem, '.');
+        $settingItem = Str::between($settingItem, '[', ']');
 
         if (!in_array($settingItem, $this->settings, true)) {
             throw new PermissionLookupException(
                 "Settings permission of {$settingItem} is not a valid settings item. All settings-related permissions should be listed in the `permission-name.settings` configuration."
             );
         }
+
+        return true;
     }
 
     public function isValidResource(string $resource)
@@ -258,11 +251,18 @@ abstract class PermissionManager
     public function __call ($name, $arguments): PermissionManager
     {
 
-        if ($this->isValidResource($name)) {
+        if ($this->isSettingScope() && $this->isValidSettingItem($name)) {
+            $this->setResource($name);
+        } elseif ($this->isValidResource($name)) {
             $this->setResource($name);
         }
 
         return $this;
+    }
+
+    private function isSettingScope ()
+    {
+        return $this->scopeType === PermissionGenerator::SCOPE_OWNED_SETTING || $this->scopeType === PermissionGenerator::SCOPE_TEAM_SETTING;
     }
 
 }

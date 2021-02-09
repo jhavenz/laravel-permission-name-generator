@@ -4,7 +4,9 @@
 namespace Sourcefli\PermissionName\Facades;
 
 
-class OwnedSettingPermission
+use Illuminate\Support\Facades\Facade;
+
+class OwnedSettingPermission extends Facade
 {
     protected static function getFacadeAccessor(): string
     {

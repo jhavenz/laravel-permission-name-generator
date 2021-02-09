@@ -51,9 +51,6 @@ class PermissionGenerator
                 ->allPermissions()
                 ->filter(
                     fn ($p) =>
-                        //Remove?
-                        //!Str::startsWith($p, 'team') &&
-                        !Str::contains($p, '_setting') &&
                         Str::contains($p, '.' .self::SCOPE_TEAM. '.')
                 );
         }
@@ -63,9 +60,6 @@ class PermissionGenerator
                 ->allPermissions()
                 ->filter(
                     fn ($p) =>
-                    //Remove?
-                         //!Str::startsWith($p, 'owned') &&
-                        !Str::contains($p, '_setting') &&
                         Str::contains($p, '.' .self::SCOPE_OWNED. '.')
                 );
         }
@@ -75,8 +69,7 @@ class PermissionGenerator
                 ->allPermissions()
                 ->filter(
                     fn ($p) =>
-                        Str::startsWith($p, '_setting') &&
-                        Str::contains($p, '.' .self::SCOPE_OWNED. '.')
+                        Str::contains($p, '.' .self::SCOPE_OWNED_SETTING. '.')
                 );
         }
 
@@ -85,8 +78,7 @@ class PermissionGenerator
                 ->allPermissions()
                 ->filter(
                     fn ($p) =>
-                        Str::startsWith($p, '_setting') &&
-                        Str::contains($p, '.' .self::SCOPE_TEAM. '.')
+                        Str::contains($p, '.' .self::SCOPE_TEAM_SETTING. '.')
                 );
         }
 

@@ -23,6 +23,10 @@ class PermissionNameServiceProvider extends ServiceProvider
             return new OwnedPermissionsAdapter;
         });
 
+        $this->app->singleton('OwnedSettingPermission', function () {
+            return new OwnedSettingPermissionsAdapter;
+        });
+
         $this->app->singleton('TeamPermission', function () {
             return new TeamPermissionsAdapter;
         });
@@ -31,9 +35,7 @@ class PermissionNameServiceProvider extends ServiceProvider
             return new TeamSettingPermissionsAdapter;
         });
 
-        $this->app->singleton('OwnedSettingPermission', function () {
-            return new OwnedSettingPermissionsAdapter;
-        });
+
 
     }
 

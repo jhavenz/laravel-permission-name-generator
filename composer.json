@@ -38,7 +38,11 @@
                 "Sourcefli\\PermissionName\\PermissionNameServiceProvider"
             ],
             "aliases": {
-                "OwnedPermission": "Sourcefli\\PermissionName\\Facades\\OwnedPermission"
+                "AllPermissions": "Sourcefli\\PermissionName\\Facades\\AllPermissions",
+                "OwnedPermission": "Sourcefli\\PermissionName\\Facades\\OwnedPermission",
+                "OwnedSettingPermission": "Sourcefli\\PermissionName\\Facades\\OwnedSettingPermission",
+                "TeamPermission": "Sourcefli\\PermissionName\\Facades\\TeamPermission",
+                "TeamSettingPermission": "Sourcefli\\PermissionName\\Facades\\TeamSettingPermission"
             }
         }
     }

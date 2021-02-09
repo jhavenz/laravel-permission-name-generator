@@ -10,16 +10,18 @@ class OwnedSettingPermissions extends PermissionNameFactory implements BuildsPer
 {
     public function __construct()
     {
-        $this->permissions = $this->collectPermissions();
+        $this->permissions = count(config('permission-name.settings'))
+            ? $this->collectPermissions()
+            : collect();
     }
 
     public function collectPermissions (): Collection
     {
-        return collect(config('permission-name.resources'))
+        return collect(config('permission-name.settings'))
             ->map(function ($p)  {
                 $permissionSet = [];
                 foreach (self::DEFAULT_ACCESS_LEVELS as $accessLevel) {
-                    $permissionSet[] = "_setting.{$p}." .PermissionGenerator::SCOPE_OWNED_SETTING. ".{$accessLevel}";
+                    $permissionSet[] = "{$p}." .PermissionGenerator::SCOPE_OWNED_SETTING. ".{$accessLevel}";
                 }
                 return $permissionSet;
             });
