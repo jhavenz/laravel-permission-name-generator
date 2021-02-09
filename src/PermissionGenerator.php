@@ -18,7 +18,7 @@ class PermissionGenerator
     protected Collection $ownedSettingPermissions;
     protected Collection $teamSettingPermissions;
     protected Collection $allPermissions;
-    
+
     public function __construct()
     {
         $this->ownedPermissions = $this->ownedPermissions();

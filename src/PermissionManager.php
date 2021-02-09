@@ -31,7 +31,7 @@ abstract class PermissionManager
     public function __construct()
     {
         $this->ownershipType = $this->runtimeOwnershipType();
-        $this->validOwnershipType();
+        $this->validateOwnershipType();
         $this->resources = config('permission-name.resources');
         $this->settings = config('permission-name.settings');
         $this->abilities = collect();
@@ -39,9 +39,11 @@ abstract class PermissionManager
         $this->permissions = $this->filterForOwnership();
     }
 
-    private function validOwnershipType ()
+    private function validateOwnershipType ()
     {
-        if (! $this->ownershipType || ! in_array($this->ownershipType, self::OWNERSHIP_TYPES, true)) {
+        if (! $this->ownershipType ||
+            ! in_array($this->ownershipType, self::OWNERSHIP_TYPES, true)
+        ) {
             throw new PermissionLookupException(
                 "Unable to determine ownership type. Please instantiate using one of the facades/adapters so it can determined automatically."
             );
@@ -219,7 +221,7 @@ abstract class PermissionManager
                         : ($this instanceof AllPermissionsAdapter
                             ? 'all'
                             : null
-                        )  )   )   );
+            )  )   )   );
     }
 
     public function __call ($name, $arguments): PermissionManager
