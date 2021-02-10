@@ -444,11 +444,15 @@ _for any of your 'resources', you can call_
 
     TeamPermission::billing()->edit();
 
+    ...
+
 _or, for your 'settings'_
 
     OwnedSettingPermission::smtp()->read();
 
     TeamSettingPermission::smtp()->delete();
+
+    ...
 
 ---
 
