@@ -78,7 +78,7 @@ This example might be the permission used when you want to know if:
 
 _The current user can edit the billing settings THEY OWN in the application_
 ```php
-//=> web.php
+//=> routes/web.php
 use Sourcefli\PermissionName\Facades\OwnedPermission;
 
 Route::get('permissions', function () {
@@ -92,7 +92,7 @@ This example might be the permission used when you want to know if:
 
 _The current user can edit the smtp settings for THEIR ENTIRE TEAM_
 ```php
-//=> web.php
+//=> routes/web.php
 
 //note the Facade change
 use Sourcefli\PermissionName\Facades\TeamPermission;
@@ -127,7 +127,7 @@ return [
 This example might be the permission used when you want to know if:
 The current User can edit THEIR OWN smtp settings...
 ```php
-//=> web.php
+//=> routes/web.php
 
 //note the Facade change
 use Sourcefli\PermissionName\Facades\OwnedSettingPermission;
@@ -142,7 +142,7 @@ or
 This example might be the permission used when you want to know if:
 The current User can edit THEIR TEAMS smtp settings (or any smtp settings owned by their THEIR TEAM)
 ```php
-//=> web.php
+//=> routes/web.php
 
 //note the Facade change
 use Sourcefli\PermissionName\Facades\TeamSettingPermission;
@@ -158,7 +158,7 @@ Any distinction between the 'team' scope and the 'owned' scope is open to interp
 ### Retrieval 'all' Permissions
 This example provides access to ALL permissions available ('resources' and 'settings' combined):
 ```php
-//=> web.php
+//=> routes/web.php
 use Sourcefli\PermissionName\Facades\AllPermissions;
 
 Route::get('permissions', function () {
@@ -170,7 +170,7 @@ This example returns all 'resources' within the 'owned' scope:
 
 _(see below for further explanation on 'scope')_ 
 ```php
-//=> web.php
+//=> routes/web.php
 use Sourcefli\PermissionName\Facades\OwnedPermission;
 
 Route::get('permissions', function () {
