@@ -3,9 +3,9 @@
 ### Warning: This package is still a work in progress!!
 !! **PLEASE DO NOT** use this package in a production environment yet !!
 
-**Contributions Are Welcome**
-Anyone's thats willing to help 'use it in the wild' is welcome! 
+**Contributions And Feedback Are Welcome**
 I'm currently doing this in some of my own projects over the next few months as well.
+    
     - __Anyone who's good at generating doc blocks programatically would **very welcome** to add a command that generates the doc blocks for the Facades in this package!__
 
 ### Intro
