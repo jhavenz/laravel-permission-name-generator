@@ -204,6 +204,7 @@ use OwnedPermission;
 ## A Little More In Depth
 
 **'Permission Set' Definition:**
+
 In the config, any 'resource' or 'setting' will get it's own _set of permissions_... 
 For example:
 ```php
@@ -286,7 +287,7 @@ Each 'permission set' contains all 8 permissions:
 - delete
 - restore
 - force_delete
-- *
+- `*`
 
 **Calling On Permissions Throughout Your App:**
 Using the same config as mentioned in the 'Permission Set' definition, you can call methods using the same name on each related Facade. **_With the exception of the `AllPermissions` facade, which I'll get to in a bit._
@@ -346,7 +347,8 @@ If want to get a collection of ALL your permissions, you can call:
 //This will give you a combined Laravel Collection of 'resources' and 'settings' that you've listed in your config file..
  ```
 
-**Getting Individual Permissions From The AllPermission Facade:**
+**Getting Individual Permissions From The `AllPermission` Facade:**
+
 If you want to retrieve permission strings from this Facade, it's a little different from the others.
 
 First, you have set a `scope`, then you can chain the standard methods as listed above (check out the tests [starting here](https://github.com/Sourcefli/laravel-permission-name-generator/tree/main/tests/Feature/AllPermissions) for sample usage).
@@ -405,29 +407,31 @@ AllPermissions::all();
 ```
 
 ### QA: 
-1. **What are the brackets for on each permission string?**
+> 1. **What are the brackets for on each permission string?**
+>
+> This is to prevent any naming clashes with the 'resources' and 'settings' that you have listed in your config file.
+> If you're looking at the source code, these are often referred to as `ownershipScopes` or just `scopes`
 
-This is to prevent any naming clashes with the 'resources' and 'settings' that you have listed in your config file.
-If you're looking at the source code, these are often referred to as `ownershipScopes` or just `scopes`
 
-2. **Why Is Everything Singular?**
+> 2. **Why Is Everything Singular?**
+>
+> This is definitely intentional, since when I'm working on my own projects, I was always having to lookup what was singular and what wasn't.
+> The `AllPermissions` Facade is the only thing that's singular (unless I overlooked something somewhere, if so please let me know).
+> This provides a unified and predictable format across the board... 
 
-This is definitely intentional, since when I'm working on my own projects, I was always having to lookup what was singular and what wasn't.
-The `AllPermissions` Facade is the only thing that's singular (unless I overlooked something somewhere, if so please let me know).
-This provides a unified and predictable format across the board... 
 
-3. **Can I add my own scopes?**
-
-No, right now there's only 4 available... as represented by the Facades.
+> 3. **Can I add my own scopes?**
+>
+> No, right now there's only 4 available... as represented by the Facades.
    
-4. **Can Permissions be queried in any way?**
-
-Only if you've saved the permissions to your database, then you can use your ORM.
-This package is only intended to either return an \Illuminate\Support\Collection of 
-permissions (either scoped, or all permissions, using the `AllPermissions` Facade).
-or to retrieve a single permission as a string. 
-I plan to add the `only()` and `except()` methods (like [Spatie's Data Transfer Object Package](https://github.com/spatie/data-transfer-object))
-but that's as fancy as the methods will get. I intend to keep this package as simple as possible.
+> 4. **Can Permissions be queried in any way?**
+>
+> Only if you've saved the permissions to your database, then you can use your ORM.
+> This package is only intended to either return an \Illuminate\Support\Collection of 
+> permissions (either scoped, or all permissions, using the `AllPermissions` Facade).
+> or to retrieve a single permission as a string. 
+> I plan to add the `only()` and `except()` methods (like [Spatie's Data Transfer Object Package](https://github.com/spatie/data-transfer-object))
+> but that's as fancy as the methods will get. I intend to keep this package as simple as possible.
 
 ### Back To The Top
 [Back To The Top](https://github.com/Sourcefli/laravel-permission-name-generator#quick-start)
