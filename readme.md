@@ -6,7 +6,7 @@
 **Contributions And Feedback Are Welcome**
 I'm currently doing this in some of my own projects over the next few months as well.
     
-- __Anyone who's good at generating doc blocks programatically would **very welcome** to add a command that generates the doc blocks for the Facades in this package!__
+- __Anyone who's good at generating doc blocks programatically would be **very welcome** to contribute a command that generates the doc blocks (on the Facades) for each 'Resource' and 'Setting' that user enters would be fantastic!__
 
 ### Intro
 Create and Retrieve permission strings using methods instead of strings, and a very simple configuration.
