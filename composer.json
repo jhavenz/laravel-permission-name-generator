@@ -3,6 +3,13 @@
     "description": "Create and Retrieve permissions using conventions and very simple configuration",
     "type": "library",
     "license": "MIT",
+    "keywords": [
+        "sourcefli",
+        "permissions",
+        "roles",
+        "permission-name",
+        "laravel-permissions"
+    ],
     "authors": [
         {
             "name": "Jonathan Havens",
@@ -14,7 +21,10 @@
     "autoload": {
         "psr-4": {
             "Sourcefli\\PermissionName\\": "src"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

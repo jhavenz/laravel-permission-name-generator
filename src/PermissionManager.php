@@ -286,7 +286,7 @@ abstract class PermissionManager
 
         if (!in_array($settingItem, $this->settings, true)) {
             throw new PermissionLookupException(
-                "Settings permission of {$settingItem} is not a valid settings item. All settings-related permissions should be listed in the `permission-name-generator.settings` configuration."
+                "Settings permission of `{$settingItem}` is not valid. Please use one of the values from your `permission-name-generator.settings` config file. Maybe its singular vs plural, or vice versa?"
             );
         }
 
@@ -303,7 +303,7 @@ abstract class PermissionManager
 
         if (!in_array($resource, $this->resources, true)) {
             throw new PermissionLookupException(
-                "Resource of {$resource} is not valid. Only `resources` listed in the `config.permission-name-generator.resources` can be used as facade methods, or check out the `Sourcefli\PermissionName\Contracts\RetrievesPermissions` contract to see which retrieval methods can be chained. i.e. `OwnedPermission::user()->browse()`. `user` is the resource and `browse` is the retrieval method. This example would return the `user.owned.browse` permission"
+                "Resource of `{$resource}` is not valid. Please use one of the values that you have listed in your `permission-name-generator.resources` config file."
             );
         }
 
