@@ -196,7 +196,7 @@ Collection that gets returned, and will remain present unless otherwise specifie
 
 ---
 
-Since All Facades are aliased to global namespace, using the Facades in your views wont create a mess.
+Since All Facades are aliased in the global namespace, using the Facades in your views wont create a mess either.
 ```php
 //=> dashboard.blade.php (for example)
 
@@ -207,17 +207,22 @@ Since All Facades are aliased to global namespace, using the Facades in your vie
     User CAN NOT view the profile for their team
 @endif
 
-/**
+/*
  * Side Note:
  * I've thought about the idea of adding global helpers for retrieving the permission string in this situation
  * but not quite sure how it'd work yet.. 
  * 
  * maybe..
- * teamPermissionFor('profile.browse')
- * 
- * or, I personally like this one best so far. As few hard-coded strings as possible...
- * teamPermission('profile')->browse() 
- * 
+ */ 
+ teamPermissionFor('profile.browse');
+ 
+ /* 
+ * or, I personally like this one best so far. 
+ * As few hard-coded strings as possible...
+ */
+ teamPermission('profile')->browse();
+ 
+ /* 
  * still open for suggestions on this
  */ 
 ```
