@@ -106,8 +106,8 @@ _The current user can edit the smtp settings for THEIR ENTIRE TEAM_
 use Sourcefli\PermissionName\Facades\TeamPermission;
 
 Route::get('permissions', function () {
-    TeamPermission::smtp()->edit();
-    //returns 'smtp.[team].edit' 
+    TeamPermission::billing()->edit();
+    //returns 'billing.[team].edit' 
 });
 ```
 ---
