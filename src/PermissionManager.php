@@ -97,13 +97,14 @@ abstract class PermissionManager
         return $this->firstByAbility('*');
     }
 
-    public function only(string ...$abilities)
+    public function only(string|array ...$abilities)
     {
         $this->resetAndReduceByResource();
-        return $this->filterByAbilities(func_get_args());
+
+        return $this->filterByAbilities($abilities);
     }
 
-    public function except(string ...$abilities)
+    public function except(string|array ...$abilities)
     {
         $this->resetAndReduceByResource();
 
@@ -138,12 +139,12 @@ abstract class PermissionManager
 
         $matches = collect();
 
-        foreach ($abilities as $ability) {
-            $this->validateAbilityInput($ability);
-            $matches->push(
-                $this->extractAbilityFromAccessLevel($ability)
-            );
-        }
+        $input = collect($abilities)->flatten();
+
+        $input->each(function ($a) use (&$matches) {
+            $this->validateAbilities($a);
+            $matches->push($this->extractAbilityFromAccessLevel($a));
+        });
 
         return $preserveInput
             ? $matches
@@ -183,7 +184,19 @@ abstract class PermissionManager
         }
     }
 
-    public function validateAbilityInput(string $ability)
+    protected function validateAbilities($abilities)
+    {
+        if (is_iterable($abilities)) {
+            foreach ($abilities as $ability) {
+                $this->validateAbilityInput($ability);
+            }
+            return;
+        }
+
+        $this->validateAbilityInput($abilities);
+    }
+
+    protected function validateAbilityInput(string $ability)
     {
         $ability = strtolower($ability);
 
@@ -217,11 +230,6 @@ abstract class PermissionManager
 
     protected function extractAbilityFromAccessLevel($accessLevel)
     {
-        if (!$this->abilities->count()) {
-            //In case being called from `AllPermissions`
-            $this->resetAndReduceByResource();
-        }
-
         foreach ($this->abilities->values() as $ability) {
             if (Str::endsWith($ability, strtolower($accessLevel))) {
                 return $ability;
