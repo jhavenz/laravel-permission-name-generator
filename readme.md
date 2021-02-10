@@ -32,7 +32,7 @@ Each item listed in the config will get a 'permission set', one of each:
 ---
 ## Quick Start
 I've been using Spatie's 'Spatie Permissions' package a lot lately and got pretty annoyed with always having to remember which permissions were plural, which syntax allowed the user to view 'team' permissions (though I had a 'Team' model, so it had to be something besides 'team' or 'teams'), vs which permissions were just for the user's own resources. On top of that, having to hard code permission strings throughout the application, or create a wrapper each time. 
-It seemed like such a common routine, I has to venture out and create a package, albeit my first public package. 
+It seemed like such a common routine, I decided to venture out and create a package, albeit my first public package. 
 _So please go easy on me guys, if you find any issue. I'm willing and open to any **constructive** criticism_
 
 This package is an effort to create a convention to naming, generating, and accessing predictable and reliable permission strings, and  
