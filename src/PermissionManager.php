@@ -38,17 +38,6 @@ abstract class PermissionManager
         $this->permissions = $this->filterForScope();
     }
 
-    protected function validateScope($scopeType = null)
-    {
-        $scope = $scopeType ?? $this->scopeType;
-
-        if (empty($scope) || !in_array($scope, PermissionGenerator::allScopes(), true)) {
-            throw new PermissionLookupException(
-                "Unable to determine resource scope. Please instantiate using one of the facades/adapters so it can determined automatically."
-            );
-        }
-    }
-
     public function browse(): string
     {
         $this->resetAndReduceByResource();
@@ -97,14 +86,14 @@ abstract class PermissionManager
         return $this->firstByAbility('*');
     }
 
-    public function only(string|array ...$abilities)
+    public function only(string|array ...$abilities): Collection
     {
         $this->resetAndReduceByResource();
 
         return $this->filterByAbilities($abilities);
     }
 
-    public function except(string|array ...$abilities)
+    public function except(string|array ...$abilities): Collection
     {
         $this->resetAndReduceByResource();
 
@@ -114,6 +103,17 @@ abstract class PermissionManager
     public function all(): Collection
     {
         return $this->permissions->values();
+    }
+
+    protected function validateScope($scopeType = null)
+    {
+        $scope = $scopeType ?? $this->scopeType;
+
+        if (empty($scope) || !in_array($scope, PermissionGenerator::allScopes(), true)) {
+            throw new PermissionLookupException(
+                "Unable to determine resource scope. Please instantiate using one of the facades/adapters so it can determined automatically."
+            );
+        }
     }
 
     protected function getAll(): Collection
@@ -156,6 +156,7 @@ abstract class PermissionManager
             ? $matches
             : $this->abilities->diff($matches)->values();
     }
+
 
     public function setResource(string $resource): PermissionManager
     {
@@ -290,7 +291,7 @@ abstract class PermissionManager
         return true;
     }
 
-    public function isValidResource(string $resource)
+    protected function isValidResource(string $resource)
     {
         if (!count($this->resources)) {
             throw new PermissionLookupException(
@@ -322,6 +323,11 @@ abstract class PermissionManager
                             : null))));
     }
 
+    private function isSettingScope()
+    {
+        return $this->scopeType === PermissionGenerator::SCOPE_OWNED_SETTING || $this->scopeType === PermissionGenerator::SCOPE_TEAM_SETTING;
+    }
+
     public function __get($name)
     {
         $prop = $this->{$name};
@@ -349,10 +355,5 @@ abstract class PermissionManager
         }
 
         return $this;
-    }
-
-    private function isSettingScope()
-    {
-        return $this->scopeType === PermissionGenerator::SCOPE_OWNED_SETTING || $this->scopeType === PermissionGenerator::SCOPE_TEAM_SETTING;
     }
 }

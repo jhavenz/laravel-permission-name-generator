@@ -3,6 +3,10 @@
 namespace Sourcefli\PermissionName\Tests\Feature;
 
 use Sourcefli\PermissionName\Adapters\AllPermissionsAdapter;
+use Sourcefli\PermissionName\Adapters\OwnedPermissionsAdapter;
+use Sourcefli\PermissionName\Adapters\OwnedSettingPermissionsAdapter;
+use Sourcefli\PermissionName\Adapters\TeamPermissionsAdapter;
+use Sourcefli\PermissionName\Adapters\TeamSettingPermissionsAdapter;
 use Sourcefli\PermissionName\Exceptions\PermissionLookupException;
 use Sourcefli\PermissionName\Facades\AllPermissions;
 use Sourcefli\PermissionName\Tests\TestCase;
@@ -11,7 +15,7 @@ class AllPermissionsFacadeTest extends TestCase
 {
 
     /** @test */
-    public function it_constructs_the_correct_amount_of_permission_names ()
+    public function it_constructs_the_correct_amount_of_permission_names()
     {
         $allPermissions = AllPermissions::all();
 
@@ -39,9 +43,9 @@ class AllPermissionsFacadeTest extends TestCase
     }
 
     /** @test */
-    public function it_allows_owned_resource_method_to_be_called ()
+    public function it_allows_owned_resource_method_to_be_called()
     {
-        $adapter = AllPermissionsAdapter::class;
+        $adapter = OwnedPermissionsAdapter::class;
         $scopeType = '[owned]';
 
         $this->assertInstanceOf($adapter, $manager = AllPermissions::forOwned());
@@ -49,9 +53,9 @@ class AllPermissionsFacadeTest extends TestCase
     }
 
     /** @test */
-    public function it_allows_owned_setting_resource_method_to_be_called ()
+    public function it_returns_a_owned_setting_permissions_adapter_when_for_team_is_called_on_all_permissions_facade()
     {
-        $adapter = AllPermissionsAdapter::class;
+        $adapter = OwnedSettingPermissionsAdapter::class;
         $scopeType = '[owned_setting]';
 
         $this->assertInstanceOf($adapter, $manager = AllPermissions::forOwnedSetting());
@@ -59,9 +63,9 @@ class AllPermissionsFacadeTest extends TestCase
     }
 
     /** @test */
-    public function it_allows_team_resource_method_to_be_called ()
+    public function it_returns_a_team_permissions_adapter_when_for_team_is_called_on_all_permissions_facade()
     {
-        $adapter = AllPermissionsAdapter::class;
+        $adapter = TeamPermissionsAdapter::class;
         $scopeType = '[team]';
 
         $this->assertInstanceOf($adapter, $manager = AllPermissions::forTeam());
@@ -69,9 +73,9 @@ class AllPermissionsFacadeTest extends TestCase
     }
 
     /** @test */
-    public function it_allows_team_setting_resource_method_to_be_called ()
+    public function it_returns_a_team_settings_permissions_adapter_when_for_team_is_called_on_all_permissions_facade()
     {
-        $adapter = AllPermissionsAdapter::class;
+        $adapter = TeamSettingPermissionsAdapter::class;
         $scopeType = '[team_setting]';
 
         $this->assertInstanceOf($adapter, $manager = AllPermissions::forTeamSetting());
