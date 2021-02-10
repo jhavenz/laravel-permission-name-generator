@@ -449,7 +449,9 @@ AllPermissions::all();
 - Please let me know of any security related issues asap at mail@jhavens.tech.
 
 ### License
-MIT. Please see the [opensource.org](https://opensource.org/licenses/MIT) site definition for more information.
+**MIT**. 
+
+Please see the [opensource.org](https://opensource.org/licenses/MIT) site definition for more information.
 
 
 #### This package is still a work in progress!! Please dont use in any production environment yet!
