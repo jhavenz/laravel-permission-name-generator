@@ -147,7 +147,7 @@ abstract class PermissionManager
 
         return $preserveInput
             ? $matches
-            : $this->abilities->diff($matches);
+            : $this->abilities->diff($matches)->values();
     }
 
     public function setResource(string $resource): PermissionManager
