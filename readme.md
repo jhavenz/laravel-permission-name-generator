@@ -190,8 +190,9 @@ TeamPermission::user()->except(['edit','delete', 'force_delete', '*']);
 #### !! Important Note !!
 Be careful when using the `except()` method since the `*` permission is always present in the 
 Collection that gets returned, and will remain present unless otherwise specified. 
-Similar to parsing requests within Laravel, it's safest to stick with the `only()` method 
-to ensure you're cherry-picking the exact permissions you're looking for.
+
+> Similar to parsing requests within Laravel, it's safest to stick with the `only()` method 
+> to ensure you're cherry-picking the exact permissions you're looking for.
 
 ---
 
