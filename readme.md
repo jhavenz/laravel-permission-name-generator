@@ -65,9 +65,8 @@ return [
         '...'
     ],
 
-    //optional, leave this array empty if not needed
     'settings' => [
-        'smtp',
+        //explained in next section
         '...'
     ]
 
@@ -159,6 +158,61 @@ Route::get('permissions', function () {
 **Any distinction between the 'team' scope and the 'owned' scope is open to interpretation as is needed for your app, of course. I'm just listing out some examples of how I've used these permission strings before.**
 
 ---
+
+### ONLY and EXCEPT methods
+Often times, when you're defining roles, and which permissions are associated with them, you'll need to tell your app which permissions should be included/excluded from each set of 'resources' or 'settings' that you've defined in the config file.
+For this, you can use the `only()` method or the `except()` method. These methods accept a comma-seperated list of 'abilities' or an array.
+
+For Example, if using the same configs as mentioned above:
+```php
+
+OwnedPermission::billing()->only('browse', 'edit');
+// returns a Collection that only includes:
+// [
+//     'billing.[owned].browse',
+//     'billing.[owned].edit'
+// ]
+
+//or 
+
+TeamPermission::user()->except(['edit','delete', 'force_delete', '*']);
+// returns a Collection that only excludes these parameters:
+// [
+//     'user.[team].browse',
+//     'user.[team].read',
+//     'user.[team].add',
+//     'user.[team].restore',
+// ]
+
+//=====> !! Important Note !!
+//Be careful when using 'except()' since the '*' permission is always present in the Collection that's returned and will remain present unless you list it in your parameters. 
+
+//Similar to incoming requests with Laravel, it's safest to the 'only()' method to ensure you're cherry-picking the permissions that you've excplicitly defined.
+// ===========================================
+
+//You can use these methods on the 'settings' Facades as well...
+
+OwnedSettingPermission::smtp()->only('browse', 'edit', 'delete');
+// returns a Collection with:
+// [
+//     'smtp.[owned_setting].browse',
+//     'smtp.[owned_setting].edit',
+//     'smtp.[owned_setting].delete',
+// ]
+
+
+//or for 'team_settings'...
+
+TeamSettingPermission::smtp()->except('browse', 'read', 'force_delete', '*');
+// returns a Collection with:
+// [
+//     'smtp.[team_setting].add',
+//     'smtp.[team_setting].edit',
+//     'smtp.[team_setting].delete',
+//     'smtp.[team_setting].restore',
+// ]
+```
+
 
 ### Retrieval 'all' Permissions
 This example provides access to ALL permissions available ('resources' and 'settings' combined):
