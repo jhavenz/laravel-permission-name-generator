@@ -172,12 +172,14 @@ abstract class PermissionManager
         $this->validResourceIsSet();
         $this->reset();
         $this->filterForResource();
+
+        return $this;
     }
 
     public function validResourceIsSet()
     {
         if (!isset($this->resource)) {
-            throw new PermissionLookupException("A Resource must be set before retrieving a specific permission");
+            throw new PermissionLookupException("A Resource must be set before proceeding. Use the `setResource()` method or chain the name of the resource (as a method). Example: if `user` is a resource, call `user()->browse()`");
         }
     }
 
@@ -215,6 +217,11 @@ abstract class PermissionManager
 
     protected function extractAbilityFromAccessLevel($accessLevel)
     {
+        if (!$this->abilities->count()) {
+            //In case being called from `AllPermissions`
+            $this->resetAndReduceByResource();
+        }
+
         foreach ($this->abilities->values() as $ability) {
             if (Str::endsWith($ability, strtolower($accessLevel))) {
                 return $ability;

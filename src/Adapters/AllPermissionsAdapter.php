@@ -4,13 +4,14 @@
 namespace Sourcefli\PermissionName\Adapters;
 
 use Illuminate\Support\Str;
+use Sourcefli\PermissionName\Factories\AllPermissions as AllPermissionsFactory;
 use Sourcefli\PermissionName\PermissionManager;
 use Sourcefli\PermissionName\PermissionGenerator;
 use Sourcefli\PermissionName\Contracts\RetrievesPermissions;
 
 class AllPermissionsAdapter extends PermissionManager implements RetrievesPermissions
 {
-    public function setScope(string $scopeType): AllPermissionsAdapter
+    public function setScope(string $scopeType): PermissionManager
     {
         $scope = Str::of($scopeType);
 
@@ -24,9 +25,7 @@ class AllPermissionsAdapter extends PermissionManager implements RetrievesPermis
 
         $this->validateScope((string) $scope);
 
-        $this->scopeType = $scopeType;
-
-        return $this;
+        return AllPermissionsFactory::makeAdapter($scope);
     }
 
     public function forOwned()
