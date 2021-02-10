@@ -35,6 +35,7 @@ I've been using Spatie's [Spatie Permissions](https://github.com/spatie/laravel-
 It seemed like such a common routine, I decided to venture out and create a package, albeit my first public package. 
 _So please go easy on me guys, if you find any issue. I'm willing and open to any **constructive** criticism_
 
+### TLDR;
 This package is an effort to create a convention to naming, generating, and accessing predictable and reliable permission strings, and  
 
 ### Installation
