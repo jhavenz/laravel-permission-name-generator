@@ -143,7 +143,13 @@ abstract class PermissionManager
 
         $input->each(function ($a) use (&$matches) {
             $this->validateAbilities($a);
-            $matches->push($this->extractAbilityFromAccessLevel($a));
+            if (is_string($a) && Str::contains($a, ',')) {
+                foreach (explode(',', $a) as $ability) {
+                    $matches->push($this->extractAbilityFromAccessLevel($ability));
+                }
+            } else {
+                $matches->push($this->extractAbilityFromAccessLevel($a));
+            }
         });
 
         return $preserveInput
@@ -189,6 +195,13 @@ abstract class PermissionManager
         if (is_iterable($abilities)) {
             foreach ($abilities as $ability) {
                 $this->validateAbilityInput($ability);
+            }
+            return;
+        }
+
+        if (is_string($abilities) && Str::contains($abilities, ',')) {
+            foreach (explode(',', $abilities) as $ability) {
+                $this->validateAbilityInput(trim($ability));
             }
             return;
         }
