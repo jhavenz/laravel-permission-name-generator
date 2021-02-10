@@ -119,7 +119,7 @@ return [
     ],
 
     'settings' => [
-        'user', //can be 'settings' related a model in your app...
+        'user', //can be 'settings' related to a model in your app...
         'smtp', //or any random 'settings' that your app uses..
     ]
 ];
@@ -261,7 +261,7 @@ use Sourcefli\PermissionName\Facades\AllPermissions;
 
 Route::get('permissions', function () {
     AllPermissions::all();
-    //returns an Laravel Collection of all available permissions that were generated
+    //returns a Laravel Collection of all available permissions that were generated
 });
 ```
 This example returns all 'resources' within the 'owned' scope: 
@@ -273,7 +273,7 @@ use Sourcefli\PermissionName\Facades\OwnedPermission;
 
 Route::get('permissions', function () {
     OwnedPermission::all();
-    //returns an Laravel Collection of all 'resource' permissions within the 'owned' scope
+    //returns a Laravel Collection of all 'resource' permissions within the 'owned' scope
 });
 ```
 ---
@@ -386,7 +386,11 @@ Each 'permission set' contains all 8 permissions:
 - `*`
 
 **Calling On Permissions Throughout Your App:**
-Using the same config as mentioned in the 'Permission Set' definition, you can call methods using the same name on each related Facade. **_With the exception of the `AllPermissions` facade, which I'll get to in a bit._
+
+Using the same config as mentioned in the 'Permission Set' definition, 
+you can call methods using the same name on each related Facade. 
+
+**_With the exception of the `AllPermissions` facade, which I'll get to in a bit._
 
 For Example, we can now call these methods:
 ```php
@@ -409,31 +413,44 @@ TeamPermission::billing()->wildcard();
 // or any of the 'retrieval methods' (explained below)
 ```
 
-*Retrieval Methods:*
-'Retreival Methods' are the methods that you can chain onto any of your 'resource' or 'setting' methods on the Facades.
+### Retrieval Methods:
+
+'Retreival Methods' are the methods that you can chain onto any of 
+your `resources` or `settings` methods that you've already called on a Facade.
+
 These include:
+
 `browse()`
+
 `read()`
+
 `edit()`
+
 `add()`
+
 `delete()`
+
 `force_delete()`
+
 `restore()`
+
 `wildcard()`
 
 For Example:
 
-_for your 'resources'_
-`OwnedPermission::user()->create()` 
-`TeamPermission::billing()->edit()`
+_for any of your 'resources', you can call_
+    
+    OwnedPermission::user()->create(); 
+
+    TeamPermission::billing()->edit();
 
 _or, for your 'settings'_
-`OwnedSettingPermission::smtp()->read()`
-`TeamSettingPermission::smtp()->delete()`
 
-**Note:**
+    OwnedSettingPermission::smtp()->read();
 
-These 'retrieval' methods are all listed in [this contract](https://github.com/Sourcefli/laravel-permission-name-generator/blob/main/src/Contracts/RetrievesPermissions.php). You'll also see the 'all' method in this contract, please continue reading.
+    TeamSettingPermission::smtp()->delete();
+
+---
 
 ## The `AllPermissions` Facade
 This facade works a little differently then the others, though it's just a small difference.
@@ -459,11 +476,12 @@ AllPermissions::forOwnedSetting();
 AllPermissions::forTeamSetting();
 
 //Once you set the scope, continue chaining like any of the other Facades...
-//for a 'resource' 
+
+// e.g. for one of your 'resources' 
 AllPermissions::forOwned()->billing()->delete();
 //returns 'billing.[owned].delete'
 
-//or for a 'setting'
+// e.g. or one of your 'settings'
 AllPermissions::forTeamSetting()->smtp()->edit();
 //returns 'smtp.[team_setting].edit'
 
@@ -471,7 +489,14 @@ AllPermissions::forTeamSetting()->smtp()->edit();
 
 ### The 'all' Method On All Facades:
 
-You can call the `all()` method on any of the Facades in order to get a complete list of permissions that are within that scope. Hopefully scopes are clear by now, the package comes with 4 different 'scopes'...
+You can call the `all()` method on any of the Facades in order to:
+    
+A. Get a complete list of permissions that are within that scope, if no resource is set.
+_(see example 'A' below)_
+
+B. Get a set resource/setting related permissions, if the resource/setting is set on that instance.
+_(see example 'B' below)_
+
 `owned`, `team`, `owned_setting`, `team_setting`
 
 For Example:
@@ -483,21 +508,24 @@ use Sourcefli\PermissionName\Facades\TeamSettingPermission;
 
 
 /**
+ * A. 
  * We're in the 'owned' scope here... 
  */
 OwnedPermission::all();
 // returns all 'resource' permissions that include '[owned]'
 
 /**
- * We're in the 'team_setting' scope here... 
+ * B. 
+ * We're in the '[team_setting]' scope here... 
  */ 
-TeamSettingPermission::all();
-// returns all 'settings' permissions that include '[team_setting]' 
- 
+TeamSettingPermission::billing()->all();
+// returns all '[team_settings]' permissions related to billing
 
 /**
- * lastly...the one method were a 'scope' is not required
- * to get a Collection that combines your 'resources' and 'settings' in config...
+ * C. 
+ * Lastly...the one case were a 'scope' is not required:
+ * To get a Collection that combines your 'resources' and 'settings'
+ * and every permission your app has...
  */ 
 AllPermissions::all();
 ```
