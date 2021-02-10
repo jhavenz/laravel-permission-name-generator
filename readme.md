@@ -31,7 +31,7 @@ Each item listed in the config will get a 'permission set', one of each:
 
 ---
 ## Quick Start
-I've been using Spatie's 'Spatie Permissions' package a lot lately and got pretty annoyed with always having to remember which permissions were plural, which syntax allowed the user to view 'team' permissions (though I had a 'Team' model, so it had to be something besides 'team' or 'teams'), vs which permissions were just for the user's own resources. On top of that, having to hard code permission strings throughout the application, or create a wrapper each time. 
+I've been using Spatie's [Spatie Permissions](https://github.com/spatie/laravel-permission) package a lot lately and got pretty annoyed with always having to remember which permissions were plural, which syntax allowed the user to view 'team' permissions (though I had a 'Team' model, so it had to be something besides 'team' or 'teams'), vs which permissions were just for the user's own resources. On top of that, having to hard code permission strings throughout the application, or create a wrapper each time. 
 It seemed like such a common routine, I decided to venture out and create a package, albeit my first public package. 
 _So please go easy on me guys, if you find any issue. I'm willing and open to any **constructive** criticism_
 
@@ -75,6 +75,7 @@ Note: See [QA Section](https://github.com/Sourcefli/laravel-permission-name-gene
 
 ### Now Use It
 This example might be the permission used when you want to know if:
+
 _The current user can edit the billing settings THEY OWN in the application_
 ```php
 //=> web.php
@@ -88,6 +89,7 @@ Route::get('permissions', function () {
 **or**
 
 This example might be the permission used when you want to know if:
+
 _The current user can edit the smtp settings for THEIR ENTIRE TEAM_
 ```php
 //=> web.php
@@ -165,6 +167,7 @@ Route::get('permissions', function () {
 });
 ```
 This example returns all 'resources' within the 'owned' scope: 
+
 _(see below for further explanation on 'scope')_ 
 ```php
 //=> web.php
@@ -320,6 +323,7 @@ These include:
 `wildcard()`
 
 For Example:
+
 _for your 'resources'_
 `OwnedPermission::user()->create()` 
 `TeamPermission::billing()->edit()`
@@ -329,6 +333,7 @@ _or, for your 'settings'_
 `TeamSettingPermission::smtp()->delete()`
 
 **Note:**
+
 These 'retrieval' methods are all listed in [this contract](https://github.com/Sourcefli/laravel-permission-name-generator/blob/main/src/Contracts/RetrievesPermissions.php). You'll also see the 'all' method in this contract, please continue reading.
 
 ## The `AllPermissions` Facade
@@ -365,6 +370,7 @@ AllPermissions::forTeamSetting()->smtp()->edit();
 ```
 
 ### The 'all' Method On All Facades:
+
 You can call the `all()` method on any of the Facades in order to get a complete list of permissions that are within that scope. Hopefully scopes are clear by now, the package comes with 4 different 'scopes'...
 `owned`, `team`, `owned_setting`, `team_setting`
 
@@ -398,18 +404,22 @@ AllPermissions::all();
 
 ### QA: 
 1. **What are the brackets for on each permission string?**
+
 This is to prevent any naming clashes with the 'resources' and 'settings' that you have listed in your config file.
 If you're looking at the source code, these are often referred to as `ownershipScopes` or just `scopes`
 
 2. **Why Is Everything Singular?**
+
 This is definitely intentional, since when I'm working on my own projects, I was always having to lookup what was singular and what wasn't.
 The `AllPermissions` Facade is the only thing that's singular (unless I overlooked something somewhere, if so please let me know).
 This provides a unified and predictable format across the board... 
 
 3. **Can I add my own scopes?**
+
 No, right now there's only 4 available... as represented by the Facades.
    
 4. **Can Permissions be queried in any way?**
+
 Only if you've saved the permissions to your database, then you can use your ORM.
 This package is only intended to either return an \Illuminate\Support\Collection of 
 permissions (either scoped, or all permissions, using the `AllPermissions` Facade).
