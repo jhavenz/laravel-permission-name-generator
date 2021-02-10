@@ -200,8 +200,8 @@ Since All Facades are aliased to global namespace, using the Facades in your vie
 //=> dashboard.blade.php (for example)
 
 //If using Laravel Gate or something like 'Spatie Permission' 
-@if (Auth::user()->can(TeamPermission::profile()->browse(), $team))
-    User CAN browse the profile for the team
+@if (Auth::user()->can(\TeamPermission::profile()->browse(), $team))
+    User CAN browse the profile for their team
 @else
     User CAN NOT view the profile for their team
 @endif
