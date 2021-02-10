@@ -166,7 +166,7 @@ abstract class PermissionManager
     public function resetAndReduceByResource()
     {
         if ($this->scopeIsAll()) {
-            throw new PermissionLookupException("A scope type is not set. If using the `AllPermission` facade, call setScope(), passing in a valid scope, before calling on your resources. e.g. AllPermission::setScope('owned')->user()->browse()");
+            throw new PermissionLookupException("A scope type is not set. If using the `AllPermission` facade, call `setScope()` passing in a valid scope, before calling on your resources. e.g. AllPermission::setScope('owned')->user()->browse(). Valid scopes are: " . implode(', ', PermissionGenerator::allScopesForHumans()));
         }
 
         $this->validResourceIsSet();

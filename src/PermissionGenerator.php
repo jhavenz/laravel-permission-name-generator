@@ -135,6 +135,19 @@ class PermissionGenerator
         return self::OWNERSHIP_SCOPES;
     }
 
+    public static function allScopesForHumans(): array
+    {
+        $result = [];
+
+        foreach (self::OWNERSHIP_SCOPES as $scope) {
+            if ($scope !== '[all]') {
+                $result[] = '"' . Str::between($scope, '[', ']') . '"';
+            }
+        }
+
+        return $result;
+    }
+
     public function getScope(string $scopeName): array
     {
         return collect(self::OWNERSHIP_SCOPES)->first(fn ($s) => $s === $scopeName);
