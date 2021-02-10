@@ -59,7 +59,13 @@ return [
     'resources' => [
         'user',
         'billing',
-        'tenant'
+        '...'
+    ],
+
+    'settings' => [
+        //optional
+        'smtp',
+        '...'
     ]
 
 ];
