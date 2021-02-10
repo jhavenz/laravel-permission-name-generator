@@ -102,7 +102,9 @@ abstract class PermissionManager
 
     public function all(): Collection
     {
-        return $this->permissions->values();
+        return isset($this->resource)
+            ? $this->resetAndReduceByResource()->abilities->values()
+            : $this->permissions->values();
     }
 
     protected function validateScope($scopeType = null)
