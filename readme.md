@@ -98,7 +98,7 @@ Route::get('permissions', function () {
 
 This example might be the permission used when you want to know if:
 
-_The current user can edit the billing settings for THEIR ENTIRE TEAM_
+_The current user can edit the billing settings THEIR TEAM OWNS, or ANYONE ON THEIR TEAM OWNS (just throwing out examples)_
 ```php
 //=> routes/web.php
 
@@ -134,7 +134,7 @@ return [
 ### Now Use It
 This example might be the permission used when you want to know if:
 
-_The current User can edit THEIR OWN smtp settings..._
+_The current user can edit the smtp settings that THEY OWN..._
 ```php
 //=> routes/web.php
 
@@ -150,7 +150,7 @@ or
 
 This example might be the permission used when you want to know if:
 
-_The current User can edit THEIR TEAMS smtp settings (or any smtp settings owned by their THEIR TEAM)_
+_The current user can edit the smtp settings THEIR TEAM OWNS_
 ```php
 //=> routes/web.php
 
