@@ -1,12 +1,12 @@
 ## Laravel Permission Name Generator
 
-### Warning: This package is still a work in progress!!
-> !! **PLEASE DO NOT** use this package in a production environment yet !!
+### Warning:
+>  **This is still in pre-release**
+> 
+> **PLEASE TEST THOROUGHLY if planning to use in a production environment !!
 >
 > **Contributions And Feedback Are Welcome**
 > I'm currently doing this in some of my own projects over the next few months as well.
->   
-> - __Anyone who's good at generating doc blocks programatically would be **very welcome** to contribute a command that generates the doc blocks (on the Facades) for each 'Resource' and 'Setting' that user enters would be fantastic!__
 
 ### Intro
 Create and Retrieve permission strings using methods instead of strings, and a very simple configuration.
@@ -581,5 +581,10 @@ AllPermissions::all();
 
 Please see the [opensource.org](https://opensource.org/licenses/MIT) site definition for more information.
 
-
-#### This package is still a work in progress!! Please dont use in any production environment yet!
+### Warning:
+>  **This is still in pre-release**
+>
+> **PLEASE TEST THOROUGHLY if planning to use in a production environment !!
+>
+> **Contributions And Feedback Are Welcome**
+> I'm currently doing this in some of my own projects over the next few months as well.
