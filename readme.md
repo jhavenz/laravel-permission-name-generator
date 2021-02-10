@@ -127,7 +127,8 @@ return [
 
 ### Now Use It
 This example might be the permission used when you want to know if:
-The current User can edit THEIR OWN smtp settings...
+
+_The current User can edit THEIR OWN smtp settings..._
 ```php
 //=> routes/web.php
 
@@ -142,7 +143,8 @@ Route::get('permissions', function () {
 or
 
 This example might be the permission used when you want to know if:
-The current User can edit THEIR TEAMS smtp settings (or any smtp settings owned by their THEIR TEAM)
+
+_The current User can edit THEIR TEAMS smtp settings (or any smtp settings owned by their THEIR TEAM)_
 ```php
 //=> routes/web.php
 
@@ -192,6 +194,32 @@ Collection that gets returned, and will remain present unless otherwise specifie
 Similar to parsing requests within Laravel, it's safest to stick with the `only()` method 
 to ensure you're cherry-picking the exact permissions you're looking for.
 ---
+
+Since All Facades are aliased to global namespace, using the Facades in your views wont create a mess.
+```php
+//=> dashboard.blade.php (for example)
+
+//If using Laravel Gate or something like 'Spatie Permission' 
+@if (Auth::user()->can(TeamPermission::profile()->browse(), $team))
+    User CAN browse the profile for the team
+@else
+    User CAN NOT view the profile for their team
+@endif
+
+/**
+ * Side Note:
+ * I've thought about the idea of adding global helpers for retrieving the permission string in this situation
+ * but not quite sure how it'd work yet.. 
+ * 
+ * maybe..
+ * teamPermissionFor('profile.browse')
+ * 
+ * or, I personally like this one best so far. As few hard-coded strings as possible...
+ * teamPermission('profile')->browse() 
+ * 
+ * still open for suggestions on this
+ */ 
+```
 
 ```php
 
