@@ -15,11 +15,11 @@ class AllPermissionsAdapter extends PermissionManager implements RetrievesPermis
         $scope = Str::of($scopeType);
 
         if (!$scope->startsWith('[')) {
-            $scope->prepend('[');
+            $scope = $scope->prepend('[');
         }
 
         if (!$scope->endsWith(']')) {
-            $scope->append(']');
+            $scope = $scope->append(']');
         }
 
         $this->validateScope((string) $scope);
