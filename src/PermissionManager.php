@@ -97,11 +97,18 @@ abstract class PermissionManager
         return $this->firstByAbility('*');
     }
 
-    //TODO
-    //public function only (...$abilities) {}
+    public function only(string ...$abilities)
+    {
+        $this->resetAndReduceByResource();
+        return $this->filterByAbilities(func_get_args());
+    }
 
-    //TODO
-    //public function except (...$abilities) {}
+    public function except(string ...$abilities)
+    {
+        $this->resetAndReduceByResource();
+
+        return $this->filterByAbilities($abilities, false);
+    }
 
     public function all(): Collection
     {
@@ -118,6 +125,29 @@ abstract class PermissionManager
         return $this
             ->abilities
             ->first(fn ($p) => Str::endsWith($p, ".{$ability}"));
+    }
+
+    /**
+     * @param Collection|array $abilities
+     * @return mixed
+     * @throws PermissionLookupException
+     */
+    protected function filterByAbilities($abilities, bool $preserveInput = true)
+    {
+        $this->validResourceIsSet();
+
+        $matches = collect();
+
+        foreach ($abilities as $ability) {
+            $this->validateAbilityInput($ability);
+            $matches->push(
+                $this->extractAbilityFromAccessLevel($ability)
+            );
+        }
+
+        return $preserveInput
+            ? $matches
+            : $this->abilities->diff($matches);
     }
 
     public function setResource(string $resource): PermissionManager
@@ -151,6 +181,17 @@ abstract class PermissionManager
         }
     }
 
+    public function validateAbilityInput(string $ability)
+    {
+        $ability = strtolower($ability);
+
+        if (!in_array($ability, $options = PermissionNameFactory::allAccessLevels(), true)) {
+            throw new PermissionLookupException(
+                "The parameters for the `only()` and `except()` methods should one or multiple of the following: " . implode(', ', $options)
+            );
+        }
+    }
+
     public function filterForResource()
     {
         $this->abilities = $this
@@ -170,6 +211,17 @@ abstract class PermissionManager
     {
         $this->abilities = collect();
         return $this;
+    }
+
+    protected function extractAbilityFromAccessLevel($accessLevel)
+    {
+        foreach ($this->abilities->values() as $ability) {
+            if (Str::endsWith($ability, strtolower($accessLevel))) {
+                return $ability;
+            }
+        }
+
+        throw new PermissionLookupException("`{$accessLevel}` is invalid. One of the following should be used: " . implode(', ', PermissionNameFactory::allAccessLevels()));
     }
 
     protected function resourcePrefix()
