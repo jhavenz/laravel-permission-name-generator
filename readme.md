@@ -62,14 +62,16 @@ return [
         '...'
     ],
 
+    //optional, leave this array empty if not needed
     'settings' => [
-        //optional
         'smtp',
         '...'
     ]
 
 ];
+
 ```
+Note: See [QA Section](https://github.com/Sourcefli/laravel-permission-name-generator#qa) at bottom of this readme to see why brackets are used and a couple other questions you might have
 
 ### Now Use It
 This example might be the permission used when you want to know if:
@@ -414,6 +416,9 @@ permissions (either scoped, or all permissions, using the `AllPermissions` Facad
 or to retrieve a single permission as a string. 
 I plan to add the `only()` and `except()` methods (like [Spatie's Data Transfer Object Package](https://github.com/spatie/data-transfer-object))
 but that's as fancy as the methods will get. I intend to keep this package as simple as possible.
+
+### Back To The Top
+[Back To The Top](https://github.com/Sourcefli/laravel-permission-name-generator#quick-start)
 
 
 ### Credits
