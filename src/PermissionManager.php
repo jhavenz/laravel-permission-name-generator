@@ -221,7 +221,7 @@ abstract class PermissionManager
             }
         }
 
-        throw new PermissionLookupException("`{$accessLevel}` is invalid. One of the following should be used: " . implode(', ', PermissionNameFactory::allAccessLevels()));
+        throw new PermissionLookupException("`{$accessLevel}` is invalid. Please use one of the following: " . implode(', ', PermissionNameFactory::allAccessLevels()) . ". If passing multiple parameters, use a comma-seperated list of strings");
     }
 
     protected function resourcePrefix()
