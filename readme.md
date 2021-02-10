@@ -25,9 +25,9 @@ Each item listed in the config will get a 'permission set', one of each:
 ### Note:
 **This package is a glorified getter/setter for permission strings. Providing convenience and convention.
 
-**_There is ZERO logic when the time comes to AUTHORIZE ANYTHING throughout your app. This is an entirely seperate matter._**
+**_There is ZERO logic when the time comes to AUTHORIZING ANYTHING throughout your app. This is an entirely seperate matter._**
 
-**All package logic is related to generating 'permission strings' very easily and retrieving them, very eaasily, throughout your app.**
+**All package logic is related to generating 'permission strings' very easily and retrieving them very easily throughout your app. Convention and Predictability are at the heart of what this package provides.**
 
 ---
 ## Quick Start
