@@ -1,3 +1,4 @@
+
 ## Laravel Permission Name Generator
 
 ### Warning:
@@ -162,6 +163,58 @@ Route::get('permissions', function () {
 
 ---
 
+
+### Global Helpers
+Like Laravel's global helper function's, there are 4 global functions available.
+They are:
+```php
+ownedPermission();
+ownedSettingPermission();
+teamPermission();
+teamSettingPermission();
+```
+
+### Helper Function Arguments
+
+**Option A.**
+
+If you pass a resource or setting (whichever is relevant to the function you're calling)
+as an argument, all of these functions will return their respective adapter - which means you can chain
+any of the retrieval methods onto it just like the Facade behavior, like so:
+```php
+ownedPermission('billing')->read();
+//returns 'billing.[owned].read'
+
+//or 
+
+teamSettingPermission('smtp')->restore();
+//returns 'smtp.[team_setting].restore'
+
+//the 'only' and 'except' methods (explained below) can be chained here as well...
+ownedSettingPermission('smtp')->only('browse', 'add', 'delete');
+//returns a Laravel Collection only containing these 3 permission strings
+
+teamPermission('billing')->except('*', 'force_delete');
+//returns a Laravel Collection with all permissions in the 'billing.[team]' prefix, 
+//excluding '*' and 'force_delete'
+```
+**Option B:**
+
+If no argument is passed to any of these methods, you will get a collection
+of all the permissions that are related to that 'scope':
+```php
+teamSettingPermission();
+//returns all 'settings' permissions within the [team_setting] scope
+
+ownedPermission();
+//return all 'resources' permissions within the [owned] scope
+
+//etc..
+ 
+```
+
+---
+
 ### ONLY and EXCEPT methods
 Often times, when you're defining roles, and which permissions are associated with them, you'll need to tell your app which permissions should be included/excluded from each set of 'resources' or 'settings' that you've defined in the config file.
 For this, you can use the `only()` method or the `except()` method. These methods accept a comma-seperated list of 'abilities' or an array.
@@ -208,24 +261,26 @@ Since All Facades are aliased in the global namespace, using the Facades in your
     User CAN NOT view the profile for their team
 @endif
 
-/*
- * Side Note:
- * I've thought about the idea of adding global helpers for retrieving the permission string in this situation
- * but not quite sure how it'd work yet.. 
- * 
- * maybe..
- */ 
- teamPermissionFor('profile.browse');
- 
- /* 
- * or, I personally like this one best so far. 
- * As few hard-coded strings as possible...
- */
- teamPermission('profile')->browse();
- 
- /* 
- * still open for suggestions on this
- */ 
+/* 
+* Global Helpers
+* You can also use one of the four global helper functions
+* that are available... 
+*/
+
+@if (Auth::user()->can(teamPermission('profile')->browse(), $team))
+    User CAN browse the profile for their team
+@else
+    User CAN NOT view the profile for their team
+@endif
+
+//or
+@if (Auth::user()->can(ownedSettingPermission('smtp')->edit(), $team))
+    User CAN edit the their own smtp settings
+@else
+    User CAN NOT edit the their own smtp settings
+@endif
+
+//...etc.
 ```
 
 ```php
