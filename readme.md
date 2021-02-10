@@ -8,7 +8,8 @@
 >
 > **Contributions And Feedback Are Welcome**
 > 
-> I'm currently doing this in some of my own projects over the next few months as well.
+> I'm currently using this in some of my own projects (and its working great) and will continue to test over the next few months.
+> Until then, I won't be comfortable with putting out an 'official release'  
 
 ### Intro
 Create and Retrieve permission strings using methods instead of strings, and a very simple configuration.
@@ -34,11 +35,14 @@ Each item listed in the config will get a 'permission set', one of each:
 ---
 ## Quick Start
 I've been using Spatie's [Spatie Permissions](https://github.com/spatie/laravel-permission) package a lot lately and got pretty annoyed with always having to remember which permissions were plural, which syntax allowed the user to view 'team' permissions (though I had a 'Team' model, so it had to be something besides 'team' or 'teams'), vs which permissions were just for the user's own resources. On top of that, having to hard code permission strings throughout the application, or create a wrapper each time. 
-It seemed like such a common routine, I decided to venture out and create a package, albeit my first public package. 
-_So please go easy on me guys, if you find any issue. I'm willing and open to any **constructive** criticism_
+It seemed like such a common routine, I decided to venture out and create a package for this.
+
+_Please let me know if you find any issues. I'm glad to make any updates that are required._
 
 ### TLDR;
-This package is an effort to create a convention to naming, generating, and accessing predictable and reliable permission strings. 
+This package is an effort to create conventions for naming, generating, 
+and referencing permission strings in a predictable and dynamic manner 
+(not hard-coding permission strings throughout an app).  
 
 ---
 
