@@ -4,7 +4,8 @@
 /**
  * 
  * This file will always be different depending on the 'resources' and 'settings' that you've listed in your config.
- * But I love to have that ide assistance, so here's a file that will give you a simple start on ide assistance
+ * But I love to have that ide assistance, though it takes extra time in the beginning. I love having it.
+ * So here's a file that will give you a simple start on ide assistance
  * 
  * (create a 'permission_name_helper.php' in the root of your project...then add the following, replacing all methods with your resources/settings)
  */

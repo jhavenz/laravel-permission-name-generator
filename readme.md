@@ -184,11 +184,16 @@ TeamPermission::user()->except(['edit','delete', 'force_delete', '*']);
 //     'user.[team].restore',
 // ]
 
-//=====> !! Important Note !!
-//Be careful when using 'except()' since the '*' permission is always present in the Collection that's returned and will remain present unless you list it in your parameters. 
+```
+#### !! Important Note !!
+Be careful when using the `except()` method since the `*` permission is always present in the 
+Collection that gets returned, and will remain present unless otherwise specified. 
 
-//Similar to incoming requests with Laravel, it's safest to the 'only()' method to ensure you're cherry-picking the permissions that you've excplicitly defined.
-// ===========================================
+Similar to parsing requests within Laravel, it's safest to stick with the `only()` method 
+to ensure you're cherry-picking the exact permissions you're looking for.
+---
+
+```php
 
 //You can use these methods on the 'settings' Facades as well...
 
