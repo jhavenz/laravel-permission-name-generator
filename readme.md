@@ -1,5 +1,4 @@
 ## Laravel Permission Name Generator
----
 
 ### Warning: This package is still a work in progress!!
 > !! **PLEASE DO NOT** use this package in a production environment yet !!
