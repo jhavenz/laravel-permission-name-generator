@@ -152,7 +152,9 @@ Route::get('permissions', function () {
     //returns 'smtp.[team_setting].edit' 
 });
 ```
+
 Any distinction between the 'team' scope and the 'owned' scope is open to interpretation as is needed for your app, of course. I'm just listing out some examples of how I've used these permission strings before.
+
 ---
 
 ### Retrieval 'all' Permissions
