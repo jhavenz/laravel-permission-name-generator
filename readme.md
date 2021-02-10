@@ -407,7 +407,7 @@ AllPermissions::all();
 ```
 
 ### QA: 
-> 1. **What are the brackets for on each permission string?**
+>1. **What are the brackets for on each permission string?**
 >
 > This is to prevent any naming clashes with the 'resources' and 'settings' that you have listed in your config file.
 > If you're looking at the source code, these are often referred to as `ownershipScopes` or just `scopes`
