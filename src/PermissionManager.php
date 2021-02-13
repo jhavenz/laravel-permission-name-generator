@@ -218,13 +218,14 @@ abstract class PermissionManager
 
         if (!in_array($ability, $options = PermissionNameFactory::allAccessLevels(), true)) {
             throw new PermissionLookupException(
-                "The parameters for the `only()` and `except()` methods should one or multiple of the following: " . implode(', ', $options)
+                "The parameters for the `only()` and `except()` methods should consist of one or multiple of the following access levels: " . implode(', ', $options)
             );
         }
     }
 
     public function filterForResource()
     {
+
         $this->abilities = $this
             ->permissions
             ->filter(
@@ -327,7 +328,8 @@ abstract class PermissionManager
 
     private function isSettingScope()
     {
-        return $this->scopeType === PermissionGenerator::SCOPE_OWNED_SETTING || $this->scopeType === PermissionGenerator::SCOPE_TEAM_SETTING;
+        return $this->scopeType === PermissionGenerator::SCOPE_OWNED_SETTING ||
+            $this->scopeType === PermissionGenerator::SCOPE_TEAM_SETTING;
     }
 
     public function __get($name)
