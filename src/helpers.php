@@ -16,10 +16,8 @@ if (! function_exists('teamPermission')) {
     function teamPermission(string $resource = null)
     {
         return $resource
-            ? app('TeamPermission')
-                ->setResource($resource)
-            : app('TeamPermission')
-                ->all();
+            ? app('TeamPermission')->setResource($resource)
+            : app('TeamPermission')->all();
     }
 }
 
