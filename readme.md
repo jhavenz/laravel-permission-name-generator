@@ -15,7 +15,74 @@ Each item listed in the config will get a 'permission set', one of each:
 - force_delete
 - `*` _(referenced using the 'wildcard' method)_
 
-### Note:
+
+### Quick Example
+Adding one item within the `resources` array in your config, such as...
+```php
+//=> config.php
+<?php
+
+return [
+    'resources' => [
+        'billing'
+    ]
+];
+```
+Produces the following permission strings...
+_Note: each item wrapped in brackets, e.g. [owned], is considered a 'scope'_
+```php
+'billing.[owned].browse'
+'billing.[owned].read' 
+'billing.[owned].edit' 
+'billing.[owned].add' 
+'billing.[owned].delete' 
+'billing.[owned].restore' 
+'billing.[owned].force_delete'
+//and
+'billing.[team].browse'
+'billing.[team].read' 
+'billing.[team].edit' 
+'billing.[team].add' 
+'billing.[team].delete' 
+'billing.[team].restore' 
+'billing.[team].force_delete'
+```
+An example to access one of these permission strings in your Laravel app...
+```php
+//=> anywhere in your app
+
+OwnedPermission::billing()->edit(); 
+//returns 'billing.[owned].edit'
+
+//or with global helper functions..
+ownedPermission('billing')->read();
+//returns 'billing.[owned].read'
+```
+
+Examples to grab subsets of permissions for a `resource`:
+```php
+//or 'only' a subset for a specific scope..
+teamPermission('billing')->only(['browse', 'edit']);
+//returns Laravel Collection: 
+    [
+        'billing.[team].browse',
+        'billing.[team].edit'
+    ]
+
+//or 'except' a subset for a specific scope..
+teamPermission('billing')->except(['force_delete', 'restore']);
+//returns Laravel Collection with: 
+    [
+        'billing.[team].browse',
+        'billing.[team].read',
+        'billing.[team].edit',
+        'billing.[team].add',
+        'billing.[team].delete',
+        'billing.[team].*' // <-- be careful when using 'except'... the '*' permission must be expicitly excluded
+    ]
+```
+
+### Authorization Note:
 **This package is a glorified getter/setter for permission strings. Providing convenience and convention.
 
 **_There is ZERO logic when the time comes to AUTHORIZING ANYTHING throughout your app. This is an entirely seperate matter._**
