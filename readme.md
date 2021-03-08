@@ -1,16 +1,6 @@
 
 ## Laravel Permission Name Generator
 
-### Warning:
->  **This is still in pre-release**
-> 
-> **PLEASE TEST THOROUGHLY if planning to use in a production environment !!
->
-> **Contributions And Feedback Are Welcome**
-> 
-> I'm currently using this in some of my own projects (and its working great) and will continue to test over the next few months.
-> Until then, I won't be comfortable with putting out an 'official release'  
-
 ### Intro
 Create and Retrieve permission strings using methods instead of strings, and a very simple configuration.
 
@@ -603,14 +593,18 @@ AllPermissions::all();
 
 > 2. **Why Is Everything Singular?**
 >
-> This is definitely intentional, since when I'm working on my own projects, I was always having to lookup what was singular and what wasn't.
-> The `AllPermissions` Facade is the only thing that's singular (unless I overlooked something somewhere, if so please let me know).
-> This provides a unified and predictable format across the board... 
+> This is intentional and provides a unified and predictable format across the board...
+> The `AllPermissions` Facade is the only thing that's not singular.
 
 
 > 3. **Can I add my own scopes?**
 >
-> No, right now there's only 4 available... as represented by the Facades.
+> No, right now there's only 4 available. Each represented by a Facade, or their own global helper
+>   -   owned permissions
+>   -   team permissions
+>   -   owned setting permissions
+>   -   team setting permissions
+
    
 > 4. **Can Permissions be queried in any way?**
 >
@@ -629,7 +623,7 @@ AllPermissions::all();
 
 - [Spatie](https://spatie.be/)
     For doing all the hard work in their permissions package. I also make use of their [once](https://github.com/spatie/once)
-    function to help with performance within this package.
+    function to help with performance in this package.
 
 
 ### Security
@@ -641,11 +635,3 @@ AllPermissions::all();
 
 Please see the [opensource.org](https://opensource.org/licenses/MIT) site definition for more information.
 
-### Warning:
->  **This is still in pre-release**
->
-> **PLEASE TEST THOROUGHLY if planning to use in a production environment !!
->
-> **Contributions And Feedback Are Welcome**
-> 
-> I'm currently doing this in some of my own projects over the next few months as well.
