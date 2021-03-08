@@ -83,6 +83,11 @@ Route::get('permissions', function () {
     OwnedPermission::billing()->edit();
     //returns 'billing.[owned].edit'
 });
+
+//or, get all 'resources' now available to you:
+Route::get('permissions', function () {
+    return collect([OwnedPermission::all(), TeamPermission::all()])->toArray();
+});
 ```
 **or**
 
@@ -135,9 +140,13 @@ Route::get('permissions', function () {
     OwnedSettingPermission::smtp()->edit();
     //returns 'smtp.[owned_setting].edit' 
 });
-```
-or
 
+//or, get all 'settings' now available to you:
+Route::get('permissions', function () {
+    return collect([OwnedSettingPermission::all(), TeamSettingPermission::all()])->toArray();
+});
+
+```
 This example might be the permission used when you want to know if:
 
 _The current user can edit the smtp settings THEIR TEAM OWNS_
@@ -210,8 +219,8 @@ ownedPermission();
 ---
 
 ### ONLY and EXCEPT methods
-Often times, when you're defining roles, and which permissions are associated with them, you'll need to tell your app which permissions should be included/excluded from each set of 'resources' or 'settings' that you've defined in the config file.
-For this, you can use the `only()` method or the `except()` method. These methods accept a comma-seperated list of 'abilities' or an array.
+As briefly shown above, when you're defining roles and which permissions are associated with them, you'll need to tell your app which permissions should be included/excluded from each set of 'resources' or 'settings' that you've defined in the config file.
+For this, you can use the `only()` method or the `except()` method. These methods accept a list of abilities as a comma-seperated string or an array.  
 
 For Example, if using the same configs as mentioned above:
 ```php
