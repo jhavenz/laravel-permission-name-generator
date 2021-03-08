@@ -76,10 +76,11 @@ Examples to grab subsets of permissions for a `resource`:
 teamPermission('billing')->only(['browse', 'edit']);
 /**
 * returns: 
-*    [ //Laravel Collection
+*    Illuminate\Support\Collection
+*    {
 *        'billing.[team].browse',
 *        'billing.[team].edit'
-*    ]
+*    }
 */ 
 
 //Or, 'except' a subset for a specific scope..
@@ -87,14 +88,15 @@ teamPermission('billing')->only(['browse', 'edit']);
 teamPermission('billing')->except(['force_delete', 'restore']);
 /**
 * returns: 
-*   [ //Laravel Collection
+*   Illuminate\Support\Collection 
+*   { 
 *        'billing.[team].browse',
 *        'billing.[team].read',
 *        'billing.[team].edit',
 *        'billing.[team].add',
 *        'billing.[team].delete',
 *        'billing.[team].*' // <-- be careful when using 'except'... the '*' permission must be expicitly excluded
-*    ]
+*    }
 */ 
 
 ```
