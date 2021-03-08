@@ -194,9 +194,9 @@ Route::get('permissions', function () {
 ```
 ---
 
-### 'Settings' Quick Start
-The 'settings' section in the config file is optional.
-This is added in the case that you have 'settings' related permissions that are seperate from your resources.
+### 'Settings' Items
+The `settings` section in the config file is optional.
+This is added in the case that you have `settings` related permissions that are seperate from your resources.
 ```php
 //=> config/permission-name-generator
 
@@ -255,7 +255,7 @@ Route::get('permissions', function () {
 
 
 ### Global Helpers
-Like Laravel's global helper function's, there are 4 global functions available.
+There are 4 global 'helper' functions available.
 They are:
 ```php
 ownedPermission();
@@ -282,10 +282,10 @@ teamSettingPermission('smtp')->restore();
 
 //the 'only' and 'except' methods (explained below) can be chained here as well...
 ownedSettingPermission('smtp')->only('browse', 'add', 'delete');
-//returns a Laravel Collection only containing these 3 permission strings
+//returns a Illuminate\Support\Collection only containing these 3 permission strings
 
 teamPermission('billing')->except('*', 'force_delete');
-//returns a Laravel Collection with all permissions in the 'billing.[team]' prefix, 
+//returns a Illuminate\Support\Collection with all permissions in the 'billing.[team]' prefix, 
 //excluding '*' and 'force_delete'
 ```
 **Option B:**
@@ -313,22 +313,24 @@ For Example, if using the same configs as mentioned above:
 ```php
 
 OwnedPermission::billing()->only('browse', 'edit');
-// returns a Collection that only includes:
-// [
-//     'billing.[owned].browse',
-//     'billing.[owned].edit'
-// ]
+/** returns:
+*   Illuminate\Support\Collection {
+*     'billing.[owned].browse',
+*     'billing.[owned].edit'
+*   }
+*/
 
 //or 
 
 TeamPermission::user()->except(['edit','delete', 'force_delete', '*']);
-// returns a Collection that only excludes these parameters:
-// [
-//     'user.[team].browse',
-//     'user.[team].read',
-//     'user.[team].add',
-//     'user.[team].restore',
-// ]
+/** returns:
+*   Illuminate\Support\Collection {
+*     'user.[team].browse',
+*     'user.[team].read',
+*     'user.[team].add',
+*     'user.[team].restore',
+*   }
+*/
 
 ```
 #### !! Important Note !!
