@@ -38,6 +38,7 @@ _Note: each item wrapped in brackets, e.g. [owned], is considered a 'scope'_
 'billing.[owned].delete' 
 'billing.[owned].restore' 
 'billing.[owned].force_delete'
+'billing.[owned].*'
 //and
 'billing.[team].browse'
 'billing.[team].read' 
@@ -46,22 +47,25 @@ _Note: each item wrapped in brackets, e.g. [owned], is considered a 'scope'_
 'billing.[team].delete' 
 'billing.[team].restore' 
 'billing.[team].force_delete'
+'billing.[team].*'
 ```
 An example to access one of these permission strings in your Laravel app...
 ```php
 //=> anywhere in your app
 
 OwnedPermission::billing()->edit(); 
-//returns: 
-
-// 'billing.[owned].edit'
+/**
+* returns: 
+*   'billing.[owned].edit'
+*/ 
 
 //Or, with global helper functions..
 
 ownedPermission('billing')->read(); 
-//returns: 
-
-// 'billing.[owned].read'
+/**
+* returns: 
+*   'billing.[owned].read'
+*/ 
 ```
 
 Examples to grab subsets of permissions for a `resource`:
@@ -70,26 +74,29 @@ Examples to grab subsets of permissions for a `resource`:
 //Or, 'only' a subset for a specific scope..
 
 teamPermission('billing')->only(['browse', 'edit']);
-//returns:
-
-    [ //Laravel Collection
-        'billing.[team].browse',
-        'billing.[team].edit'
-    ]
+/**
+* returns: 
+*    [ //Laravel Collection
+*        'billing.[team].browse',
+*        'billing.[team].edit'
+*    ]
+*/ 
 
 //Or, 'except' a subset for a specific scope..
 
 teamPermission('billing')->except(['force_delete', 'restore']);
-//returns:
+/**
+* returns: 
+*   [ //Laravel Collection
+*        'billing.[team].browse',
+*        'billing.[team].read',
+*        'billing.[team].edit',
+*        'billing.[team].add',
+*        'billing.[team].delete',
+*        'billing.[team].*' // <-- be careful when using 'except'... the '*' permission must be expicitly excluded
+*    ]
+*/ 
 
-    [ //Laravel Collection
-        'billing.[team].browse',
-        'billing.[team].read',
-        'billing.[team].edit',
-        'billing.[team].add',
-        'billing.[team].delete',
-        'billing.[team].*' // <-- be careful when using 'except'... the '*' permission must be expicitly excluded
-    ]
 ```
 
 ### Authorization Note:
