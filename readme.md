@@ -52,27 +52,37 @@ An example to access one of these permission strings in your Laravel app...
 //=> anywhere in your app
 
 OwnedPermission::billing()->edit(); 
-//returns 'billing.[owned].edit'
+//returns: 
 
-//or with global helper functions..
-ownedPermission('billing')->read();
-//returns 'billing.[owned].read'
+// 'billing.[owned].edit'
+
+//Or, with global helper functions..
+
+ownedPermission('billing')->read(); 
+//returns: 
+
+// 'billing.[owned].read'
 ```
 
 Examples to grab subsets of permissions for a `resource`:
 ```php
-//or 'only' a subset for a specific scope..
+
+//Or, 'only' a subset for a specific scope..
+
 teamPermission('billing')->only(['browse', 'edit']);
-//returns Laravel Collection: 
-    [
+//returns:
+
+    [ //Laravel Collection
         'billing.[team].browse',
         'billing.[team].edit'
     ]
 
-//or 'except' a subset for a specific scope..
+//Or, 'except' a subset for a specific scope..
+
 teamPermission('billing')->except(['force_delete', 'restore']);
-//returns Laravel Collection with: 
-    [
+//returns:
+
+    [ //Laravel Collection
         'billing.[team].browse',
         'billing.[team].read',
         'billing.[team].edit',
@@ -90,16 +100,15 @@ teamPermission('billing')->except(['force_delete', 'restore']);
 **All package logic is related to generating 'permission strings' very easily and retrieving them very easily throughout your app. Convention and Predictability are at the heart of what this package provides.**
 
 ---
-## Quick Start
+## Overview
 I've been using Spatie's [Spatie Permissions](https://github.com/spatie/laravel-permission) package a lot lately and got pretty annoyed with always having to remember which permissions were plural, which syntax allowed the user to view 'team' permissions (though I had a 'Team' model, so it had to be something besides 'team' or 'teams'), vs which permissions were just for the user's own resources. On top of that, having to hard code permission strings throughout the application, or create a wrapper each time. 
 It seemed like such a common routine, I decided to venture out and create a package for this.
 
 _Please let me know if you find any issues. I'm glad to make any updates that are required._
 
 ### TLDR;
-This package is an effort to create conventions for naming, generating, 
-and referencing permission strings in a predictable and dynamic manner 
-(not hard-coding permission strings throughout an app).  
+Package provides conventions for naming, generating, and referencing permission strings in a predictable and dynamic manner 
+(never hard-coding permission strings throughout your app). 
 
 ---
 
