@@ -132,6 +132,8 @@ composer require sourcefli/laravel-permission-name-generator
 php artisan vendor:publish --provider="Sourcefli\PermissionName\PermissionNameServiceProvider"
 ```
 ---
+# Detailed Usage
+
 
 ### Add Resources/Settings To Config File
 ```php
