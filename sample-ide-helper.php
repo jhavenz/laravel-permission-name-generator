@@ -36,19 +36,10 @@
 /**
  *
  * @method static \Sourcefli\PermissionName\Adapters\AllPermissionsAdapter setScope(string $scope)
- * @see \Sourcefli\PermissionName\Adapters\AllPermissionsAdapter::setScope();
  *
  * @method static \Sourcefli\PermissionName\Adapters\AllPermissionsAdapter setResource(string $resource)
- * @see \Sourcefli\PermissionName\Adapters\AllPermissionsAdapter::setResource();
  * 
- * @method static \Sourcefli\PermissionName\Adapters\AllPermissionsAdapter all()
- * @see \Sourcefli\PermissionName\Adapters\AllPermissionsAdapter::all();
- *
- * @method static \Sourcefli\PermissionName\Adapters\AllPermissionsAdapter user()
- * @see \Sourcefli\PermissionName\Adapters\AllPermissionsAdapter::user();
- *
- * @method static \Sourcefli\PermissionName\Adapters\AllPermissionsAdapter billing()
- * @see \Sourcefli\PermissionName\Adapters\AllPermissionsAdapter::billing();
+ * @method static \Illuminate\Support\Collection all()
  */
 class AllPermissions
 {
@@ -56,14 +47,6 @@ class AllPermissions
 
 /**
  * @method static \Sourcefli\PermissionName\Adapters\OwnedPermissionsAdapter all()
- * @see \Sourcefli\PermissionName\Adapters\OwnedPermissionsAdapter::all();
- *
- * @method static \Sourcefli\PermissionName\Adapters\OwnedPermissionsAdapter user()
- * @see \Sourcefli\PermissionName\Adapters\OwnedPermissionsAdapter::user();
- *
- * @method static \Sourcefli\PermissionName\Adapters\OwnedPermissionsAdapter billing()
- * @see \Sourcefli\PermissionName\Adapters\OwnedPermissionsAdapter::billing();
- *
  */
 class OwnedPermission
 {
@@ -71,14 +54,6 @@ class OwnedPermission
 
 /**
  * @method static \Sourcefli\PermissionName\Adapters\TeamPermissionsAdapter all()
- * @see \Sourcefli\PermissionName\Adapters\TeamPermissionsAdapter::all();
- * 
- * @method static \Sourcefli\PermissionName\Adapters\TeamPermissionsAdapter user()
- * @see \Sourcefli\PermissionName\Adapters\TeamPermissionsAdapter::user();
- *
- * @method static \Sourcefli\PermissionName\Adapters\TeamPermissionsAdapter billing()
- * @see \Sourcefli\PermissionName\Adapters\TeamPermissionsAdapter::billing();
- *
  */
 class TeamPermission
 {
@@ -91,13 +66,6 @@ class TeamPermission
 
 /**
  * @method static \Sourcefli\PermissionName\Adapters\OwnedSettingPermissionsAdapter all()
- * @see \Sourcefli\PermissionName\Adapters\OwnedSettingPermissionsAdapter::all();
- * 
- * @method static \Sourcefli\PermissionName\Adapters\OwnedSettingPermissionsAdapter user()
- * @see \Sourcefli\PermissionName\Adapters\OwnedSettingPermissionsAdapter::user();
- *
- * @method static \Sourcefli\PermissionName\Adapters\OwnedSettingPermissionsAdapter smtp()
- * @see \Sourcefli\PermissionName\Adapters\OwnedSettingPermissionsAdapter::smtp();
  */
 class OwnedSettingPermission
 {
@@ -105,13 +73,6 @@ class OwnedSettingPermission
 
 /**
  * @method static \Sourcefli\PermissionName\Adapters\TeamSettingPermissionsAdapter all()
- * @see \Sourcefli\PermissionName\Adapters\TeamSettingPermissionsAdapter::all();
- * 
- * @method static \Sourcefli\PermissionName\Adapters\TeamSettingPermissionsAdapter user()
- * @see \Sourcefli\PermissionName\Adapters\TeamSettingPermissionsAdapter::user();
- *
- * @method static \Sourcefli\PermissionName\Adapters\TeamSettingPermissionsAdapter smtp()
- * @see \Sourcefli\PermissionName\Adapters\TeamSettingPermissionsAdapter::smtp();
  */
 class TeamSettingPermission
 {
@@ -131,19 +92,11 @@ namespace Illuminate\Support\Facades {
     /**
      *
      * @method static \Sourcefli\PermissionName\Adapters\AllPermissionsAdapter setScope(string $scope)
-     * @see \Sourcefli\PermissionName\Adapters\AllPermissionsAdapter::setScope();
      *
      * @method static \Sourcefli\PermissionName\Adapters\AllPermissionsAdapter setResource(string $resource)
-     * @see \Sourcefli\PermissionName\Adapters\AllPermissionsAdapter::setResource();
      * 
      * @method static \Sourcefli\PermissionName\Adapters\AllPermissionsAdapter all()
-     * @see \Sourcefli\PermissionName\Adapters\AllPermissionsAdapter::all();
      *
-     * @method static \Sourcefli\PermissionName\Adapters\AllPermissionsAdapter user()
-     * @see \Sourcefli\PermissionName\Adapters\AllPermissionsAdapter::user();
-     *
-     * @method static \Sourcefli\PermissionName\Adapters\AllPermissionsAdapter billing()
-     * @see \Sourcefli\PermissionName\Adapters\AllPermissionsAdapter::billing();
      */
     class AllPermissions
     {
@@ -152,13 +105,6 @@ namespace Illuminate\Support\Facades {
 
     /**
      * @method static \Sourcefli\PermissionName\Adapters\OwnedPermissionsAdapter all()
-     * @see \Sourcefli\PermissionName\Adapters\OwnedPermissionsAdapter::all();
-     * 
-     * @method static \Sourcefli\PermissionName\Adapters\OwnedPermissionsAdapter user()
-     * @see \Sourcefli\PermissionName\Adapters\OwnedPermissionsAdapter::user();
-     *
-     * @method static \Sourcefli\PermissionName\Adapters\OwnedPermissionsAdapter billing()
-     * @see \Sourcefli\PermissionName\Adapters\OwnedPermissionsAdapter::billing();
      */
     class OwnedPermission
     {
@@ -167,14 +113,6 @@ namespace Illuminate\Support\Facades {
 
     /**
      * @method static \Sourcefli\PermissionName\Adapters\TeamPermissionsAdapter all()
-     * @see \Sourcefli\PermissionName\Adapters\TeamPermissionsAdapter::all();
-     * 
-     * @method static \Sourcefli\PermissionName\Adapters\TeamPermissionsAdapter user()
-     * @see \Sourcefli\PermissionName\Adapters\TeamPermissionsAdapter::user();
-     *
-     * @method static \Sourcefli\PermissionName\Adapters\TeamPermissionsAdapter billing()
-     * @see \Sourcefli\PermissionName\Adapters\TeamPermissionsAdapter::billing();
-     *
      */
     class TeamPermission
     {
@@ -183,13 +121,6 @@ namespace Illuminate\Support\Facades {
 
     /**
      * @method static \Sourcefli\PermissionName\Adapters\OwnedSettingPermissionsAdapter all()
-     * @see \Sourcefli\PermissionName\Adapters\OwnedSettingPermissionsAdapter::all();
-     * 
-     * @method static \Sourcefli\PermissionName\Adapters\OwnedSettingPermissionsAdapter user()
-     * @see \Sourcefli\PermissionName\Adapters\OwnedSettingPermissionsAdapter::user();
-     *
-     * @method static \Sourcefli\PermissionName\Adapters\OwnedSettingPermissionsAdapter smtp()
-     * @see \Sourcefli\PermissionName\Adapters\OwnedSettingPermissionsAdapter::smtp();
      */
     class OwnedSettingPermission
     {
@@ -198,13 +129,6 @@ namespace Illuminate\Support\Facades {
 
     /**
      * @method static \Sourcefli\PermissionName\Adapters\TeamSettingPermissionsAdapter all()
-     * @see \Sourcefli\PermissionName\Adapters\TeamSettingPermissionsAdapter::all();
-     * 
-     * @method static \Sourcefli\PermissionName\Adapters\TeamSettingPermissionsAdapter user()
-     * @see \Sourcefli\PermissionName\Adapters\TeamSettingPermissionsAdapter::user();
-     *
-     * @method static \Sourcefli\PermissionName\Adapters\TeamSettingPermissionsAdapter smtp()
-     * @see \Sourcefli\PermissionName\Adapters\TeamSettingPermissionsAdapter::smtp();
      */
     class TeamSettingPermission
     {

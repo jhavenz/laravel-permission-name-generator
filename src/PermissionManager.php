@@ -17,6 +17,14 @@ use Sourcefli\PermissionName\Factories\PermissionNameFactory;
 
 abstract class PermissionManager
 {
+    const BROWSE = 'browse';
+    const READ = 'read';
+    const EDIT = 'edit';
+    const ADD = 'add';
+    const DELETE = 'delete';
+    const FORCE_DELETE = 'force_delete';
+    const RESTORE = 'restore';
+    const WILDCARD = '*';
 
     public Collection $abilities;
     protected string $resource;
@@ -41,49 +49,57 @@ abstract class PermissionManager
     public function browse(): string
     {
         $this->resetAndReduceByResource();
-        return $this->firstByAbility('browse');
+
+        return $this->firstByAbility(self::BROWSE);
     }
 
     public function read(): string
     {
         $this->resetAndReduceByResource();
-        return $this->firstByAbility('read');
+
+        return $this->firstByAbility(self::READ);
     }
 
     public function edit(): string
     {
         $this->resetAndReduceByResource();
-        return $this->firstByAbility('edit');
+
+        return $this->firstByAbility(self::EDIT);
     }
 
     public function add(): string
     {
         $this->resetAndReduceByResource();
-        return $this->firstByAbility('add');
+
+        return $this->firstByAbility(self::ADD);
     }
 
     public function delete(): string
     {
         $this->resetAndReduceByResource();
-        return $this->firstByAbility('delete');
+
+        return $this->firstByAbility(self::DELETE);
     }
 
     public function force_delete(): string
     {
         $this->resetAndReduceByResource();
-        return $this->firstByAbility('force_delete');
+
+        return $this->firstByAbility(self::FORCE_DELETE);
     }
 
     public function restore(): string
     {
         $this->resetAndReduceByResource();
-        return $this->firstByAbility('restore');
+
+        return $this->firstByAbility(self::RESTORE);
     }
 
     public function wildcard(): string
     {
         $this->resetAndReduceByResource();
-        return $this->firstByAbility('*');
+
+        return $this->firstByAbility(self::WILDCARD);
     }
 
     public function only(string|array ...$abilities): Collection
@@ -125,9 +141,7 @@ abstract class PermissionManager
 
     protected function firstByAbility(string $ability)
     {
-        return $this
-            ->abilities
-            ->first(fn ($p) => Str::endsWith($p, ".{$ability}"));
+        return $this->abilities->first(fn ($p) => Str::endsWith($p, ".{$ability}"));
     }
 
     /**
@@ -167,12 +181,13 @@ abstract class PermissionManager
             $this->resource = collect($this->settings)->first(fn ($s) => $s === $resource);
         } else {
             $this->isValidResource($resource);
-            $this->resource = collect($this->resources)->first(fn ($s) => $s === $resource);
+            $this->resource = collect($this->resources)->first(fn ($r) => $r === $resource);
         }
 
         return $this;
     }
 
+    /** @internal */
     public function resetAndReduceByResource()
     {
         if ($this->scopeIsAll()) {
@@ -180,12 +195,15 @@ abstract class PermissionManager
         }
 
         $this->validResourceIsSet();
+
         $this->reset();
+
         $this->filterForResource();
 
         return $this;
     }
 
+    /** @internal */
     public function validResourceIsSet()
     {
         if (!isset($this->resource)) {
@@ -223,15 +241,12 @@ abstract class PermissionManager
         }
     }
 
+    /** @internal */
     public function filterForResource()
     {
-
-        $this->abilities = $this
-            ->permissions
-            ->filter(
-                fn ($p) =>
-                Str::startsWith($p, $this->resourcePrefix())
-            );
+        $this->abilities = $this->permissions->filter(
+            fn ($p) => Str::startsWith($p, $this->resourcePrefix())
+        );
 
         return $this;
     }
@@ -242,6 +257,7 @@ abstract class PermissionManager
     public function reset()
     {
         $this->abilities = collect();
+
         return $this;
     }
 

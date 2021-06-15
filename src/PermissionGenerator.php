@@ -49,37 +49,25 @@ class PermissionGenerator
         if ($scopeType === self::SCOPE_TEAM) {
             return $this
                 ->allPermissions()
-                ->filter(
-                    fn ($p) =>
-                    Str::contains($p, '.' . self::SCOPE_TEAM . '.')
-                );
+                ->filter(fn ($p) => Str::contains($p, '.' . self::SCOPE_TEAM . '.'));
         }
 
         if ($scopeType === self::SCOPE_OWNED) {
             return $this
                 ->allPermissions()
-                ->filter(
-                    fn ($p) =>
-                    Str::contains($p, '.' . self::SCOPE_OWNED . '.')
-                );
+                ->filter(fn ($p) => Str::contains($p, '.' . self::SCOPE_OWNED . '.'));
         }
 
         if ($scopeType === self::SCOPE_OWNED_SETTING) {
             return $this
                 ->allPermissions()
-                ->filter(
-                    fn ($p) =>
-                    Str::contains($p, '.' . self::SCOPE_OWNED_SETTING . '.')
-                );
+                ->filter(fn ($p) => Str::contains($p, '.' . self::SCOPE_OWNED_SETTING . '.'));
         }
 
         if ($scopeType === self::SCOPE_TEAM_SETTING) {
             return $this
                 ->allPermissions()
-                ->filter(
-                    fn ($p) =>
-                    Str::contains($p, '.' . self::SCOPE_TEAM_SETTING . '.')
-                );
+                ->filter(fn ($p) => Str::contains($p, '.' . self::SCOPE_TEAM_SETTING . '.'));
         }
 
         throw new PermissionLookupException(
