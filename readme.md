@@ -29,7 +29,7 @@ return [
 ];
 ```
 Produces the following permission strings...
-_Note: each item wrapped in brackets, e.g. [owned], is considered a 'scope'_
+_Note: each item wrapped in brackets will be later referenced as a 'scope'_
 ```php
 'billing.[owned].browse'
 'billing.[owned].read' 
@@ -51,8 +51,6 @@ _Note: each item wrapped in brackets, e.g. [owned], is considered a 'scope'_
 ```
 An example to access one of these permission strings in your Laravel app...
 ```php
-//=> anywhere in your app
-
 OwnedPermission::billing()->edit(); 
 /**
 * returns: 
@@ -95,29 +93,18 @@ teamPermission('billing')->except(['force_delete', 'restore']);
 *        'billing.[team].edit',
 *        'billing.[team].add',
 *        'billing.[team].delete',
-*        'billing.[team].*' // <-- be careful when using 'except'... the '*' permission must be expicitly excluded
+*        'billing.[team].*'
 *    }
 */ 
 
 ```
 
 ### Authorization Note:
-**This package is a glorified getter/setter for permission strings. Providing convenience and convention.
-
-**_There is ZERO logic when the time comes to AUTHORIZING ANYTHING throughout your app. This is an entirely seperate matter._**
-
-**All package logic is related to generating 'permission strings' very easily and retrieving them very easily throughout your app. Convention and Predictability are at the heart of what this package provides.**
+**All package logic is related to generating 'permission strings' very easily and retrieving them very easily throughout your app. Convention, predictability, and reduce boilerplate are at the heart of what I was going for.**
 
 ---
 ## Overview
-I've been using Spatie's [Spatie Permissions](https://github.com/spatie/laravel-permission) package a lot lately and got pretty annoyed with always having to remember which permissions were plural, which syntax allowed the user to view 'team' permissions (though I had a 'Team' model, so it had to be something besides 'team' or 'teams'), vs which permissions were just for the user's own resources. On top of that, having to hard code permission strings throughout the application, or create a wrapper each time. 
-It seemed like such a common routine, I decided to venture out and create a package for this.
-
-_Please let me know if you find any issues. I'm glad to make any updates that are required._
-
-### TLDR;
-Package provides conventions for naming, generating, and referencing permission strings in a predictable and dynamic manner 
-(never hard-coding permission strings throughout your app). 
+Got pretty annoyed with always having to remember which permissions were plural, which syntax allowed the user to view 'team' permissions vs which permissions were just for the user's own resources. On top of that, having to hard code permission strings throughout the application, or create a wrapper each time. These seemed like such a common routines, I decided to venture out and create a package for this.
 
 ---
 
