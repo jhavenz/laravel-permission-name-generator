@@ -1,5 +1,8 @@
 
 ## Laravel Permission Name Generator
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/sourcefli/laravel-permission-name-generator.svg?style=flat-square)](https://packagist.org/packages/sourcefli/laravel-permission-name-generator)
+[![Total Downloads](https://img.shields.io/packagist/dt/sourcefli/laravel-permission-name-generator.svg?style=flat-square)](https://packagist.org/packages/sourcefli/laravel-permission-name-generator)
+
 
 ### Intro
 Create and Retrieve permission strings using methods instead of strings, and a very simple configuration.
