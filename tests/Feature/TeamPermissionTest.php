@@ -1,9 +1,9 @@
 <?php
 
-namespace Sourcefli\PermissionName\Tests\Feature;
+namespace Jhavenz\PermissionName\Tests\Feature;
 
-use Sourcefli\PermissionName\Facades\TeamPermission;
-use Sourcefli\PermissionName\Tests\TestCase;
+use Jhavenz\PermissionName\Facades\TeamPermission;
+use Jhavenz\PermissionName\Tests\TestCase;
 
 class TeamPermissionTest extends TestCase
 {

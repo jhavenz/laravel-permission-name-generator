@@ -1,13 +1,13 @@
 <?php
 
-namespace Sourcefli\PermissionName\Tests\Feature;
+namespace Jhavenz\PermissionName\Tests\Feature;
 
 use Illuminate\Support\Collection;
-use Sourcefli\PermissionName\Adapters\OwnedPermissionsAdapter;
-use Sourcefli\PermissionName\Adapters\OwnedSettingPermissionsAdapter;
-use Sourcefli\PermissionName\Adapters\TeamPermissionsAdapter;
-use Sourcefli\PermissionName\Adapters\TeamSettingPermissionsAdapter;
-use Sourcefli\PermissionName\Tests\TestCase;
+use Jhavenz\PermissionName\Adapters\OwnedPermissionsAdapter;
+use Jhavenz\PermissionName\Adapters\OwnedSettingPermissionsAdapter;
+use Jhavenz\PermissionName\Adapters\TeamPermissionsAdapter;
+use Jhavenz\PermissionName\Adapters\TeamSettingPermissionsAdapter;
+use Jhavenz\PermissionName\Tests\TestCase;
 
 class GlobalHelpersTest extends TestCase
 {

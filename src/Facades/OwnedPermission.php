@@ -1,6 +1,6 @@
 <?php
 
-namespace Sourcefli\PermissionName\Facades;
+namespace Jhavenz\PermissionName\Facades;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Facade;
@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * Class OwnedPermission
- * @package Sourcefli\PermissionName\Facades
+ * @package Jhavenz\PermissionName\Facades
  *
- * @see \Sourcefli\PermissionName\PermissionGenerator::class
+ * @see \Jhavenz\PermissionName\PermissionGenerator::class
  *
- * @see \Sourcefli\PermissionName\PermissionGenerator::all()
+ * @see \Jhavenz\PermissionName\PermissionGenerator::all()
  * @method static Collection all()
  */
 class OwnedPermission extends Facade

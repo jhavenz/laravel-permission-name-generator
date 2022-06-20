@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Sourcefli\PermissionName\Adapters;
+namespace Jhavenz\PermissionName\Adapters;
 
-use Sourcefli\PermissionName\Contracts\RetrievesPermissions;
-use Sourcefli\PermissionName\PermissionManager;
+use Jhavenz\PermissionName\Contracts\RetrievesPermissions;
+use Jhavenz\PermissionName\PermissionManager;
 
 class OwnedPermissionsAdapter extends PermissionManager implements RetrievesPermissions
 {}

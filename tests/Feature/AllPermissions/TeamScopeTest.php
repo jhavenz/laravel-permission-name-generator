@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Sourcefli\PermissionName\Tests\Feature\AllPermissions;
+namespace Jhavenz\PermissionName\Tests\Feature\AllPermissions;
 
-use Sourcefli\PermissionName\Facades\AllPermissions;
-use Sourcefli\PermissionName\Tests\TestCase;
+use Jhavenz\PermissionName\Facades\AllPermissions;
+use Jhavenz\PermissionName\Tests\TestCase;
 
 class TeamScopeTest extends TestCase
 {

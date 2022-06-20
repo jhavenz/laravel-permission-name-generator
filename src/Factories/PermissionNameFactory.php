@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Sourcefli\PermissionName\Factories;
+namespace Jhavenz\PermissionName\Factories;
 
 
 use Illuminate\Support\Collection;

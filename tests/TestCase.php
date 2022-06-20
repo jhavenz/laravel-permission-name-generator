@@ -1,12 +1,12 @@
 <?php
 
-namespace Sourcefli\PermissionName\Tests;
+namespace Jhavenz\PermissionName\Tests;
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
-use Sourcefli\PermissionName\Factories\PermissionNameFactory;
-use Sourcefli\PermissionName\Meta;
-use Sourcefli\PermissionName\PermissionNameServiceProvider;
+use Jhavenz\PermissionName\Factories\PermissionNameFactory;
+use Jhavenz\PermissionName\Meta;
+use Jhavenz\PermissionName\PermissionNameServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {

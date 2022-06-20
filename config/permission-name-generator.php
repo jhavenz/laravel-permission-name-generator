@@ -4,7 +4,7 @@ return [
 
     /**
      * Please see repo for extensive instructions:
-     * @link https://github.com/Sourcefli/laravel-permission-name-generator
+     * @link https://github.com/jhavenz/laravel-permission-name-generator
      *
      * Note:
      *  No migrations or database related logic is included in this package, nor is there any authorization logic.

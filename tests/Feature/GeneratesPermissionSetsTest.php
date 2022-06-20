@@ -1,18 +1,18 @@
 <?php
 
-namespace Sourcefli\PermissionName\Tests\Feature;
+namespace Jhavenz\PermissionName\Tests\Feature;
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
-use Sourcefli\PermissionName\Facades\AllPermissions;
-use Sourcefli\PermissionName\Facades\OwnedPermission;
-use Sourcefli\PermissionName\Facades\OwnedSettingPermission;
-use Sourcefli\PermissionName\Facades\TeamPermission;
-use Sourcefli\PermissionName\Facades\TeamSettingPermission;
-use Sourcefli\PermissionName\Factories\PermissionNameFactory;
-use Sourcefli\PermissionName\Meta;
-use Sourcefli\PermissionName\PermissionGenerator;
-use Sourcefli\PermissionName\Tests\TestCase;
+use Jhavenz\PermissionName\Facades\AllPermissions;
+use Jhavenz\PermissionName\Facades\OwnedPermission;
+use Jhavenz\PermissionName\Facades\OwnedSettingPermission;
+use Jhavenz\PermissionName\Facades\TeamPermission;
+use Jhavenz\PermissionName\Facades\TeamSettingPermission;
+use Jhavenz\PermissionName\Factories\PermissionNameFactory;
+use Jhavenz\PermissionName\Meta;
+use Jhavenz\PermissionName\PermissionGenerator;
+use Jhavenz\PermissionName\Tests\TestCase;
 
 class GeneratesPermissionSetsTest extends TestCase
 {

@@ -1,10 +1,10 @@
 {
-    "name": "sourcefli/laravel-permission-name-generator",
+    "name": "jhavenz/laravel-permission-name-generator",
     "description": "Create and Retrieve permissions using conventions and very simple configuration",
     "type": "library",
     "license": "MIT",
     "keywords": [
-        "sourcefli",
+        "jhavenz",
         "permissions",
         "roles",
         "permission-name",
@@ -20,7 +20,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Sourcefli\\PermissionName\\": "src"
+            "Jhavenz\\PermissionName\\": "src"
         },
         "files": [
             "src/helpers.php"
@@ -28,7 +28,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Sourcefli\\PermissionName\\Tests\\": "tests"
+            "Jhavenz\\PermissionName\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -45,14 +45,14 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Sourcefli\\PermissionName\\PermissionNameServiceProvider"
+                "Jhavenz\\PermissionName\\PermissionNameServiceProvider"
             ],
             "aliases": {
-                "AllPermissions": "Sourcefli\\PermissionName\\Facades\\AllPermissions",
-                "OwnedPermission": "Sourcefli\\PermissionName\\Facades\\OwnedPermission",
-                "OwnedSettingPermission": "Sourcefli\\PermissionName\\Facades\\OwnedSettingPermission",
-                "TeamPermission": "Sourcefli\\PermissionName\\Facades\\TeamPermission",
-                "TeamSettingPermission": "Sourcefli\\PermissionName\\Facades\\TeamSettingPermission"
+                "AllPermissions": "Jhavenz\\PermissionName\\Facades\\AllPermissions",
+                "OwnedPermission": "Jhavenz\\PermissionName\\Facades\\OwnedPermission",
+                "OwnedSettingPermission": "Jhavenz\\PermissionName\\Facades\\OwnedSettingPermission",
+                "TeamPermission": "Jhavenz\\PermissionName\\Facades\\TeamPermission",
+                "TeamSettingPermission": "Jhavenz\\PermissionName\\Facades\\TeamSettingPermission"
             }
         }
     }

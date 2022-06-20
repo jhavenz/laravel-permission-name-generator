@@ -1,7 +1,7 @@
 <?php
 
 
-use Sourcefli\PermissionName\Tests\TestCase;
+use Jhavenz\PermissionName\Tests\TestCase;
 
 class RetrievalMethodsTest extends TestCase
 {
@@ -10,11 +10,11 @@ class RetrievalMethodsTest extends TestCase
     public function it_allows_the_all_method_on_any_facade()
     {
         $alls = [
-            [\Sourcefli\PermissionName\Facades\AllPermissions::class, 'all'],
-            [\Sourcefli\PermissionName\Facades\OwnedPermission::class, 'all'],
-            [\Sourcefli\PermissionName\Facades\OwnedSettingPermission::class, 'all'],
-            [\Sourcefli\PermissionName\Facades\TeamPermission::class, 'all'],
-            [\Sourcefli\PermissionName\Facades\TeamSettingPermission::class, 'all'],
+            [\Jhavenz\PermissionName\Facades\AllPermissions::class, 'all'],
+            [\Jhavenz\PermissionName\Facades\OwnedPermission::class, 'all'],
+            [\Jhavenz\PermissionName\Facades\OwnedSettingPermission::class, 'all'],
+            [\Jhavenz\PermissionName\Facades\TeamPermission::class, 'all'],
+            [\Jhavenz\PermissionName\Facades\TeamSettingPermission::class, 'all'],
         ];
 
         foreach ($alls as $facade) {

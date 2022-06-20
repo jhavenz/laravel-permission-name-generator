@@ -1,19 +1,19 @@
 <?php
 
 
-namespace Sourcefli\PermissionName;
+namespace Jhavenz\PermissionName;
 
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Sourcefli\PermissionName\Adapters\AllPermissionsAdapter;
-use Sourcefli\PermissionName\Adapters\OwnedPermissionsAdapter;
-use Sourcefli\PermissionName\Adapters\OwnedSettingPermissionsAdapter;
-use Sourcefli\PermissionName\Adapters\TeamPermissionsAdapter;
-use Sourcefli\PermissionName\Adapters\TeamSettingPermissionsAdapter;
-use Sourcefli\PermissionName\Exceptions\PermissionLookupException;
-use Sourcefli\PermissionName\Factories\AllPermissions as AllPermissionsFactory;
-use Sourcefli\PermissionName\Factories\PermissionNameFactory;
+use Jhavenz\PermissionName\Adapters\AllPermissionsAdapter;
+use Jhavenz\PermissionName\Adapters\OwnedPermissionsAdapter;
+use Jhavenz\PermissionName\Adapters\OwnedSettingPermissionsAdapter;
+use Jhavenz\PermissionName\Adapters\TeamPermissionsAdapter;
+use Jhavenz\PermissionName\Adapters\TeamSettingPermissionsAdapter;
+use Jhavenz\PermissionName\Exceptions\PermissionLookupException;
+use Jhavenz\PermissionName\Factories\AllPermissions as AllPermissionsFactory;
+use Jhavenz\PermissionName\Factories\PermissionNameFactory;
 
 abstract class PermissionManager
 {

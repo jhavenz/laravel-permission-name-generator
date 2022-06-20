@@ -1,6 +1,6 @@
 <?php
 
-namespace Sourcefli\PermissionName\Facades;
+namespace Jhavenz\PermissionName\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

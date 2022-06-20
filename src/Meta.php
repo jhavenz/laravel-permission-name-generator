@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Sourcefli\PermissionName;
+namespace Jhavenz\PermissionName;
 
 
 class Meta

@@ -1,9 +1,9 @@
 <?php
 
-namespace Sourcefli\PermissionName\Tests\Feature;
+namespace Jhavenz\PermissionName\Tests\Feature;
 
-use Sourcefli\PermissionName\Facades\OwnedSettingPermission;
-use Sourcefli\PermissionName\Tests\TestCase;
+use Jhavenz\PermissionName\Facades\OwnedSettingPermission;
+use Jhavenz\PermissionName\Tests\TestCase;
 
 class OwnedSettingPermissionTest extends TestCase
 {

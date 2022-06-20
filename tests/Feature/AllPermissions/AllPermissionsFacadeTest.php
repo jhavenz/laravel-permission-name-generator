@@ -1,15 +1,15 @@
 <?php
 
-namespace Sourcefli\PermissionName\Tests\Feature;
+namespace Jhavenz\PermissionName\Tests\Feature;
 
-use Sourcefli\PermissionName\Adapters\AllPermissionsAdapter;
-use Sourcefli\PermissionName\Adapters\OwnedPermissionsAdapter;
-use Sourcefli\PermissionName\Adapters\OwnedSettingPermissionsAdapter;
-use Sourcefli\PermissionName\Adapters\TeamPermissionsAdapter;
-use Sourcefli\PermissionName\Adapters\TeamSettingPermissionsAdapter;
-use Sourcefli\PermissionName\Exceptions\PermissionLookupException;
-use Sourcefli\PermissionName\Facades\AllPermissions;
-use Sourcefli\PermissionName\Tests\TestCase;
+use Jhavenz\PermissionName\Adapters\AllPermissionsAdapter;
+use Jhavenz\PermissionName\Adapters\OwnedPermissionsAdapter;
+use Jhavenz\PermissionName\Adapters\OwnedSettingPermissionsAdapter;
+use Jhavenz\PermissionName\Adapters\TeamPermissionsAdapter;
+use Jhavenz\PermissionName\Adapters\TeamSettingPermissionsAdapter;
+use Jhavenz\PermissionName\Exceptions\PermissionLookupException;
+use Jhavenz\PermissionName\Facades\AllPermissions;
+use Jhavenz\PermissionName\Tests\TestCase;
 
 class AllPermissionsFacadeTest extends TestCase
 {

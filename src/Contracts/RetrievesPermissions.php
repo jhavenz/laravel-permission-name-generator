@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Sourcefli\PermissionName\Contracts;
+namespace Jhavenz\PermissionName\Contracts;
 
 
 use Illuminate\Support\Collection;

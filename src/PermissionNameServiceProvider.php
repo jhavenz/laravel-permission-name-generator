@@ -1,13 +1,13 @@
 <?php
 
-namespace Sourcefli\PermissionName;
+namespace Jhavenz\PermissionName;
 
 use Illuminate\Support\ServiceProvider;
-use Sourcefli\PermissionName\Adapters\AllPermissionsAdapter;
-use Sourcefli\PermissionName\Adapters\OwnedPermissionsAdapter;
-use Sourcefli\PermissionName\Adapters\OwnedSettingPermissionsAdapter;
-use Sourcefli\PermissionName\Adapters\TeamPermissionsAdapter;
-use Sourcefli\PermissionName\Adapters\TeamSettingPermissionsAdapter;
+use Jhavenz\PermissionName\Adapters\AllPermissionsAdapter;
+use Jhavenz\PermissionName\Adapters\OwnedPermissionsAdapter;
+use Jhavenz\PermissionName\Adapters\OwnedSettingPermissionsAdapter;
+use Jhavenz\PermissionName\Adapters\TeamPermissionsAdapter;
+use Jhavenz\PermissionName\Adapters\TeamSettingPermissionsAdapter;
 
 class PermissionNameServiceProvider extends ServiceProvider
 {

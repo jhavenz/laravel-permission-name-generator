@@ -1,11 +1,11 @@
 <?php
 
-namespace Sourcefli\PermissionName\Factories;
+namespace Jhavenz\PermissionName\Factories;
 
 use Illuminate\Support\Collection;
-use Sourcefli\PermissionName\Contracts\BuildsPermissions;
-use Sourcefli\PermissionName\Meta;
-use Sourcefli\PermissionName\PermissionGenerator;
+use Jhavenz\PermissionName\Contracts\BuildsPermissions;
+use Jhavenz\PermissionName\Meta;
+use Jhavenz\PermissionName\PermissionGenerator;
 
 class OwnedSettingPermissions extends PermissionNameFactory implements BuildsPermissions
 {

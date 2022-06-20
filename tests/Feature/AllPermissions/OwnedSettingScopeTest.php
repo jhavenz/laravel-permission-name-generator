@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Sourcefli\PermissionName\Tests\Feature\AllPermissions;
+namespace Jhavenz\PermissionName\Tests\Feature\AllPermissions;
 
 use Illuminate\Support\Facades\Config;
-use Sourcefli\PermissionName\Facades\AllPermissions;
-use Sourcefli\PermissionName\Tests\TestCase;
+use Jhavenz\PermissionName\Facades\AllPermissions;
+use Jhavenz\PermissionName\Tests\TestCase;
 
 class OwnedSettingScopeTest extends TestCase
 {

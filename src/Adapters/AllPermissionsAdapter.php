@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Sourcefli\PermissionName\Adapters;
+namespace Jhavenz\PermissionName\Adapters;
 
 use Illuminate\Support\Str;
-use Sourcefli\PermissionName\Factories\AllPermissions as AllPermissionsFactory;
-use Sourcefli\PermissionName\PermissionManager;
-use Sourcefli\PermissionName\PermissionGenerator;
-use Sourcefli\PermissionName\Contracts\RetrievesPermissions;
+use Jhavenz\PermissionName\Factories\AllPermissions as AllPermissionsFactory;
+use Jhavenz\PermissionName\PermissionManager;
+use Jhavenz\PermissionName\PermissionGenerator;
+use Jhavenz\PermissionName\Contracts\RetrievesPermissions;
 
 class AllPermissionsAdapter extends PermissionManager implements RetrievesPermissions
 {

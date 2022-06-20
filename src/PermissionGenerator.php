@@ -1,14 +1,14 @@
 <?php
 
-namespace Sourcefli\PermissionName;
+namespace Jhavenz\PermissionName;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
-use Sourcefli\PermissionName\Exceptions\PermissionLookupException;
-use Sourcefli\PermissionName\Factories\OwnedPermissions as OwnedPermissionsFactory;
-use Sourcefli\PermissionName\Factories\OwnedSettingPermissions as OwnedSettingPermissionsFactory;
-use Sourcefli\PermissionName\Factories\TeamPermissions as TeamPermissionsFactory;
-use Sourcefli\PermissionName\Factories\TeamSettingPermissions as TeamSettingPermissionsFactory;
+use Jhavenz\PermissionName\Exceptions\PermissionLookupException;
+use Jhavenz\PermissionName\Factories\OwnedPermissions as OwnedPermissionsFactory;
+use Jhavenz\PermissionName\Factories\OwnedSettingPermissions as OwnedSettingPermissionsFactory;
+use Jhavenz\PermissionName\Factories\TeamPermissions as TeamPermissionsFactory;
+use Jhavenz\PermissionName\Factories\TeamSettingPermissions as TeamSettingPermissionsFactory;
 
 class PermissionGenerator
 {

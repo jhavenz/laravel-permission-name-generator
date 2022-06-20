@@ -1,15 +1,15 @@
 <?php
 
 
-namespace Sourcefli\PermissionName\Factories;
+namespace Jhavenz\PermissionName\Factories;
 
 
-use Sourcefli\PermissionName\Adapters\OwnedPermissionsAdapter;
-use Sourcefli\PermissionName\Adapters\OwnedSettingPermissionsAdapter;
-use Sourcefli\PermissionName\Adapters\TeamPermissionsAdapter;
-use Sourcefli\PermissionName\Adapters\TeamSettingPermissionsAdapter;
-use Sourcefli\PermissionName\Exceptions\PermissionLookupException;
-use Sourcefli\PermissionName\PermissionGenerator;
+use Jhavenz\PermissionName\Adapters\OwnedPermissionsAdapter;
+use Jhavenz\PermissionName\Adapters\OwnedSettingPermissionsAdapter;
+use Jhavenz\PermissionName\Adapters\TeamPermissionsAdapter;
+use Jhavenz\PermissionName\Adapters\TeamSettingPermissionsAdapter;
+use Jhavenz\PermissionName\Exceptions\PermissionLookupException;
+use Jhavenz\PermissionName\PermissionGenerator;
 
 class AllPermissions
 {

@@ -1,7 +1,7 @@
 
 ## Laravel Permission Name Generator
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/sourcefli/laravel-permission-name-generator.svg?style=flat-square)](https://packagist.org/packages/sourcefli/laravel-permission-name-generator)
-[![Total Downloads](https://img.shields.io/packagist/dt/sourcefli/laravel-permission-name-generator.svg?style=flat-square)](https://packagist.org/packages/sourcefli/laravel-permission-name-generator)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/jhavenz/laravel-permission-name-generator.svg?style=flat-square)](https://packagist.org/packages/jhavenz/laravel-permission-name-generator)
+[![Total Downloads](https://img.shields.io/packagist/dt/jhavenz/laravel-permission-name-generator.svg?style=flat-square)](https://packagist.org/packages/jhavenz/laravel-permission-name-generator)
 
 
 ### Intro
@@ -113,13 +113,13 @@ Got pretty annoyed with always having to remember which permissions were plural,
 
 ### Installation
 ```bash
-composer require sourcefli/laravel-permission-name-generator
+composer require jhavenz/laravel-permission-name-generator
 ```
 ---
 
 ### Publish Config
 ```bash
-php artisan vendor:publish --provider="Sourcefli\PermissionName\PermissionNameServiceProvider"
+php artisan vendor:publish --provider="Jhavenz\PermissionName\PermissionNameServiceProvider"
 ```
 ---
 # Detailed Usage
@@ -146,7 +146,7 @@ return [
 ];
 
 ```
-Note: See [QA Section](https://github.com/Sourcefli/laravel-permission-name-generator#qa) at bottom of this readme to see why brackets are used and a couple other questions you might have
+Note: See [QA Section](https://github.com/jhavenz/laravel-permission-name-generator#qa) at bottom of this readme to see why brackets are used and a couple other questions you might have
 
 ### Now Use It
 This example might be the permission used when you want to know if:
@@ -154,7 +154,7 @@ This example might be the permission used when you want to know if:
 _The current user can edit the billing settings THEY OWN in the application_
 ```php
 //=> routes/web.php
-use Sourcefli\PermissionName\Facades\OwnedPermission;
+use Jhavenz\PermissionName\Facades\OwnedPermission;
 
 Route::get('permissions', function () {
     OwnedPermission::billing()->edit();
@@ -175,7 +175,7 @@ _The current user can edit the billing settings THEIR TEAM OWNS, or ANYONE ON TH
 //=> routes/web.php
 
 //note the Facade change
-use Sourcefli\PermissionName\Facades\TeamPermission;
+use Jhavenz\PermissionName\Facades\TeamPermission;
 
 Route::get('permissions', function () {
     TeamPermission::billing()->edit();
@@ -211,7 +211,7 @@ _The current user can edit the smtp settings that THEY OWN..._
 //=> routes/web.php
 
 //note the Facade change
-use Sourcefli\PermissionName\Facades\OwnedSettingPermission;
+use Jhavenz\PermissionName\Facades\OwnedSettingPermission;
 
 Route::get('permissions', function () {
     OwnedSettingPermission::smtp()->edit();
@@ -231,7 +231,7 @@ _The current user can edit the smtp settings THEIR TEAM OWNS_
 //=> routes/web.php
 
 //note the Facade change
-use Sourcefli\PermissionName\Facades\TeamSettingPermission;
+use Jhavenz\PermissionName\Facades\TeamSettingPermission;
 
 Route::get('permissions', function () {
     TeamSettingPermission::smtp()->edit();
@@ -395,7 +395,7 @@ TeamSettingPermission::smtp()->except('browse', 'read', 'force_delete', '*');
 This example provides access to ALL permissions available ('resources' and 'settings' combined):
 ```php
 //=> routes/web.php
-use Sourcefli\PermissionName\Facades\AllPermissions;
+use Jhavenz\PermissionName\Facades\AllPermissions;
 
 Route::get('permissions', function () {
     AllPermissions::all();
@@ -407,7 +407,7 @@ This example returns all 'resources' within the 'owned' scope:
 _(see below for further explanation on 'scope')_ 
 ```php
 //=> routes/web.php
-use Sourcefli\PermissionName\Facades\OwnedPermission;
+use Jhavenz\PermissionName\Facades\OwnedPermission;
 
 Route::get('permissions', function () {
     OwnedPermission::all();
@@ -418,11 +418,11 @@ Route::get('permissions', function () {
 
 This package comes with 5 of these facades, each has their own 'scope' which I'll talk about further below.
 ```php
-use Sourcefli\PermissionName\Facades\AllPermissions;
-use Sourcefli\PermissionName\Facades\OwnedPermission;
-use Sourcefli\PermissionName\Facades\OwnedSettingPermission;
-use Sourcefli\PermissionName\Facades\TeamPermission;
-use Sourcefli\PermissionName\Facades\TeamSettingPermission;
+use Jhavenz\PermissionName\Facades\AllPermissions;
+use Jhavenz\PermissionName\Facades\OwnedPermission;
+use Jhavenz\PermissionName\Facades\OwnedSettingPermission;
+use Jhavenz\PermissionName\Facades\TeamPermission;
+use Jhavenz\PermissionName\Facades\TeamSettingPermission;
 ```
 
 You can also use the root aliases...
@@ -606,7 +606,7 @@ If want to get a collection of ALL your permissions, you can call:
 
 If you want to retrieve permission strings from this Facade, it's a little different from the others.
 
-First, you have set a `scope`, then you can chain the standard methods as listed above (check out the tests [starting here](https://github.com/Sourcefli/laravel-permission-name-generator/tree/main/tests/Feature/AllPermissions) for sample usage).
+First, you have set a `scope`, then you can chain the standard methods as listed above (check out the tests [starting here](https://github.com/jhavenz/laravel-permission-name-generator/tree/main/tests/Feature/AllPermissions) for sample usage).
 
 There are 4 methods that set the scope for the `AllPermissions` Facade: 
 ```php
@@ -644,9 +644,9 @@ _(see example 'B' below)_
 For Example:
 ```php
 
-use Sourcefli\PermissionName\Facades\AllPermissions;
-use Sourcefli\PermissionName\Facades\OwnedPermission;
-use Sourcefli\PermissionName\Facades\TeamSettingPermission;
+use Jhavenz\PermissionName\Facades\AllPermissions;
+use Jhavenz\PermissionName\Facades\OwnedPermission;
+use Jhavenz\PermissionName\Facades\TeamSettingPermission;
 
 
 /**
@@ -704,7 +704,7 @@ AllPermissions::all();
 > but that's as fancy as the methods will get. I intend to keep this package as simple as possible.
 
 ### Back To The Top
-[Back To The Top](https://github.com/Sourcefli/laravel-permission-name-generator#quick-start)
+[Back To The Top](https://github.com/jhavenz/laravel-permission-name-generator#quick-start)
 
 
 ### Credits
@@ -722,4 +722,3 @@ AllPermissions::all();
 **MIT**. 
 
 Please see the [opensource.org](https://opensource.org/licenses/MIT) site definition for more information.
-

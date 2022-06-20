@@ -1,6 +1,6 @@
 <?php
 
-namespace Sourcefli\PermissionName\Exceptions;
+namespace Jhavenz\PermissionName\Exceptions;
 
 use Exception;
 
